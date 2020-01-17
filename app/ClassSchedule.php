@@ -22,7 +22,7 @@ class ClassSchedule extends Model
     // }
 
     public function subject(){
-      return $this->belongsTo('App\CurriculumSubject')->select('id', 'subject_id', 'curriculum_id', 'semester_id')->with('subject', 'curriculum', 'semester');
+      return $this->belongsTo('App\CurriculumSubject')->select('id', 'subject_id', 'curriculum_id', 'semester_id', 'year_level')->with('subject', 'curriculum', 'semester');
     }
 
     public function semester(){

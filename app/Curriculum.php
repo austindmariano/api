@@ -12,7 +12,7 @@ class Curriculum extends Model
     protected $fillable = ['curriculum_title', 'curriculum_desc', 'last_updated_by', 'course_id', 'strand_id'];
 
     public function course(){
-        return $this->belongsTo('App\Course')->select('id','course_code', 'course_desc', 'course_major');
+        return $this->belongsTo('App\Course')->select('id','course_code', 'course_desc', 'course_major', 'year_duration', 'active');
     }
 
     public function strand(){
