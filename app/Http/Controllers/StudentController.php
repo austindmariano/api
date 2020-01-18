@@ -148,7 +148,6 @@ class StudentController extends Controller
           }
           // getting the lastest entered student number
           $student = Student::select('student_number')
-              ->where('student_number', 'like', $ay_number.$sem_number. '%')
               ->orderBy('id', 'DESC')
               ->limit(1)
               ->get();

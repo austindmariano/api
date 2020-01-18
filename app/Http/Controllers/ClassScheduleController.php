@@ -366,8 +366,8 @@ class ClassScheduleController extends Controller
     }
     // end of function roomChecker
 
-    public function studentChecker($class_schedule_data){
-
+    public function SubjectChecker($class_schedule_data){
+      return null;
     }
     // end of function studentChecker
 
@@ -390,8 +390,13 @@ class ClassScheduleController extends Controller
             'activity' => 'Viewed the details of ' . $class_schedule->id . '.',
             'time' => Carbon::now()
         ]);
-        $class_schedule = ClassSchedule::select('*')->where('id', $class_schedule->id)->with('room', 'instructor', 'subject')->get();
-        return $class_schedule;
+        // Old json format
+        // $class_schedule = ClassSchedule::select('*')->where('id', $class_schedule->id)->with('room', 'instructor', 'subject')->get();
+        // return $class_schedule->room;
+
+        // New json format
+        return $this->getSpecificSchedule($class_schedule);
+
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -403,7 +408,6 @@ class ClassScheduleController extends Controller
               'message' => 'You are not authorized to view class schedule records.'
           ],401); // 401: Unauthorized
       }
-
     } // end of function show()
 
     /**
@@ -582,4 +586,63 @@ class ClassScheduleController extends Controller
       }
       return $myArr;
     } // end of function getClassSchedule
+
+    public function getSpecificSchedule($class_schedule){
+      $sched_time_start  = date("g:iA", strtotime($class_schedule->time_start));
+      $sched_time_end  = date("g:iA", strtotime($class_schedule->time_end));
+      $myArr = array(
+        'id' => $class_schedule->id,
+        'subject' => array(
+          'curr_subject_id' => $class_schedule->subject->id,
+          'subject_id' => $class_schedule->subject->subject_id,
+          'subject_code' => $class_schedule->subject->subject->subject_code,
+          'subject_desc' => $class_schedule->subject->subject->subject_description,
+          'year_level' => $class_schedule->subject->year_level,
+          'units' => $class_schedule->subject->subject->units,
+          'lec' => $class_schedule->subject->subject->lec,
+          'lab' => $class_schedule->subject->subject->lab,
+          'active' => $class_schedule->subject->subject->active,
+        ),
+        'curriculum' => array(
+          'curriculum_id' => $class_schedule->subject->curriculum->id,
+          'curriculum_title' => $class_schedule->subject->curriculum->curriculum_title,
+          'curriculum_desc' => $class_schedule->subject->curriculum->curriculum_desc,
+        ),
+        'course' => array(
+          'id' => $class_schedule->subject->curriculum->course->id,
+          'course_code' => $class_schedule->subject->curriculum->course->course_code,
+          'course_desc' => $class_schedule->subject->curriculum->course->course_desc,
+          'course_major' => $class_schedule->subject->curriculum->course->course_major
+        ),
+       'room' => array(
+          'id' => $class_schedule->room->id,
+          'room_number' => $class_schedule->room->room_number,
+          'room_name' => $class_schedule->room->room_name,
+          'room_capacity' => $class_schedule->room->room_capacity,
+        ),
+       'instructor_id' => array(
+          'id' => $class_schedule->instructor->id,
+          'first_name' => $class_schedule->instructor->first_name,
+          'middle_name' => $class_schedule->instructor->middle_name,
+          'last_name' => $class_schedule->instructor->last_name,
+          'full_name' => $class_schedule->instructor->first_name . " " . $class_schedule->instructor->last_name
+        ),
+        'schedule' => array(
+          'day' => $class_schedule->day,
+          'time_start' => $sched_time_start,
+          'time_end' => $sched_time_end,
+          'time' => $sched_time_start . "-" . $sched_time_end
+        ),
+        'sem' => array(
+          'id' => $class_schedule->semester->id,
+          'semester' => $class_schedule->semester->semester,
+        ),
+        'ay' => array(
+          'id' => $class_schedule->academic_year->id,
+          'academic_year' => $class_schedule->academic_year->academic_year,
+          'formatted_ay' => "SY " . $class_schedule->academic_year->academic_year
+        )
+      );
+      return $myArr;
+    }
 }

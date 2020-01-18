@@ -15,8 +15,7 @@ class Course extends Model
       // return $this->hasMany('App\Curriculum')->select(array('id', 'curriculum_title', 'curriculum_desc'))->get();
       //eto gumagana
       $data = $this->hasMany('App\Curriculum')->select('*')->orderBy('id', 'DESC');
-      // return $data;
-      return response()->json($data);
+      return $data;
       // return $this->hasMany('App\Curriculum')->select('*')->orderBy('id', 'DESC');
 
     } // end of function curriculums
