@@ -1,0 +1,20 @@
+[2020-01-22 20:23:58] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\bootstrap\\cache\\services.php:4)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-22 20:24:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-22 20:24:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-22 20:24:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteFileRegistrar.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-22 20:24:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Processors\\MySqlProcessor.php:5)
+[stacktrace]
+#0 {main}
+"} 
