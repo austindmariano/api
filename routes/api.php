@@ -329,7 +329,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/student_requirements/{student_requirement}', 'StudentRequirementController@show');
 
         //This PUT method will UPDATE a specified student requirements.
-        Route::put('/student_requirements/{student_requirement}', 'StudentRequirementController@update');
+        Route::post('/student_requirements/{student_requirement}', 'StudentRequirementController@update');
 
         //This DELETE method will DELETE a specified student requirements.
         Route::delete('/student_requirements/{student_requirement}', 'StudentRequirementController@destroy');

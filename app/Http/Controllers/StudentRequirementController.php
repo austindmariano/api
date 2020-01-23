@@ -160,7 +160,7 @@ class StudentRequirementController extends Controller
      * @param  \App\StudentRequirement  $studentRequirement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentRequirement $studentRequirement)
+    public function update(Request $request)
     {
       $user = Auth::user();
       //check if user have the priviledge to update course record.
@@ -168,11 +168,12 @@ class StudentRequirementController extends Controller
       if($isAuthorized){
         //data validation
         $validator = Validator::make($request->all(),[
-          'student_number' => 'required|string',
-          'tor' => 'nullable|numeric',
-          'good_moral' => 'nullable|numeric',
-          'form_137' => 'nullable|numeric',
-          'birth_cercificate' => 'nullable|numeric',
+          'student_id' => 'nullable|numeric',
+          'url_tor' => 'image|nullable|max:1999',
+          'url_good_moral' => 'image|nullable|max:1999',
+          'url_form_137' => 'image|nullable|max:1999',
+          'url_form_138' => 'image|nullable|max:1999',
+          'url_birth_cercificate' => 'image|nullable|max:1999',
         ]);
 
         // check if data if validator fails
@@ -186,25 +187,30 @@ class StudentRequirementController extends Controller
         else {
           $requirement_data = $request->all();
           $requirement_data['last_updated_by'] = Auth::user()->id;
-          try {
-             $check = $studentRequirement->update($requirement_data);
 
-            // check if record is successfully updated.
-            if ($check) {
-              //record in activity log
-              $activityLog = ActivityLog::create([
-                  'user_id' => $user->id,
-                  'activity' => 'Updated the requirement record of student ' . $studentRequirement->student_number . '.',
-                  'time' => Carbon::now()
-              ]);
-              return response()->json(['message' => 'Student requirement record successfully updated.'], 200);
-            }else {
-              return response()->json(['message' => 'Failed to update student requirement record.'], 500); // server error
-            }
-          } catch (Exception $e) {
-            report($e);
-            return false;
-          }
+          $file_Extension = $request->file('url_tor')->getClientOriginalExtension();
+
+          $file_Name = $request->file('url_tor')->getClientOriginalName();
+          return $file_Extension;
+          // try {
+          //    $check = $studentRequirement->update($requirement_data);
+          //
+          //   // check if record is successfully updated.
+          //   if ($check) {
+          //     //record in activity log
+          //     $activityLog = ActivityLog::create([
+          //         'user_id' => $user->id,
+          //         'activity' => 'Updated the requirement record of student ' . $studentRequirement->student_number . '.',
+          //         'time' => Carbon::now()
+          //     ]);
+          //     return response()->json(['message' => 'Student requirement record successfully updated.'], 200);
+          //   }else {
+          //     return response()->json(['message' => 'Failed to update student requirement record.'], 500); // server error
+          //   }
+          // } catch (Exception $e) {
+          //   report($e);
+          //   return false;
+          // }
         }
       }else{
           //record in activity log
