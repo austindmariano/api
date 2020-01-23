@@ -199,38 +199,55 @@ class StudentRequirementController extends Controller
           // $requirement_data = $request->all();
           $requirement_data['last_updated_by'] = Auth::user()->id;
 
-          // for ($i=0; $i < 4; $i++) {
-          //   if($i == 0) {
-          //     if($request->hasFile('url_tor')){
-          //       $requirement_data['url_tor'] = $studentRequirement->student_number . "_tor." . $extension;
-          //     }else{
-          //       // temporarily insert the no image jpg
-          //       $requirement_data['url_tor'] = 'no_image.jpg';
-          //     }
-          //   }
-          //   elseif($i == 1) {
-          //     // code...
-          //   }
-          //   elseif($i == 2) {
-          //     // code...
-          //   }
-          //   elseif($i == 3 {
-          //     // code...
-          //   }
-          // }
-
-          if($request->hasFile('url_tor')){
-            return "asdasd";
+          for ($i=0; $i <= 4; $i++) {
+            if($i == 0) {
+              if($request->hasFile('url_tor')){
+                $extension = $request->file('url_tor')->getClientOriginalExtension();
+                $requirement_data['url_tor'] = $studentRequirement->student_number . "_tor." . $extension;
+              }else{
+                // temporarily insert the no image jpg
+                $requirement_data['url_tor'] = 'no_image.jpg';
+              }
+            }
+            elseif($i == 1) {
+              if($request->hasFile('url_good_moral')){
+                $extension = $request->file('url_good_moral')->getClientOriginalExtension();
+                $requirement_data['url_good_moral'] = $studentRequirement->student_number . "_good_moral." . $extension;
+              }else{
+                // temporarily insert the no image jpg
+                $requirement_data['url_good_moral'] = 'no_image.jpg';
+              }
+            }
+            elseif($i == 2) {
+              if($request->hasFile('url_form_137')){
+                $extension = $request->file('url_form_137')->getClientOriginalExtension();
+                $requirement_data['url_form_137'] = $studentRequirement->student_number . "_form_137." . $extension;
+              }else{
+                // temporarily insert the no image jpg
+                $requirement_data['url_form_137'] = 'no_image.jpg';
+              }
+            }
+            elseif($i == 3 ){
+              if($request->hasFile('url_form_138')){
+                $extension = $request->file('url_form_138')->getClientOriginalExtension();
+                $requirement_data['url_form_138'] = $studentRequirement->student_number . "_form_138." . $extension;
+              }else{
+                // temporarily insert the no image jpg
+                $requirement_data['url_form_138'] = 'no_image.jpg';
+              }
+            }
+            elseif($i == 4 ){
+              if($request->hasFile('url_birth_certificate')){
+                $extension = $request->file('url_birth_certificate')->getClientOriginalExtension();
+                $requirement_data['url_birth_certificate'] = $studentRequirement->student_number . "_birth_certificate." . $extension;
+              }else{
+                // temporarily insert the no image jpg
+                $requirement_data['url_birth_certificate'] = 'no_image.jpg';
+              }
+            }
           }
-          // $extension = $request->file('url_tor')->getClientOriginalExtension();
-          //
-          // return $extension;
+          $studentRequirement->update($requirement_data);
 
-
-          // $requirement_data['url_good_moral'] = 'no_image.jpg';
-          // $requirement_data['url_form_137'] = 'no_image.jpg';
-          // $requirement_data['url_form_138'] = 'no_image.jpg';
-          // $requirement_data['url_birth_certificate'] = 'no_image.jpg';
 
 
           // $flight->save();
