@@ -1,0 +1,35 @@
+[2020-01-21 09:55:24] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:332)
+[stacktrace]
+#0 {main}
+"} 
+]
+#0 {main}
+"} 
+[2020-01-21 09:55:26] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php:13)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:19] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\FilesystemServiceProvider.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:19] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Pagination\\Paginator.php:15)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:22] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Support\\Providers\\AuthServiceProvider.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\EngineResolver.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\EngineResolver.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-21 16:12:28] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\EngineResolver.php:8)
+[stacktrace]
+#0 {main}
+"} 

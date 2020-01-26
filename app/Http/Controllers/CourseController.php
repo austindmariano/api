@@ -267,9 +267,10 @@ class CourseController extends Controller
             'activity' => 'Viewed the curriculums of ' . $course->course_desc . '.',
             'time' => Carbon::now()
         ]);
-        // display specific course.
+        // display curriculums of specified course.
         // return $course;
         return $course->curriculum;
+
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([

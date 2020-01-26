@@ -300,7 +300,35 @@ class CurriculumController extends Controller
             'activity' => 'Viewed the subjects of curriculum ' . $curriculum->curriculum_title . '.',
             'time' => Carbon::now()
         ]);
-        return $curriculum->curriculum_subjects;
+        // original code
+        // return $curriculum->curriculum_subjects;
+
+        // well formed json output
+        $myArr = [];
+        $i = 0;
+        foreach ($curriculum->curriculum_subjects as $curriculum_subject) {
+          $myArr[$i] = array(
+            'id' => $curriculum_subject->id,
+            'subject' => array(
+              'subject_id' => $curriculum_subject->subject_id,
+              "subject_code" => $curriculum_subject->subject->subject_code,
+              "subject_description" => $curriculum_subject->subject->subject_description,
+              "year_level" => $curriculum_subject->year_level,
+              "units" => $curriculum_subject->subject->units,
+              "lec" => $curriculum_subject->subject->lec,
+              "lab" => $curriculum_subject->subject->lab,
+              "active" => $curriculum_subject->subject->active
+            ),
+            'semester' => array(
+              'semester_id' => $curriculum_subject->id ,
+              'semester_id' => $curriculum_subject->semester 
+            ),
+            'created_at' => $curriculum_subject->created_at,
+            'updated_at' => $curriculum_subject->created_at,
+          );
+          $i++;
+        }
+        return $myArr;
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
