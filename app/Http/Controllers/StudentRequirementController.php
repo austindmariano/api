@@ -246,30 +246,24 @@ class StudentRequirementController extends Controller
               }
             }
           }
-          $studentRequirement->update($requirement_data);
-
-
-
-          // $flight->save();
-          // try {
-          //    $check = $studentRequirement->update($requirement_data);
-          //
-          //   // check if record is successfully updated.
-          //   if ($check) {
-          //     //record in activity log
-          //     $activityLog = ActivityLog::create([
-          //         'user_id' => $user->id,
-          //         'activity' => 'Updated the requirement record of student ' . $studentRequirement->student_number . '.',
-          //         'time' => Carbon::now()
-          //     ]);
-          //     return response()->json(['message' => 'Student requirement record successfully updated.'], 200);
-          //   }else {
-          //     return response()->json(['message' => 'Failed to update student requirement record.'], 500); // server error
-          //   }
-          // } catch (Exception $e) {
-          //   report($e);
-          //   return false;
-          // }
+          try {
+             $check = $studentRequirement->update($requirement_data);
+            // check if record is successfully updated.
+            if ($check) {
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => $user->id,
+                  'activity' => 'Updated the requirement record of student ' . $studentRequirement->student_number . '.',
+                  'time' => Carbon::now()
+              ]);
+              return response()->json(['message' => 'Student requirement record successfully updated.'], 200);
+            }else {
+              return response()->json(['message' => 'Failed to update student requirement record.'], 500); // server error
+            }
+          } catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }
       }else{
           //record in activity log
