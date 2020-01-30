@@ -6,6 +6,7 @@ use App\User;
 use App\ActivityLog;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -100,6 +101,7 @@ class UserController extends Controller
             }
 
             $userData = $request->all();
+            $userData['password'] = Hash::make($request->password);
             $userData['last_updated_by'] = Auth::user()->id;
             $user->update($userData);
 
