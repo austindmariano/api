@@ -152,8 +152,6 @@ class StudentController extends Controller
               ->limit(1)
               ->get();
 
-          if($request->student_status == "New"){
-
             //spliting student number and pass it in an array varaiable
             $last_num = explode("-", $student[0]->student_number);
 
@@ -164,9 +162,7 @@ class StudentController extends Controller
             $latest_num = substr("0000{$num}", -4);
 
             $student_data['student_number'] = $ay_number.$sem_number.$latest_num;
-          }else{
 
-          }
           // return $student_data['student_number'];
           try {
             $student = Student::create($student_data);
