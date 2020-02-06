@@ -22,30 +22,30 @@ class StudentController extends Controller
      */
     public function index()
     {
-      // gets the id of the current user
-      $user = Auth::user();
-      //Check if user has permission to view student records.
-      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'read_priv');
-      if ($isAuthorized) {
-        //record in activity log
-        $activityLog = ActivityLog::create([
-            'user_id' => $user->id,
-            'activity' => 'Viewed the list of students.',
-            'time' => Carbon::now()
-        ]);
-         $students = Student::orderBy('id', 'DESC')->get();
-         return $students;
-      }else{
+        // gets the id of the current user
+        $user = Auth::user();
+        //Check if user has permission to view student records.
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'read_priv');
+        if ($isAuthorized) {
           //record in activity log
           $activityLog = ActivityLog::create([
               'user_id' => $user->id,
-              'activity' => 'Attempted to view the list of students.',
+              'activity' => 'Viewed the list of students.',
               'time' => Carbon::now()
           ]);
-          return response()->json([
-              'message' => 'You are not authorized to view student records.'
-          ],401); // 401: Unauthorized
-      }
+           $students = Student::orderBy('id', 'DESC')->get();
+           return $students;
+        }else{
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to view the list of students.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to view student records.'
+            ],401); // 401: Unauthorized
+        }
     } // end of function index()
 
 
@@ -362,5 +362,50 @@ class StudentController extends Controller
               'message' => 'You are not authorized to delete student records.'
           ],401); //401: Unauthorized
       }
-    }
+    } // end of function destroy
+
+    public function getStudent($student_number){
+      $user = Auth::user();
+      //check if user has the priviledge to delete student record.
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'delete_priv');
+      if($isAuthorized){
+        try {
+          $student = Student::where('student_number', $student_number)->get();
+          if ($student->isNotEmpty()){
+            // record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Viewed the details of ' . $student[0]->student_number . '.',
+                'time' => Carbon::now()
+            ]);
+            return $student;
+          }else{
+            // record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Tried to access invalid student number.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => "Invalid student number."
+            ], 400);
+          }
+
+        }catch (Exception $e) {
+          report($e);
+          return false;
+        }
+      }else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Attempted to view student record.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to view student records.'
+          ],401); //401: Unauthorized
+      }
+
+    } // end of function getStudent()
 }

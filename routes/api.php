@@ -312,6 +312,9 @@ Route::group(['prefix' => 'v1'], function(){
         //This DELETE method will DELETE a specified student.
         Route::delete('/students/{student}', 'StudentController@destroy');
 
+        //This GET method will show the specified student using STUDENT NUMBER.
+        Route::get('/get_student/{student_number}', 'StudentController@getStudent');
+
         //End of Student Routes
         //--------------------------------------------------------------------------
 
