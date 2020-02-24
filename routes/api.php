@@ -247,6 +247,11 @@ Route::group(['prefix' => 'v1'], function(){
         //This DELETE method will DELETE a specified class schedule.
         Route::delete('/class_schedules/{class_schedule}', 'ClassScheduleController@destroy');
 
+        //  Modiefied Functions
+        Route::post('/course/get_subjects', 'ClassScheduleController@getSubjects');
+
+        Route::post('/subject/instructors', 'ClassScheduleController@getInstructors');
+
         //End of Class Schedule Routes
         //--------------------------------------------------------------------------
 

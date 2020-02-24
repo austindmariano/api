@@ -42,7 +42,6 @@ class ClassScheduleController extends Controller
         // returns all class schedule records
         return $this->getClassSchedule();
 
-
         // $obj =  new Schedules();
         // return $obj->getClassSchedule();
 
@@ -645,4 +644,27 @@ class ClassScheduleController extends Controller
       );
       return $myArr;
     }
+    // end of getSpecificSchedule
+
+    public function getSubjects(Request $request){
+        return CurriculumSubject::select('*')
+          ->where('semester_id', $request->semester_id)
+          ->where('curriculum_id', $request->curriculum_id)
+          ->where('year_level', $request->year_level)
+          ->with('subject')
+          ->get();
+        // return $request->all();
+    } // end of getSubjects
+
+    public function getInstructors(Request $request){
+      $subject_id = CurriculumSubject::where('id', $request->curriculum_subject_id)
+        ->get();
+      $id = $subject_id[0]->subject_id;
+
+      return InstructorPreferredSubject::select('*')
+        ->where('subject_id', $id)
+        ->with('instructor')
+        ->get();
+    }
+
 }
