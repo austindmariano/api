@@ -83,38 +83,86 @@ class UserController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
 
         if($isAuthorized){
-            $validator = Validator::make($request->all(),[
-                'username' => 'string|unique:users',
-                'email' => 'email|unique:users',
-                'first_name' => 'string',
-                'middle_name' => 'string',
-                'last_name' => 'string',
-                'role' => 'string'
-            ]);
+          $validator = Validator::make($request->all(),[
+              'username' => 'string',
+              'email' => 'email',
+              'password' => 'min:6|confirmed',
+              'first_name' => 'required|string',
+              'middle_name' => 'string',
+              'last_name' => 'required|string',
+              'role' => 'required|string'
+          ]);
 
-            //if validation fails
-            if ($validator->fails()){
+          if ($validator->fails()){
+              return response()->json([
+                  'message' => 'Failed to update user account.',
+                  'errors' => $validator->errors()
+              ],400);    //Bad request
+          }
+          else{
+
+            // check if username already exist
+            $email = User::select('*')
+              ->where('id', '!=', $user->id)
+              ->where('username', $request->email)
+              ->get();
+
+            // check if email is already used
+            $username = User::select('*')
+              ->where('id', '!=', $user->id)
+              ->where('username', $request->username)
+              ->get();
+
+            // check if there is alredy a record
+            $error = [];
+            if (count($email) > 0 || count($username) > 0) {
+              if (count($email) > 0) {
+                $error['email'] = [];
+                array_push(  $error['email'], "This email is already used.");
+              }
+              if (count($username) > 0) {
+                $error['username'] = [];
+                array_push(  $error['username'], "This username is already used.");
+              }
                 return response()->json([
-                    'message' => 'Failed to update user account.',
-                    'errors' => $validator->errors()
+                  'message' => 'Failed to update user account.',
+                  'errors' => $error
                 ],400);    //Bad request
             }
+            else {
+              $userData = $request->all();
+              $userData['password'] = Hash::make($request->password);
+              $userData['last_updated_by'] = Auth::user()->id;
+              $user->update($userData);
 
-            $userData = $request->all();
-            $userData['password'] = Hash::make($request->password);
-            $userData['last_updated_by'] = Auth::user()->id;
-            $user->update($userData);
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => Auth::user()->id,
+                  'activity' => 'Updated user account of ' . $user->username . '.',
+                  'time' => Carbon::now()
+              ]);
 
-            //record in activity log
-            $activityLog = ActivityLog::create([
-                'user_id' => Auth::user()->id,
-                'activity' => 'Updated user account of ' . $user->username . '.',
-                'time' => Carbon::now()
-            ]);
+              return response()->json([
+                  'message' => 'User account successfully updated.'
+              ], 200);
+            }
+          }
 
-            return response()->json([
-                'message' => 'User account successfully updated.'
-            ], 200);
+
+            // $validator = Validator::make($request->all(),[
+            //     'username' => 'string|unique:users',
+            //     'email' => 'email|unique:users',
+            //     'first_name' => 'string',
+            //     'middle_name' => 'string',
+            //     'last_name' => 'string',
+            //     'role' => 'string'
+            // ]);
+
+
+            //if validation fails
+
+
+
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
