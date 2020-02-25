@@ -88,7 +88,7 @@ class StudentController extends Controller
           'contact_address' => 'required|string',
           'contact_number' => 'required|numeric',
           'blood_type' => 'nullable|string',
-          'photo_url' => 'required|string',
+          'photo_url' => 'nullable|string',
           // nullable muna ... baguhin nalang next time
           'user_id' => 'nullable|string',
           'active' => 'required|numeric',
