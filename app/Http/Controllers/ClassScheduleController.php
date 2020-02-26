@@ -654,11 +654,12 @@ class ClassScheduleController extends Controller
           ->with('subject')
           ->get();
 
-          if (count($subjects) > 0){
-            return $subjects;
-          }else{
-            return 0;
-          }
+          // if (count($subjects) > 0){
+          //   return $subjects;
+          // }else{
+          //   return 0;
+          // }
+          return $subjects;
         // return $request->all();
         // return $request->curriculum_id;
     } // end of getSubjects
