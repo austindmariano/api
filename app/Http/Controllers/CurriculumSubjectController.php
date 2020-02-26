@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\CurriculumSubject;
 use App\Subject;
+use App\InstructorPreferredSubject;
 use App\Curriculum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -331,5 +332,13 @@ class CurriculumSubjectController extends Controller
       ->select('*')
       ->where('id', $curriculum_subject->subject_id)->first();
        return $subject_code->subject_code;
+    }
+
+    public function getInstructors(CurriculumSubject $curriculum_subject){
+      // return $curriculum_subject->subject_id ;
+      $result = InstructorPreferredSubject::select('*')->where('subject_id', $curriculum_subject->subject_id)
+        ->with('instructor')
+        ->get();
+      return $result;
     }
 }

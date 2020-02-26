@@ -558,7 +558,7 @@ class ClassScheduleController extends Controller
             'room_name' => $class->room->room_name,
             'room_capacity' => $class->room->room_capacity,
           ),
-         'instructor_id' => array(
+         'instructor' => array(
             'id' => $class->instructor->id,
             'first_name' => $class->instructor->first_name,
             'middle_name' => $class->instructor->middle_name,
@@ -579,7 +579,9 @@ class ClassScheduleController extends Controller
             'id' => $class->academic_year->id,
             'academic_year' => $class->academic_year->academic_year,
             'formatted_ay' => "SY " . $class->academic_year->academic_year
-          )
+          ),
+          'block' => $class->block,
+          'batch' => $class->batch,
         );
         $i++;
       }

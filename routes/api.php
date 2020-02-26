@@ -180,6 +180,10 @@ Route::group(['prefix' => 'v1'], function(){
         // this DELETE method will delete the specified curriculum subject
         Route::delete('/curriculum_subjects/{curriculum_subject}', 'CurriculumSubjectController@destroy');
 
+        // moodified Functions
+        Route::get('/curriculum_subjects/{curriculum_subject}/instructors', 'CurriculumSubjectController@getInstructors');
+
+
         // Route::get('/getSubject/{curriculum_subject}', 'CurriculumSubjectController@getSubject');
 
         //End of Curriculum Subject Routes
