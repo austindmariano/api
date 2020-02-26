@@ -647,13 +647,20 @@ class ClassScheduleController extends Controller
     // end of getSpecificSchedule
 
     public function getSubjects(Request $request){
-        return CurriculumSubject::select('*')
+         $subjects = CurriculumSubject::select('*')
           ->where('semester_id', $request->semester_id)
           ->where('curriculum_id', $request->curriculum_id)
           ->where('year_level', $request->year_level)
           ->with('subject')
           ->get();
+
+          if (count($subjects) > 0){
+            return $subjects;
+          }else{
+            return 0;
+          }
         // return $request->all();
+        // return $request->curriculum_id;
     } // end of getSubjects
 
     public function getInstructors(Request $request){
