@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Curriculum;
+use App\CurriculumSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -288,7 +289,16 @@ class CurriculumController extends Controller
 
     } // end of function destroy()
 
-    public function showCurriculumSubjects(Curriculum $curriculum){
+    public function showCurriculumSubjects(Curriculum $curriculum, Request $request){
+      $subjects = CurriculumSubject::select('*')
+       ->where('semester_id', $request->semester_id)
+       ->where('curriculum_id', $request->curriculum_id)
+       ->where('year_level', $request->year_level)
+       ->with('subject')
+       ->get();
+       return $subjects;
+    }
+    public function test(Curriculum $curriculum){
       $user = Auth::user();
       //Check if user has permission to view instructors
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.curriculum_management'), 'read_priv');
@@ -321,7 +331,7 @@ class CurriculumController extends Controller
             ),
             'semester' => array(
               'semester_id' => $curriculum_subject->id ,
-              'semester_id' => $curriculum_subject->semester 
+              'semester_id' => $curriculum_subject->semester
             ),
             'created_at' => $curriculum_subject->created_at,
             'updated_at' => $curriculum_subject->created_at,

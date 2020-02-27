@@ -155,7 +155,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::delete('/curriculums/{curriculum}', 'CurriculumController@destroy');
 
         //This GET method will display the subjects of the specified Curriculum
-        Route::get('/curriculums/{curriculum}/subjects', 'CurriculumController@showCurriculumSubjects');
+        Route::post('/curriculums/{curriculum}/subjects', 'CurriculumController@showCurriculumSubjects');
 
         //End of Curriculum Routes
         //--------------------------------------------------------------------------
