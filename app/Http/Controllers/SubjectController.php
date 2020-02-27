@@ -95,16 +95,22 @@ class SubjectController extends Controller
                 try {
                     $subjectData = $request->all();
                     $subjectData['last_updated_by'] = Auth::user()->id;
-                    $subject = Subject::create($subjectData);
-                    if ($subject) {
-                        //record in activity log
-                        $activityLog = ActivityLog::create([
-                            'user_id' => $user->id,
-                            'activity' => 'Created a new subject.',
-                            'time' => Carbon::now()
-                        ]);
-                        return response()->json(['message' => 'New subject record successfully created.'], 201);
+
+                    // check if subject has laboratory
+                    if ($subjectData['lab'] == 1){
+
                     }
+
+                    // $subject = Subject::create($subjectData);
+                    // if ($subject) {
+                    //     //record in activity log
+                    //     $activityLog = ActivityLog::create([
+                    //         'user_id' => $user->id,
+                    //         'activity' => 'Created a new subject.',
+                    //         'time' => Carbon::now()
+                    //     ]);
+                    //     return response()->json(['message' => 'New subject record successfully created.'], 201);
+                    // }
                 } catch (Exception $e) {
                     report($e);
                     return false;

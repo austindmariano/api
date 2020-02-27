@@ -370,6 +370,28 @@ Route::group(['prefix' => 'v1'], function(){
         //End of Student Requirements Routes
         //--------------------------------------------------------------------------
 
+        //--------------------------------------------------------------------------
+        //Beginning of Student Schedule Routes
+
+        //This GET method will show all of the enrollment record
+        Route::get('/enrollments', 'EnrollmentController@index');
+
+        //This POST method will create a new enrollment record.
+        Route::post('/enrollments', 'EnrollmentController@store');
+
+        //This GET method will show the specified enrollment record.
+        Route::get('/enrollments/{enrollment}', 'EnrollmentController@show');
+
+        //This PUT method will UPDATE a specified enrollment record.
+        Route::put('/enrollments/{enrollment}', 'EnrollmentController@update');
+
+        //This DELETE method will DELETE a specified enrollment record.
+        Route::delete('/enrollments/{enrollment}', 'EnrollmentController@destroy');
+
+        //End of Student Requirements Routes
+        //--------------------------------------------------------------------------
+
+
         Route::get('/test', 'ClassScheduleController@test');
 
         // TRY Eloquent Modeling
