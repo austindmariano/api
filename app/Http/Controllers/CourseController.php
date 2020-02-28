@@ -33,7 +33,26 @@ class CourseController extends Controller
             'time' => Carbon::now()
         ]);
          $courses = Course::orderBy('id', 'DESC')->with('curriculum')->get();
-         return $courses;
+         $foo = [];
+
+         foreach ($courses as $course) {
+          array_push($foo,
+            (object)[
+                'id' => $course->id,
+                'course_code' => $course->course_code,
+                'course_desc' => $course->course_desc,
+                'course_major' => $course->course_major,
+                'year_duration' => $course->year_duration,
+               'number_of_years' => $course->year_duration . " years",
+               'active' => $course->active,
+               'created_at' => $course->created_at,
+               'updated_at' => $course->updated_at,
+               'last_updated_by' => $course->last_updated_by,
+               'curriculum' => $course->curriculum
+             ]
+          		  );
+            }
+         return $foo;
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -65,7 +84,7 @@ class CourseController extends Controller
             'course_code' => 'required|unique:courses,course_code',
             'course_desc' => 'required|string',
             'course_major' => 'nullable|string',
-            'year_duration' => 'required|string',
+            'year_duration' => 'required|numeric',
             'active' => 'required|numeric',
           ]);
 
