@@ -98,19 +98,39 @@ class SubjectController extends Controller
 
                     // check if subject has laboratory
                     if ($subjectData['lab'] == 1){
-
+                      $subject_desc = $subjectData['subject_description'];
+                      for ($i=0; $i < 2; $i++) {
+                        if ($i == 0){
+                          // stores the lecture subject
+                          $subjectData['units'] = 2;
+                          $subjectData['lec'] = 2;
+                          $subjectData['lab'] = 0;
+                          $subjectData['subject_description'] = $subjectData['subject_description'] . " - LEC";
+                        }
+                        if ($i == 1){
+                          // store the laboratory subject
+                          $subjectData['units'] = 1;
+                          $subjectData['lec'] = 0;
+                          $subjectData['lab'] = 1;
+                          $subjectData['subject_code'] .= "-L";
+                          $subjectData['subject_description'] = $subject_desc . " - LAB";
+                        }
+                        $subject = Subject::create($subjectData);
+                      }
+                    }else{
+                      $subject = Subject::create($subjectData);
                     }
 
                     // $subject = Subject::create($subjectData);
-                    // if ($subject) {
-                    //     //record in activity log
-                    //     $activityLog = ActivityLog::create([
-                    //         'user_id' => $user->id,
-                    //         'activity' => 'Created a new subject.',
-                    //         'time' => Carbon::now()
-                    //     ]);
-                    //     return response()->json(['message' => 'New subject record successfully created.'], 201);
-                    // }
+                    if ($subject) {
+                        //record in activity log
+                        $activityLog = ActivityLog::create([
+                            'user_id' => $user->id,
+                            'activity' => 'Created a new subject.',
+                            'time' => Carbon::now()
+                        ]);
+                        return response()->json(['message' => 'New subject record successfully created.'], 201);
+                    }
                 } catch (Exception $e) {
                     report($e);
                     return false;
