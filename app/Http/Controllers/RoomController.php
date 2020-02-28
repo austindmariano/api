@@ -165,8 +165,15 @@ class RoomController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.room_management'), 'update_priv');
 
       if($isAuthorized){
+
         //data validation
-        $validator = Validator::make($request->all(),[
+        if($room->room_number == $request['room_number']) {
+          $room_data = $request->except('room_number');
+        } else {
+          $room_data = $request->all();
+        }
+
+        $validator = Validator::make($room_data,[
           'room_number' => 'unique:rooms,room_number',
           'room_name' => 'string',
           'room_type' => 'string',

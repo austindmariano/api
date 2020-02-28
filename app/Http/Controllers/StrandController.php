@@ -25,7 +25,8 @@ class StrandController extends Controller
       //Check if user has permission to view strands.
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.strand_management'), 'read_priv');
       if ($isAuthorized) {
-        $strands = Strand::all();
+        $strands = Strand::orderBy('id', 'DESC')->with('track')->get();
+        return $strands;
         //record in activity log
         $activityLog = ActivityLog::create([
             'user_id' => $user->id,
@@ -157,7 +158,13 @@ class StrandController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.strand_management'), 'update_priv');
       if($isAuthorized){
         //data validation
-        $validator = Validator::make($request->all(),[
+        if($strand->strand_code == $request['strand_code']) {
+          $strand_data = $request->except('strand_code');
+        } else {
+          $strand_data = $request->all();
+        }
+
+        $validator = Validator::make($strand_data,[
           'strand_code' => 'unique:strands,strand_code',
           'strand_desc' => 'string',
           'track_id' => 'numeric',

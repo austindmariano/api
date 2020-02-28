@@ -163,8 +163,15 @@ class CourseController extends Controller
       //check if user have the priviledge to update course record.
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.course_management'), 'update_priv');
       if($isAuthorized){
+
+        if($course->course_code == $request['course_code']) {
+          $course_data = $request->except('course_code');
+        } else {
+          $course_data = $request->all();
+        }
+
         //data validation
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($course_data,[
           'course_code' => 'unique:courses,course_code',
           'course_desc' => 'string',
           'course_major' => 'nullable|string',
