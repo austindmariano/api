@@ -78,6 +78,8 @@ class StrandController extends Controller
         }
         else {
           $strand_data = $request->all();
+          $strand_data['strand_code'] = strtoupper($strand_data['strand_code']);
+          $strand_data['strand_desc'] = ucwords($strand_data['strand_desc']);
           $strand_data['last_updated_by'] = Auth::user()->id;
           try {
             $strand = Strand::create($strand_data);
