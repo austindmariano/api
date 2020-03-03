@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('instructors/{instructor}/availabilities', 'InstructorController@addAvailability');
         Route::put('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@updateAvailability');
         Route::delete('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@deleteAvailability');
-        Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
+        // Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
         Route::get('instructors/{instructor}/preferred_subjects', 'InstructorController@preferred_subjects');
         Route::post('instructors/{instructor}/preferred_subjects', 'InstructorController@addPreferredSubject');
         Route::put('instructors/{instructor}/preferred_subjects/{preferredsubject}', 'InstructorController@updatePreferredSubject');
