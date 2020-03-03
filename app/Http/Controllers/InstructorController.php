@@ -316,7 +316,7 @@ class InstructorController extends Controller
                                 ->where('semester_id', \Config::get('settings.current_sem'))->get();*/
                 $availabilities = InstructorAvailability::select(array('id', 'instructor_id', 'day', 'time_start', 'time_end'))->get();
             else
-                $availabilities = $instructor->availabilities()->get();
+                $availabilities = $instructor->availabilities()->orderBy('id', 'DESC')->get();
 
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -324,6 +324,13 @@ class InstructorController extends Controller
                 'activity' => 'Viewed instructor availabilities.',
                 'time' => Carbon::now()
             ]);
+
+            for ($i=0; $i < count($availabilities); $i++) {
+              // echo $availabilities[$i]->time_start;
+              $availabilities[$i]->time_start  = date("g:iA", strtotime($availabilities[$i]->time_start));
+              $availabilities[$i]->time_end  = date("g:iA", strtotime($availabilities[$i]->time_end));
+            }
+            // return count($availabilities);
             return $availabilities;
 
         }else{
@@ -511,7 +518,7 @@ class InstructorController extends Controller
               ->get();
 
             else
-                $preferred_subjects = $instructor->preferred_subjects()->get();
+                $preferred_subjects = $instructor->preferred_subjects()->orderBy('id', 'DESC')->with('subject', 'academicYear', 'semester')->get();
 
             //record in activity log
             $activityLog = ActivityLog::create([
