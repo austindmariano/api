@@ -205,4 +205,30 @@ class UserController extends Controller
         }
 
     }
+
+    public function showUserPrivilege(User $user){
+      //Check if user has permission to view user accounts
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'read_priv');
+
+      if($isAuthorized){
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Viewed user account of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+          return $user->privileges();
+      }
+      else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Attempted to View user account of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to view user accounts.'
+          ],401);
+      }
+    }
 }

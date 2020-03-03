@@ -29,12 +29,26 @@ Route::group(['prefix' => 'v1'], function(){
         });
         Route::post('users', 'Auth\RegisterController@register');
         Route::post('logout', 'Auth\LoginController@logout');
+
         Route::get('users', 'UserController@index');
         Route::get('users/{user}', 'UserController@show');
+
+
         Route::put('users/{user}', 'UserController@update');
         Route::delete('users/{user}', 'UserController@destroy');
-        Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
+
+        // get all privileges of specific user
+        Route::get('users/{user}/privileges', 'UserController@showUserPrivilege');
+
+        // get specific privilege of specific user
+        Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');
+
+        // update specific privilege of specified user
+        // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
+
+
         Route::put('privileges/{userprivilege}', 'UserPrivilegeController@updatePrivilege');
+        Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
         Route::get('instructors', 'InstructorController@index');
         Route::get('instructors/{instructor}', 'InstructorController@show');
         Route::post('instructors', 'InstructorController@store');

@@ -14,4 +14,8 @@ class UserPrivilege extends Model
     protected $fillable = [
         'user_id', 'activity_id', 'create_priv', 'read_priv', 'update_priv', 'delete_priv', 'last_updated_by'
     ];
+
+    public function activity(){
+        return $this->belongsTo('App\UserActivity')->select('id', 'title');
+    }
 }

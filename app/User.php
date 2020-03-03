@@ -37,4 +37,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function privileges(){
+        return $this->hasMany('App\UserPrivilege')
+        ->select('id', 'user_id', 'create_priv', 'read_priv', 'update_priv', 'delete_priv', 'activity_id')
+        ->with('activity')
+        ->get();
+    }
 }

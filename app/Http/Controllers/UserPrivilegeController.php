@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ActivityLog;
 use App\UserPrivilege;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +68,63 @@ class UserPrivilegeController extends Controller
             $activityLog = ActivityLog::create([
                 'user_id' => Auth::user()->id,
                 'activity' => 'Attempted to pdate the privileges of user ' . $request['user_id'] . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to update privileges.'
+            ], 401);
+        }
+
+    }
+
+    public function showUserPrivilege(User $user,  UserPrivilege $userprivilege){
+        //Check if user has permission to manage user accounts
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
+        if ($isAuthorized) {
+            $request['last_updated_by'] = Auth::user()->id;
+
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'View the privileges of user ' . $user->id . '.',
+                'time' => Carbon::now()
+            ]);
+
+            return $userprivilege;
+        }else{
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to view the privileges of user ' . $user->id . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to view privileges.'
+            ], 401);
+        }
+
+    }
+
+    public function updateUserPrivilege(Request $request, User $user, UserPrivilege $userprivilege){
+        //Check if user has permission to manage user accounts
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
+        if ($isAuthorized) {
+            $request['last_updated_by'] = Auth::user()->id;
+            $userprivilege->update($request->all());
+            if($userprivilege != null){
+                //record in activity log
+                $activityLog = ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Updated the privileges of user ' . $request['user_id'] . '.',
+                    'time' => Carbon::now()
+                ]);
+                return response()->json([
+                    'message' => 'Privileges successfully updated.'
+                ]);
+            }
+        }else{
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to update the privileges of user ' . $request['user_id'] . '.',
                 'time' => Carbon::now()
             ]);
             return response()->json([
