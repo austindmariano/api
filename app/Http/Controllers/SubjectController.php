@@ -94,6 +94,8 @@ class SubjectController extends Controller
             else {
                 try {
                     $subjectData = $request->all();
+                    $subjectData['subject_code'] = strtoupper($subjectData['subject_code']);
+                    // $subjectData['subject_description'] = ucwords($subjectData['subject_description']);
                     $subjectData['last_updated_by'] = Auth::user()->id;
 
                     // check if subject has laboratory
