@@ -40,7 +40,7 @@ class CurriculumController extends Controller
               ],400);     //400: Bad request
             }
         }else{
-            $curriculums = Curriculum::orderBy('id', 'DESC')->with('curriculum_subjects')->get();
+            $curriculums = Curriculum::orderBy('id', 'DESC')->with('curriculum_subjects', 'course')->get();
         }
 
         //$curriculums = Curriculum::all();

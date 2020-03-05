@@ -300,7 +300,7 @@ class InstructorController extends Controller
      * @param Instructor $instructor
      * @return array of InstructorAvailability
     */
-    public function availabilities(Instructor $instructor=null){
+    public function availabilities(Instructor $instructor=null, $academic_year, $semester){
         $user = Auth::user();
         //Check if user has permission to view instructors
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'read_priv');
@@ -316,7 +316,10 @@ class InstructorController extends Controller
                                 ->where('semester_id', \Config::get('settings.current_sem'))->get();*/
                 $availabilities = InstructorAvailability::select(array('id', 'instructor_id', 'day', 'time_start', 'time_end'))->get();
             else
-                $availabilities = $instructor->availabilities()->orderBy('id', 'DESC')->get();
+                $availabilities = $instructor->availabilities()
+                        ->where('academic_year_id', $academic_year)
+                        ->where('semester_id', $semester)
+                        ->orderBy('id', 'DESC')->get();
 
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -325,11 +328,11 @@ class InstructorController extends Controller
                 'time' => Carbon::now()
             ]);
 
-            for ($i=0; $i < count($availabilities); $i++) {
-              // echo $availabilities[$i]->time_start;
-              $availabilities[$i]->time_start  = date("g:iA", strtotime($availabilities[$i]->time_start));
-              $availabilities[$i]->time_end  = date("g:iA", strtotime($availabilities[$i]->time_end));
-            }
+            // for ($i=0; $i < count($availabilities); $i++) {
+            //   // echo $availabilities[$i]->time_start;
+            //   $availabilities[$i]->time_start  = date("g:iA", strtotime($availabilities[$i]->time_start));
+            //   $availabilities[$i]->time_end  = date("g:iA", strtotime($availabilities[$i]->time_end));
+            // }
             // return count($availabilities);
             return $availabilities;
 
@@ -678,7 +681,7 @@ class InstructorController extends Controller
         }
     }
 
-    public function instructorClass_Schedules(Instructor $instructor){
+    public function instructorClassSchedules($instructor, $academic_year, $semester){
       $user = Auth::user();
       //Check if user has permission to view class schedules records.
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'read_priv');
@@ -691,7 +694,8 @@ class InstructorController extends Controller
             'activity' => 'Viewed the class schedule of ' . $instructor->first_name . ' ' .$instructor->last_name . '.',
             'time' => Carbon::now()
         ]);
-        return $instructor->class_schedules;
+        // return $instructor->class_schedules;
+        return $this->getClassSchedule($instructor, $academic_year, $semester);
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -733,6 +737,76 @@ class InstructorController extends Controller
               'message' => 'You are not authorized to view class schedule records.'
           ],401);      //401: Unauthorized
       }
-    }
+    } // end of function instructors_schedules
 
+    public function getClassSchedule($instructor, $academic_year, $semester){
+      $classes = ClassSchedule::
+          ->where('instructor_id', $instructor)
+          ->where('academic_year_id', $academic_year)
+          ->where('semester_id', $semester)
+          ->orderBy('id', 'DESC')->get();
+      $myArr = [];
+      $i = 0;
+      foreach ($classes as $class) {
+        $sched_time_start  = date("g:iA", strtotime($class->time_start));
+        $sched_time_end  = date("g:iA", strtotime($class->time_end));
+        $myArr[$i] = array(
+          'id' => $class->id,
+          'subject' => array(
+            'curr_subject_id' => $class->subject->id,
+            'subject_id' => $class->subject->subject_id,
+            'subject_code' => $class->subject->subject->subject_code,
+            'subject_desc' => $class->subject->subject->subject_description,
+            'year_level' => $class->subject->year_level,
+            'units' => $class->subject->subject->units,
+            'lec' => $class->subject->subject->lec,
+            'lab' => $class->subject->subject->lab,
+            'active' => $class->subject->subject->active,
+          ),
+          'curriculum' => array(
+            'curriculum_id' => $class->subject->curriculum->id,
+            'curriculum_title' => $class->subject->curriculum->curriculum_title,
+            'curriculum_desc' => $class->subject->curriculum->curriculum_desc,
+          ),
+          'course' => array(
+            'id' => $class->subject->curriculum->course->id,
+            'course_code' => $class->subject->curriculum->course->course_code,
+            'course_desc' => $class->subject->curriculum->course->course_desc,
+            'course_major' => $class->subject->curriculum->course->course_major
+          ),
+         'room' => array(
+            'id' => $class->room->id,
+            'room_number' => $class->room->room_number,
+            'room_name' => $class->room->room_name,
+            'room_capacity' => $class->room->room_capacity,
+          ),
+         'instructor' => array(
+            'id' => $class->instructor->id,
+            'first_name' => $class->instructor->first_name,
+            'middle_name' => $class->instructor->middle_name,
+            'last_name' => $class->instructor->last_name,
+            'full_name' => $class->instructor->first_name . " " . $class->instructor->last_name
+          ),
+          'schedule' => array(
+            'day' => $class->day,
+            'time_start' => $sched_time_start,
+            'time_end' => $sched_time_end,
+            'time' => $sched_time_start . "-" . $sched_time_end
+          ),
+          'sem' => array(
+            'id' => $class->semester->id,
+            'semester' => $class->semester->semester,
+          ),
+          'ay' => array(
+            'id' => $class->academic_year->id,
+            'academic_year' => $class->academic_year->academic_year,
+            'formatted_ay' => "SY " . $class->academic_year->academic_year
+          ),
+          'block' => $class->block,
+          'batch' => $class->batch,
+        );
+        $i++;
+      }
+      return $myArr;
+    } // end of function getClassSchedule
 }
