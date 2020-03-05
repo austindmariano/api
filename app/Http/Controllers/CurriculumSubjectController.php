@@ -74,7 +74,9 @@ class CurriculumSubjectController extends Controller
         $validator = Validator::make($request->all(),[
           'subject_id' => 'required|numeric',
           'curriculum_id' => 'required|numeric',
-          'year_level' => 'required|string'
+          'year_level' => 'required|string',
+          'semester_id' => 'required|string',
+          'active' => 'required|numeric'
         ]);
 
         // check fi data is validator
@@ -102,6 +104,7 @@ class CurriculumSubjectController extends Controller
                'error' => $title . " already have this subject"
              ], 400);
            }else{
+             // return $curriculum_subject_data
              $curriculum_subject_data['last_updated_by'] = Auth::user()->id;
              try {
                $curriculum_subject = CurriculumSubject::create($curriculum_subject_data);

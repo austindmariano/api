@@ -8,7 +8,7 @@ class CurriculumSubject extends Pivot
 {
     protected $table = "curriculum_subjects";
 
-    protected $fillable = ['subject_id', 'year_level', 'curriculum_id', 'semester_id', 'last_updated_by'];
+    protected $fillable = ['subject_id', 'year_level', 'curriculum_id', 'semester_id', 'last_updated_by', 'active'];
 
     public function curriculum(){
         return $this->belongsTo('App\Curriculum')->select('id', 'curriculum_title', 'curriculum_desc', 'course_id')->with('course');

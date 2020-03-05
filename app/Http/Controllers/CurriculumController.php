@@ -160,9 +160,9 @@ class CurriculumController extends Controller
         ]);
 
         if($curriculum->course_id != null){
-            $curriculum = Curriculum::where('id', $curriculum->id)->with('course', 'curriculum_subjects')->get();
+            $curriculum = Curriculum::where('id', $curriculum->id)->with('course')->get();
         }elseif($curriculum->strand_id != null){
-            $curriculum = Curriculum::where('id', $curriculum->id)->with('strand', 'curriculum_subjects')->get();
+            $curriculum = Curriculum::where('id', $curriculum->id)->with('strand')->get();
         }
         return $curriculum;
       }else{
@@ -289,15 +289,20 @@ class CurriculumController extends Controller
 
     } // end of function destroy()
 
-    public function showCurriculumSubjects(Curriculum $curriculum, Request $request){
-      $subjects = CurriculumSubject::select('*')
-       ->where('semester_id', $request->semester_id)
-       ->where('curriculum_id', $request->curriculum_id)
-       ->where('year_level', $request->year_level)
-       ->with('subject')
-       ->get();
-       return $subjects;
-    }
+    public function getCurriculumSubjects(Curriculum $curriculum, Request $request){
+      if($request->query() != null){
+        // will return subjects of specified curriculum with filter
+          return $curriculum->curriculum_subjects()
+          ->orderBy('id', 'DESC')
+          ->where('curriculum_id', $curriculum->id)
+          ->where('semester_id', $request->query('semester_id'))
+          ->where('year_level', $request->query('year_level'))
+          ->get();
+      }else{
+        return $curriculum->curriculum_subjects()->orderBy('id', 'DESC')->get();
+      }
+  } // end of function getCurriculumSubjects
+
     public function test(Curriculum $curriculum){
       $user = Auth::user();
       //Check if user has permission to view instructors
