@@ -46,6 +46,8 @@ Route::group(['prefix' => 'v1'], function(){
         // update specific privilege of specified user
         // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
 
+        // get user activities
+        Route::get('activities', 'UserActivityController@index');
 
         Route::put('privileges/{userprivilege}', 'UserPrivilegeController@updatePrivilege');
         Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
@@ -179,7 +181,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::delete('/curriculums/{curriculum}', 'CurriculumController@destroy');
 
         //This GET method will display the subjects of the specified Curriculum
-        Route::post('/curriculums/{curriculum}/subjects', 'CurriculumController@showCurriculumSubjects');
+        Route::get('/curriculums/{curriculum}/subjects', 'CurriculumController@getCurriculumSubjects');
 
         //End of Curriculum Routes
         //--------------------------------------------------------------------------
