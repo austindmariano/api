@@ -27,7 +27,7 @@ class UserController extends Controller
                     $users = User::where($request->query())->get();
                 }
             }else{
-                $users = User::all();
+                $users = User::orderBy('id', 'DESC')->get();
             }
 
             //record in activity log
