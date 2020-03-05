@@ -54,7 +54,8 @@ class RegisterController extends Controller
                 'first_name' => 'required|string',
                 'middle_name' => 'nullable|string',
                 'last_name' => 'required|string',
-                'role' => 'required|string'
+                'role' => 'required|string',
+                'active' => 'required|numeric'
             ]);
 
             //if validation fails
