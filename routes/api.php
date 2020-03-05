@@ -54,18 +54,25 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('instructors', 'InstructorController@store');
         Route::put('instructors/{instructor}', 'InstructorController@update');
         Route::delete('instructors/{instructor}', 'InstructorController@destroy');
+
+        // GET all availabilities
         Route::get('instructor_availabilities', 'InstructorController@availabilities');
-        Route::get('instructors/{instructor}/availabilities', 'InstructorController@availabilities');
+
+        // GET availabilities of specified instructor
+        Route::get('instructors/{instructor}/availabilities/{academic_year}/{semester}', 'InstructorController@availabilities');
         Route::post('instructors/{instructor}/availabilities', 'InstructorController@addAvailability');
         Route::put('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@updateAvailability');
         Route::delete('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@deleteAvailability');
+
         // Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
         Route::get('instructors/{instructor}/preferred_subjects', 'InstructorController@preferred_subjects');
         Route::post('instructors/{instructor}/preferred_subjects', 'InstructorController@addPreferredSubject');
         Route::put('instructors/{instructor}/preferred_subjects/{preferredsubject}', 'InstructorController@updatePreferredSubject');
         Route::delete('instructors/{instructor}/preferred_subjects/{preferredsubject}', 'InstructorController@deletePreferredSubject');
+
+
         // Gets All Class Schedule of the specified instructor
-        Route::get('instructors/{instructor}/class_schedules', 'InstructorController@instructorClass_Schedules');
+        Route::get('instructors/{instructor}/class_schedules/{academic_year}/{semester}', 'InstructorController@instructorClassSchedules');
         // Gets all class schedule of all instructors
         Route::get('instructors_class_schedules', 'InstructorController@instructors_schedules');
 
@@ -92,6 +99,9 @@ Route::group(['prefix' => 'v1'], function(){
         //This GET method will display curriculums of specified course
         Route::get('/courses/{course}/curriculums', 'CourseController@showCourseCurriculum');
 
+        // This GET method will display all schedules of specified course
+        Route::get('/courses/{course}/class_schedules/{academic_year}/{semester}/{year_level}/{block}/{batch?}', 'CourseController@course_schedules');
+
         //This GET method will display class schedules of specified course
         // Route::get('/courses/{course}/class_schedule', 'CourseController@showCourseClassSchedule');
 
@@ -117,7 +127,7 @@ Route::group(['prefix' => 'v1'], function(){
         //This DELETE method will DELETE the specified room
         Route::delete('/rooms/{room}', 'RoomController@destroy');
         //This DELETE method will DELETE the specified room
-        Route::get('/rooms/{room}/schedules', 'RoomController@room_schedules');
+        Route::get('/rooms/{room}/class_schedules/{academic_year}/{semester}', 'RoomController@room_schedules');
 
 
         //End of Room Routes

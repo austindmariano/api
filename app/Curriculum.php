@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Curriculum extends Model
 {
     protected $table = "curriculums";
-    protected $fillable = ['curriculum_title', 'curriculum_desc', 'last_updated_by', 'course_id', 'strand_id'];
+    protected $fillable = ['curriculum_title', 'curriculum_desc', 'last_updated_by', 'course_id', 'strand_id', 'active' ];
 
     public function course(){
         return $this->belongsTo('App\Course')->select('id','course_code', 'course_desc', 'course_major');
