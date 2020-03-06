@@ -75,7 +75,7 @@ class CurriculumSubjectController extends Controller
           'subject_id' => 'required|numeric',
           'curriculum_id' => 'required|numeric',
           'year_level' => 'required|string',
-          'semester_id' => 'required|string',
+          'semester_id' => 'required|numeric',
           'active' => 'required|numeric'
         ]);
 
