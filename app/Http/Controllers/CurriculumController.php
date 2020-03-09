@@ -299,7 +299,9 @@ class CurriculumController extends Controller
           ->where('year_level', $request->query('year_level'))
           ->get();
       }else{
-        return $curriculum->curriculum_subjects()->orderBy('id', 'DESC')->get();
+        return $curriculum->curriculum_subjects()
+        ->orderBy('year_level', 'ASC')
+        ->orderBy('semester_id', 'ASC')->get();
       }
   } // end of function getCurriculumSubjects
 

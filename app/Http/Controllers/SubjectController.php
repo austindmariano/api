@@ -38,7 +38,9 @@ class SubjectController extends Controller
                 // return all subjects
                  // $subjects = Subject::all();
                  // return all subject in DESC using ID
-                 $subjects = Subject::orderBy('id', 'DESC')->get();;
+                 // $subjects = Subject::orderBy('id', 'DESC')->get();;
+                 // ascending order using subject code
+                 $subjects = Subject::orderBy('subject_code', 'asc')->get();;
 
             }
             //record in activity log
