@@ -292,22 +292,33 @@ class CurriculumController extends Controller
     public function getCurriculumSubjects(Curriculum $curriculum, Request $request){
       if($request->query('year_level') != null && $request->query('semester_id') == null){
         // will return subjects of specified curriculum with filter
-          return $curriculum->curriculum_subjects()
+          $curriculum_subjects = $curriculum->curriculum_subjects()
           ->orderBy('id', 'DESC')
           ->where('curriculum_id', $curriculum->id)
           ->where('year_level', $request->query('year_level'))
           ->get();
+
+          return $curriculum_subjects;
+
       }elseif ($request->query('year_level') != null && $request->query('semester_id') != null) {
-        return $curriculum->curriculum_subjects()
+        $curriculum_subjects = $curriculum->curriculum_subjects()
         ->orderBy('id', 'DESC')
         ->where('curriculum_id', $curriculum->id)
         ->where('semester_id', $request->query('semester_id'))
         ->where('year_level', $request->query('year_level'))
         ->get();
+
+        return $curriculum_subjects;
+
       }else{
-        return $curriculum->curriculum_subjects()
+        $curriculum_subjects = $curriculum->curriculum_subjects()
         ->orderBy('year_level', 'ASC')
         ->orderBy('semester_id', 'ASC')->get();
+        $result = [];
+        foreach($curriculum_subjects as $subject){
+            $result[$subject->year_level][$subject->semester->semester][] = $subject;
+        }
+        return $result;
       }
   } // end of function getCurriculumSubjects
 
