@@ -20,6 +20,6 @@ class Curriculum extends Model
     }
 
     public function curriculum_subjects(){
-        return $this->hasMany('App\CurriculumSubject')->with('subject', 'semester');
+        return $this->hasMany('App\CurriculumSubject')->with('subject');
     }
 }

@@ -16,7 +16,7 @@ class CurriculumSubject extends Pivot
 
     public function subject(){
         return $this->belongsTo('App\Subject')->select('id', 'subject_code',
-         'subject_description', 'units', 'lec', 'lab', 'active')->orderBy('subject_code', 'ASC');
+         'subject_description', 'units', 'lec', 'lab', 'active')->orderBy('subject_code', 'ASC')->with('instructors');
     }
 
     public function prerequisites(){

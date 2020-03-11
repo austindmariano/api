@@ -1,4 +1,3 @@
-<?php /* C:\xampp\api\resources\views/layouts/vue.blade.php */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,3 +13,4 @@
     <script src="/js/app.js"></script>
 </body>
 </html>
+<?php /**PATH C:\xampp\api\resources\views/layouts/vue.blade.php ENDPATH**/ ?>

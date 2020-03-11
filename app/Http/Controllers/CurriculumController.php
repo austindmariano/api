@@ -30,10 +30,10 @@ class CurriculumController extends Controller
         if($request->query() != null){
             if($request->query('level')=="college") {
                 // return only those curriculums for college
-                $curriculums = Curriculum::with('course', 'curriculum_subjects')->where('course_id', '!=', null)->get();
+                $curriculums = Curriculum::with('course', 'curriculum_subjects')->orderBy('id', 'DESC')->where('course_id', '!=', null)->get();
             } else if($request->query('level')=="shs") {
                 // return only those curriculums for shs
-                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->where('strand_id', '!=', null)->get();
+                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->orderBy('id', 'DESC')->where('strand_id', '!=', null)->get();
             } else {
               return response()->json([
                   'message' => 'Invalid parameter or parameter value. Please refer to the API documentation.'
@@ -292,20 +292,33 @@ class CurriculumController extends Controller
     public function getCurriculumSubjects(Curriculum $curriculum, Request $request){
       if($request->query('year_level') != null && $request->query('semester_id') == null){
         // will return subjects of specified curriculum with filter
-          return $curriculum->curriculum_subjects()
+          $curriculum_subjects = $curriculum->curriculum_subjects()
           ->orderBy('id', 'DESC')
           ->where('curriculum_id', $curriculum->id)
           ->where('year_level', $request->query('year_level'))
           ->get();
+
+          return $curriculum_subjects;
+
       }elseif ($request->query('year_level') != null && $request->query('semester_id') != null) {
-        return $curriculum->curriculum_subjects()
+        $curriculum_subjects = $curriculum->curriculum_subjects()
         ->orderBy('id', 'DESC')
         ->where('curriculum_id', $curriculum->id)
         ->where('semester_id', $request->query('semester_id'))
         ->where('year_level', $request->query('year_level'))
         ->get();
+
+        return $curriculum_subjects;
+
       }else{
-        return $curriculum->curriculum_subjects()->orderBy('id', 'DESC')->get();
+        $curriculum_subjects = $curriculum->curriculum_subjects()
+        ->orderBy('year_level', 'ASC')
+        ->orderBy('semester_id', 'ASC')->get();
+        $result = [];
+        foreach($curriculum_subjects as $subject){
+            $result[$subject->year_level][$subject->semester->semester][] = $subject;
+        }
+        return $result;
       }
   } // end of function getCurriculumSubjects
 
