@@ -19,8 +19,7 @@ class InstructorPreferredSubject extends Pivot
     }
 
     public function subject(){
-        return $this->belongsTo('App\Subject')
-          ->select(array('id', 'subject_code', 'subject_description'));
+        return $this->belongsTo('App\Subject');
     }
 
     public function academicYear(){

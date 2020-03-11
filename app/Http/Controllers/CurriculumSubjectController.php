@@ -29,19 +29,17 @@ class CurriculumSubjectController extends Controller
       if ($isAuthorized) {
           if($request->query() != null){
               if($request->query('sort')!=null){
-                  $curriculum_subjects = CurriculumSubject::orderBy($request->query('sort'))->with('subject', 'curriculum')->get();
+                  $curriculum_subjects = CurriculumSubject::orderBy($request->query('sort'))->with('subject')->get();
               }else{
-                  $curriculum_subjects = CurriculumSubject::where($request->query())->with('subject', 'curriculum')->get();
+                $curriculum_subjects = CurriculumSubject::where($request->query())->with('subject')->get();
               }
           }else{
             // $curriculum_subjects = CurriculumSubject::all();
-
             $curriculum_subjects = CurriculumSubject::with('subject', 'semester')
                 ->orderBy('id', 'DESC')->get();
-
-                foreach($curriculum_subjects as $subject){
-                    $result[$subject->year_level][$subject->semester->semester][] = $subject;
-                }
+                // foreach($curriculum_subjects as $subject){
+                //     $result[$subject->year_level][$subject->semester->semester][] = $subject;
+                // }
           }
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -50,7 +48,7 @@ class CurriculumSubjectController extends Controller
               'time' => Carbon::now()
           ]);
           // return $curriculum_subjects;
-          return $result;
+          return $curriculum_subjects;
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([

@@ -30,10 +30,10 @@ class CurriculumController extends Controller
         if($request->query() != null){
             if($request->query('level')=="college") {
                 // return only those curriculums for college
-                $curriculums = Curriculum::with('course', 'curriculum_subjects')->where('course_id', '!=', null)->get();
+                $curriculums = Curriculum::with('course', 'curriculum_subjects')->orderBy('id', 'DESC')->where('course_id', '!=', null)->get();
             } else if($request->query('level')=="shs") {
                 // return only those curriculums for shs
-                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->where('strand_id', '!=', null)->get();
+                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->orderBy('id', 'DESC')->where('strand_id', '!=', null)->get();
             } else {
               return response()->json([
                   'message' => 'Invalid parameter or parameter value. Please refer to the API documentation.'

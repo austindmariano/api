@@ -566,7 +566,19 @@ class InstructorController extends Controller
             }
             $request['instructor_id'] = $instructor->id;
             $request['last_updated_by'] = Auth::user()->id;
-            $preferred_subject = $instructor->preferred_subjects()->create($request->all());
+
+            // $preferred_subject = $instructor->preferred_subjects()->create($request->all());
+            $result = $instructor->preferred_subjects()->where('subject_id', $request['subject_id'])->get();
+            // return InstructorPreferredSubject::where('instructor_id', $instructor->id)->get();
+            // return $instructor->preferred_subjects();
+            if(count($result) > 0){
+              return response()->json([
+                  'message' => 'Failed to add instructor\'s preferred subject.',
+                  'errors' =>(object)['year_level' =>  ['Preferred subject already exist.']]
+              ],400);    //Bad request
+            }else{
+              $preferred_subject = $instructor->preferred_subjects()->create($request->all());
+            }
 
             if($preferred_subject){
                 //record in activity log
@@ -740,11 +752,11 @@ class InstructorController extends Controller
     } // end of function instructors_schedules
 
     public function getClassSchedule($instructor, $academic_year, $semester){
-      $classes = ClassSchedule::
-          ->where('instructor_id', $instructor)
+      $classes = ClassSchedule::where('instructor_id', $instructor)
           ->where('academic_year_id', $academic_year)
           ->where('semester_id', $semester)
           ->orderBy('id', 'DESC')->get();
+
       $myArr = [];
       $i = 0;
       foreach ($classes as $class) {

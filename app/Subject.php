@@ -14,7 +14,7 @@ class Subject extends Model
     }
 
     public function instructors(){
-        return $this->hasMany('InstructorPreferredSubject');
+        return $this->hasMany('App\InstructorPreferredSubject')->with('instructor');
     }
 
     // public function class_schedules(){
