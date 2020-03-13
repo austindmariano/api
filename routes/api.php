@@ -27,13 +27,13 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('settings', function(){
           return response()->json(Config::get('settings'));
         });
+
+        //--------------------------------------------------------------------------
+        //Beginning of USER Routes
         Route::post('users', 'Auth\RegisterController@register');
         Route::post('logout', 'Auth\LoginController@logout');
-
         Route::get('users', 'UserController@index');
         Route::get('users/{user}', 'UserController@show');
-
-
         Route::put('users/{user}', 'UserController@update');
         Route::delete('users/{user}', 'UserController@destroy');
 
@@ -43,27 +43,55 @@ Route::group(['prefix' => 'v1'], function(){
         // get specific privilege of specific user
         Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');
 
-        // update specific privilege of specified user
-        // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
-
         // get user activities
         Route::get('activities', 'UserActivityController@index');
 
+        // update specific privilege
         Route::put('privileges/{userprivilege}', 'UserPrivilegeController@updatePrivilege');
+
+        // grants user a privilege
         Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
+
+        // update specific privilege of specified user
+        // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
+
+        //End of USER Routes
+        //--------------------------------------------------------------------------
+
+
+
+        //--------------------------------------------------------------------------
+        //Beginning of INSTRUCTOR Routes
+
+        // this route will return list of all instructors
         Route::get('instructors', 'InstructorController@index');
+
+        // this route will return records of specific instructor using id
         Route::get('instructors/{instructor}', 'InstructorController@show');
+
+        // the route will create a new instructor record
         Route::post('instructors', 'InstructorController@store');
+
+        // this route will update the record of specified instructor using id
         Route::put('instructors/{instructor}', 'InstructorController@update');
+
+        // this route will permanently delete an instructor record
         Route::delete('instructors/{instructor}', 'InstructorController@destroy');
 
-        // GET all availabilities
+        // this route will return all availabilities of all instructors
         Route::get('instructor_availabilities', 'InstructorController@availabilities');
 
-        // GET availabilities of specified instructor
-        Route::get('instructors/{instructor}/availabilities/{academic_year}/{semester}', 'InstructorController@availabilities');
+        // CHECKED
+        // this route will return availabilitites of specified instructor using id
+        Route::get('instructors/{instructor}/availabilities', 'InstructorController@availabilities');
+
+        //this route add new availability of a specified instructor using id
         Route::post('instructors/{instructor}/availabilities', 'InstructorController@addAvailability');
+
+        // this route will update specific availability of an instructor using its id
         Route::put('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@updateAvailability');
+
+        // this route will
         Route::delete('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@deleteAvailability');
 
         // Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
@@ -75,10 +103,12 @@ Route::group(['prefix' => 'v1'], function(){
 
         // Gets All Class Schedule of the specified instructor
         Route::get('instructors/{instructor}/class_schedules/{academic_year}/{semester}', 'InstructorController@instructorClassSchedules');
+
         // Gets all class schedule of all instructors
         Route::get('instructors_class_schedules', 'InstructorController@instructors_schedules');
 
-
+        //End of INSTRUCTOR Routes
+        //--------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------
         //Beginning of Course Routes
