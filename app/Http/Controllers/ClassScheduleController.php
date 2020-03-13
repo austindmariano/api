@@ -105,6 +105,8 @@ class ClassScheduleController extends Controller
           ], 400); // 400: Bad request
         } else {
             $class_schedule_data = $request->all();
+            // $class_schedule_data['time_start']  = date("H:i", strtotime($class_schedule_data['time_start']));
+            // $class_schedule_data['time_end']  = date("H:i", strtotime($class_schedule_data['time_end']));
             // $setting = DB::table('settings')->first();
             // $class_schedule_data = $request->all();
             // // $class_schedule_data['academic_year_id'] = $setting->current_academic_year;
@@ -131,8 +133,8 @@ class ClassScheduleController extends Controller
     public function createSchedule($class_schedule_data, $user){
       try {
         //convert 12 hour to 24 hour
-        $class_schedule_data['time_start']  = date("H:i", strtotime($class_schedule_data['time_start']));
-        $class_schedule_data['time_end']  = date("H:i", strtotime($class_schedule_data['time_end']));
+        $class_schedule_data['time_start']  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+        $class_schedule_data['time_end']  = date("H:i:s", strtotime($class_schedule_data['time_end']));
 
         $class_schedule = ClassSchedule::create($class_schedule_data);
         // check if record is successfully created.
