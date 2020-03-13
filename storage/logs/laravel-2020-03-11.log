@@ -24,7 +24,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 00:08:45] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -51,7 +51,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 00:18:50] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -78,11 +78,11 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 01:39:36] local.ERROR: Cannot use [] for reading {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot use [] for reading at C:\\xampp\\api\\app\\Http\\Controllers\\CurriculumController.php:319)
 [stacktrace]
 #0 {main}
-"} 
+"}
 [2020-03-11 01:54:56] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -109,7 +109,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 01:56:40] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', 'C:\\\\xampp\\\\api\\\\ve...', 122, Array)
@@ -148,7 +148,7 @@
 #33 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #34 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #35 {main}
-"} 
+"}
 [2020-03-11 01:56:40] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', 'C:\\\\xampp\\\\api\\\\ve...', 122, Array)
@@ -187,7 +187,7 @@
 #33 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #34 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #35 {main}
-"} 
+"}
 [2020-03-11 01:57:30] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -214,7 +214,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 02:35:45] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', 'C:\\\\xampp\\\\api\\\\ve...', 122, Array)
@@ -253,7 +253,7 @@
 #33 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #34 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #35 {main}
-"} 
+"}
 [2020-03-11 02:59:13] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -280,7 +280,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 02:59:55] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -307,7 +307,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 03:55:16] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/bc/11/bc11d69cd41accb36b5cccc6ec42558ab95cbfe0): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/bc/11/bc11d69cd41accb36b5cccc6ec42558ab95cbfe0): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'file_put_conten...', 'C:\\\\xampp\\\\api\\\\ve...', 122, Array)
@@ -346,7 +346,7 @@
 #33 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #34 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #35 {main}
-"} 
+"}
 [2020-03-11 14:29:31] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -373,7 +373,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 14:29:40] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -400,7 +400,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 14:48:49] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -427,7 +427,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 14:51:01] local.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -454,7 +454,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 15:09:30] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -481,7 +481,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 15:22:35] local.ERROR: Undefined variable: result {"userId":2,"exception":"[object] (ErrorException(code: 0): Undefined variable: result at C:\\xampp\\api\\app\\Http\\Controllers\\CurriculumSubjectController.php:54)
 [stacktrace]
 #0 C:\\xampp\\api\\app\\Http\\Controllers\\CurriculumSubjectController.php(54): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'C:\\\\xampp\\\\api\\\\ap...', 54, Array)
@@ -528,7 +528,7 @@
 #41 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #42 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #43 {main}
-"} 
+"}
 [2020-03-11 15:36:33] local.ERROR: syntax error, unexpected '}' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '}' at C:\\xampp\\api\\app\\Http\\Controllers\\CurriculumSubjectController.php:36)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -568,7 +568,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 15:48:23] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -595,7 +595,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 16:07:04] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -622,7 +622,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 16:12:53] local.ERROR: Class 'InstructorPreferredSubject' not found {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'InstructorPreferredSubject' not found at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\HasRelationships.php:720)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\HasRelationships.php(327): Illuminate\\Database\\Eloquent\\Model->newRelatedInstance('InstructorPrefe...')
@@ -693,7 +693,7 @@
 #65 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #66 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #67 {main}
-"} 
+"}
 [2020-03-11 16:14:11] local.ERROR: Class 'InstructorPreferredSubject' not found {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Class 'InstructorPreferredSubject' not found at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\HasRelationships.php:720)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Concerns\\HasRelationships.php(327): Illuminate\\Database\\Eloquent\\Model->newRelatedInstance('InstructorPrefe...')
@@ -764,7 +764,7 @@
 #65 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #66 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #67 {main}
-"} 
+"}
 [2020-03-11 16:15:24] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -791,7 +791,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 16:30:12] local.ERROR: syntax error, unexpected '->' (T_OBJECT_OPERATOR) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '->' (T_OBJECT_OPERATOR) at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:744)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -831,7 +831,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 16:31:27] local.ERROR: syntax error, unexpected '->' (T_OBJECT_OPERATOR) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '->' (T_OBJECT_OPERATOR) at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:744)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -871,7 +871,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 16:32:51] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -898,7 +898,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 17:54:24] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -925,7 +925,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 18:59:53] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -952,7 +952,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 19:29:57] local.ERROR: syntax error, unexpected 'return' (T_RETURN) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected 'return' (T_RETURN) at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:571)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -992,7 +992,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 19:31:32] local.ERROR: count(): Parameter must be an array or an object that implements Countable {"userId":2,"exception":"[object] (ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:571)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'count(): Parame...', 'C:\\\\xampp\\\\api\\\\ap...', 571, Array)
@@ -1040,7 +1040,7 @@
 #42 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #43 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #44 {main}
-"} 
+"}
 [2020-03-11 19:31:50] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -1067,7 +1067,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 19:32:28] local.ERROR: count(): Parameter must be an array or an object that implements Countable {"userId":2,"exception":"[object] (ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:571)
 [stacktrace]
 #0 [internal function]: Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'count(): Parame...', 'C:\\\\xampp\\\\api\\\\ap...', 571, Array)
@@ -1115,7 +1115,7 @@
 #42 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #43 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #44 {main}
-"} 
+"}
 [2020-03-11 19:33:58] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1160,7 +1160,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:35:10] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1205,7 +1205,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:36:06] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1250,7 +1250,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:36:28] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1295,7 +1295,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:36:34] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1340,7 +1340,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:36:38] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1385,7 +1385,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:36:40] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1430,7 +1430,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:37:12] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1475,7 +1475,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:37:34] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1520,7 +1520,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:38:10] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1565,7 +1565,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:39:12] local.ERROR: Object of class Illuminate\Database\Eloquent\Relations\HasMany could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Relations\\HasMany could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Relations\\HasMany))
@@ -1610,7 +1610,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:40:07] local.ERROR: Call to undefined method App\Instructor::preferred_subject() {"userId":2,"exception":"[object] (BadMethodCallException(code: 0): Call to undefined method App\\Instructor::preferred_subject() at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php:50)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php(36): Illuminate\\Database\\Eloquent\\Model::throwBadMethodCallException('preferred_subje...')
@@ -1659,7 +1659,7 @@
 #43 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #44 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #45 {main}
-"} 
+"}
 [2020-03-11 19:42:01] local.ERROR: Object of class Illuminate\Database\Eloquent\Builder could not be converted to string {"userId":2,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Object of class Illuminate\\Database\\Eloquent\\Builder could not be converted to string at C:\\xampp\\api\\vendor\\symfony\\http-foundation\\Response.php:404)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(45): Symfony\\Component\\HttpFoundation\\Response->setContent(Object(Illuminate\\Database\\Eloquent\\Builder))
@@ -1704,7 +1704,7 @@
 #39 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #40 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #41 {main}
-"} 
+"}
 [2020-03-11 19:51:06] local.ERROR: Undefined variable: preferred_subject {"userId":2,"exception":"[object] (ErrorException(code: 0): Undefined variable: preferred_subject at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:581)
 [stacktrace]
 #0 C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php(581): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'C:\\\\xampp\\\\api\\\\ap...', 581, Array)
@@ -1751,7 +1751,7 @@
 #41 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #42 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #43 {main}
-"} 
+"}
 [2020-03-11 19:55:24] local.ERROR: syntax error, unexpected '{' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '{' at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:577)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -1791,7 +1791,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 19:55:30] local.ERROR: syntax error, unexpected '{' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '{' at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:577)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -1831,7 +1831,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 19:55:36] local.ERROR: syntax error, unexpected '{' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '{' at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:577)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -1871,7 +1871,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 19:55:45] local.ERROR: syntax error, unexpected '{' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected '{' at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:577)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -1911,7 +1911,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 19:56:00] local.ERROR: syntax error, unexpected ':', expecting ']' {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): syntax error, unexpected ':', expecting ']' at C:\\xampp\\api\\app\\Http\\Controllers\\InstructorController.php:577)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('C:\\\\xampp\\\\api\\\\ve...')
@@ -1951,7 +1951,7 @@
 #34 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #35 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #36 {main}
-"} 
+"}
 [2020-03-11 20:10:22] local.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -1978,7 +1978,7 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
 [2020-03-11 20:13:25] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (SQL: select * from `settings` limit 1) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from `...', Array, Object(Closure))
@@ -2005,4 +2005,4 @@
 #21 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
-"} 
+"}
