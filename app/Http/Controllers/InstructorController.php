@@ -300,7 +300,7 @@ class InstructorController extends Controller
      * @param Instructor $instructor
      * @return array of InstructorAvailability
     */
-    public function availabilities(Instructor $instructor=null, $academic_year, $semester){
+    public function availabilities(Instructor $instructor, Request $request){
         $user = Auth::user();
         //Check if user has permission to view instructors
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'read_priv');
@@ -316,9 +316,9 @@ class InstructorController extends Controller
                                 ->where('semester_id', \Config::get('settings.current_sem'))->get();*/
                 $availabilities = InstructorAvailability::select(array('id', 'instructor_id', 'day', 'time_start', 'time_end'))->get();
             else
+
                 $availabilities = $instructor->availabilities()
-                        ->where('academic_year_id', $academic_year)
-                        ->where('semester_id', $semester)
+                        ->where($request->query())
                         ->orderBy('id', 'DESC')->get();
 
             //record in activity log
