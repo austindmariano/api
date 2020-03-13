@@ -37,10 +37,19 @@ class ClassScheduleController extends Controller
             'time' => Carbon::now()
         ]);
         // original from Dec 18 file
-        // $class_schedules = ClassSchedule::with('room','subject', 'instructor', 'semester', 'academic_year')->orderBy('id', 'DESC')->get();
+        if($request->query() != null){
+          $class_schedules = ClassSchedule::with('room','subject', 'instructor', 'semester', 'academic_year')
+            ->where($request->query())
+            ->orderBy('id', 'DESC')->get();
+        }
+        else{
+          $class_schedules = ClassSchedule::with('room','subject', 'instructor', 'semester', 'academic_year')->orderBy('id', 'DESC')->get();
+        }
+
+        return $class_schedules;
 
         // returns all class schedule records
-        return $this->getClassSchedule();
+        // return $this->getClassSchedule();
 
         // $obj =  new Schedules();
         // return $obj->getClassSchedule();
@@ -77,11 +86,14 @@ class ClassScheduleController extends Controller
           'time_start' => 'nullable|string',
           'time_end' => 'nullable|string',
           'subject_id' => 'required|numeric',
+          'subject_code' => 'required|string',
           'room_id' => 'nullable|numeric',
           'instructor_id' => 'nullable|numeric',
           'block' => 'required|numeric',
           'batch' => 'required|numeric',
-          'class_type' => 'required|string'
+          'course_id' => 'required|numeric',
+          'course_code' => 'required|string',
+          'active' => 'required|numeric',
         ]);
 
         // check if data if validator fails
@@ -92,13 +104,15 @@ class ClassScheduleController extends Controller
             'errors' => $validator->errors()
           ], 400); // 400: Bad request
         } else {
-            $setting = DB::table('settings')->first();
             $class_schedule_data = $request->all();
-            // $class_schedule_data['academic_year_id'] = $setting->current_academic_year;
-            // $class_schedule_data['semester_id'] = $setting->current_semester;
+            // $setting = DB::table('settings')->first();
+            // $class_schedule_data = $request->all();
+            // // $class_schedule_data['academic_year_id'] = $setting->current_academic_year;
+            // // $class_schedule_data['semester_id'] = $setting->current_semester;
             $class_schedule_data['last_updated_by'] = Auth::user()->id;
-            // return $this->createSchedule($class_schedule_data, $user);
-            return $this->conflictChecker($class_schedule_data,$user);
+            return $this->createSchedule($class_schedule_data, $user);
+            // return $request->course_id;
+            // return $this->conflictChecker($class_schedule_data,$user);
           }
       }else{
           //record in activity log
@@ -315,7 +329,7 @@ class ClassScheduleController extends Controller
       ->where('subject_id', $class_schedule_data['subject_id'])
       ->where('block', $class_schedule_data['block'])
       ->where('batch', $class_schedule_data['batch'])
-      ->where('class_type', $class_schedule_data['class_type'])
+      // ->where('class_type', $class_schedule_data['class_type'])
       ->get();
 
       // if there is a return data
@@ -433,7 +447,7 @@ class ClassScheduleController extends Controller
           'instructor_id' => 'nullable|numeric',
           'block' => 'numeric',
           'batch' => 'numeric',
-          'class_type' => 'string'
+          // 'class_type' => 'string'
         ]);
 
         // check if data if validator fails
