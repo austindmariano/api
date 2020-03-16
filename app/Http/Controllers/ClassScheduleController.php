@@ -115,21 +115,43 @@ class ClassScheduleController extends Controller
             // return $this->createSchedule($class_schedule_data, $user);
             // return $request->course_id;
             // return $this->conflictChecker($class_schedule_data,$user);
+             // return  $this->courseConflictChecker($class_schedule_data, $user);
 
-            for ($i = 0; $i < 2; $i++) {
+            $conflicts = [];
+            for ($i = 0; $i < 3; $i++) {
               if($i == 0){
-
+                $roomConflict = $this->roomConflictChecker($class_schedule_data, $user);
+                if ($roomConflict != null) {
+                  $conflicts['room_conflict'] = "Room " . $roomConflict->room->room_number
+                                          . " is already schedule from "  . $roomConflict->time_start
+                                          . " to " .  $roomConflict->time_end;
+                }
               }
-              if($i == 0){
-
+              elseif($i == 1){
+                $instructorConflict = $this->instructorConflictChecker($class_schedule_data, $user);
+                if ($instructorConflict != null) {
+                  $conflicts['instructor_conflict'] =  $instructorConflict->instructor->first_name . " " . $instructorConflict->instructor->last_name
+                                          . " is already schedule from "  . $instructorConflict->time_start
+                                          . " to " .  $instructorConflict->time_end;
+                }
               }
-              elseif($i == 0){
-
+              elseif($i == 2){
+                $courseConflict = $this->courseConflictChecker($class_schedule_data, $user);
+                if ($courseConflict != null) {
+                  $conflicts['course_conflict'] =  $courseConflict->course_code . " Block " . $courseConflict->block
+                                          . " is already schedule from "  . $courseConflict->time_start
+                                          . " to " .  $courseConflict->time_end;
+                }
               }
             }
-            // return $this->roomConflictChecker($class_schedule_data, $user);
-            // return $this->instructorConflictChecker($class_schedule_data, $user);
-            return $this->courseConflictChecker($class_schedule_data, $user);
+            if(count($conflicts) > 0){
+              return response()->json([
+                  'message' => 'Failed to create new class schedule record.',
+                  'conflicts' => $conflicts
+              ],400); // 400: Bad Request
+            }else{
+              return $this->createSchedule($class_schedule_data, $user);
+            }
 
           }
       }else{
@@ -196,12 +218,12 @@ class ClassScheduleController extends Controller
       if($course_schedule->isNotEmpty()){
         $course_data = $course_schedule[0];
         if ($course_time_start >= $course_data->time_end) {
-          // return null;
-          return "new sched is before";
+          return null;
+          // return "new sched is before";
         }
         elseif ($course_time_end <= $course_data->time_start ) {
-          // return null;
-          return "new sched is after";
+          return null;
+          // return "new sched is after";
         }
         elseif (($course_time_start == $course_data->time_start) AND ($course_time_end == $course_data->time_end)) {
           // return the conflict
