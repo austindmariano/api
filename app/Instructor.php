@@ -55,6 +55,6 @@ class Instructor extends Model
     }
 
     public function class_schedules(){
-      return $this->hasMany('App\ClassSchedule')->select('*')->with('instructor', 'subject', 'academic_year', 'semester');
+      return $this->hasMany('App\ClassSchedule')->select('*')->with('instructor', 'subject');
     }
 }

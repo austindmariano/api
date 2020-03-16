@@ -105,16 +105,32 @@ class ClassScheduleController extends Controller
           ], 400); // 400: Bad request
         } else {
             $class_schedule_data = $request->all();
-            // $class_schedule_data['time_start']  = date("H:i", strtotime($class_schedule_data['time_start']));
-            // $class_schedule_data['time_end']  = date("H:i", strtotime($class_schedule_data['time_end']));
+            // $class_schedule_data['time_start']  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+            // $class_schedule_data['time_end']  = date("H:i:s", strtotime($class_schedule_data['time_end']));
             // $setting = DB::table('settings')->first();
             // $class_schedule_data = $request->all();
             // // $class_schedule_data['academic_year_id'] = $setting->current_academic_year;
             // // $class_schedule_data['semester_id'] = $setting->current_semester;
             $class_schedule_data['last_updated_by'] = Auth::user()->id;
-            return $this->createSchedule($class_schedule_data, $user);
+            // return $this->createSchedule($class_schedule_data, $user);
             // return $request->course_id;
             // return $this->conflictChecker($class_schedule_data,$user);
+
+            for ($i = 0; $i < 2; $i++) {
+              if($i == 0){
+
+              }
+              if($i == 0){
+
+              }
+              elseif($i == 0){
+
+              }
+            }
+            // return $this->roomConflictChecker($class_schedule_data, $user);
+            // return $this->instructorConflictChecker($class_schedule_data, $user);
+            return $this->courseConflictChecker($class_schedule_data, $user);
+
           }
       }else{
           //record in activity log
@@ -154,6 +170,156 @@ class ClassScheduleController extends Controller
         return false;
       }
     } // end of function createSchedule()
+
+    // START OF COURSE CONFLICT CHECKER
+    public function courseConflictChecker($class_schedule_data, $user){
+      //convert 12 Hour format to 24 Hour format
+      $course_time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+      $course_time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
+
+      $course_schedule = ClassSchedule::select('*')
+      ->where('academic_year_id', $class_schedule_data['academic_year_id'])
+      ->where('semester_id', $class_schedule_data['semester_id'])
+      ->where('day', $class_schedule_data['day'])
+      ->where('course_id', $class_schedule_data['course_id'])
+      ->where('year_level', $class_schedule_data['year_level'])
+      // ->where('block', $class_schedule_data['block'])
+      // ->orWhere('batch', $class_schedule_data['batch'])
+      ->where(function ($query) use ($course_time_start,$course_time_end) {
+               $query->whereBetween('time_start', [$course_time_start, $course_time_end])
+                     ->orWhereBetween('time_end', [$course_time_start, $course_time_end]);
+           })
+      ->where('time_end', '!=', $course_time_start)
+      ->Where('time_start', '!=', $course_time_end)
+      ->get();
+
+      if($course_schedule->isNotEmpty()){
+        $course_data = $course_schedule[0];
+        if ($course_time_start >= $course_data->time_end) {
+          // return null;
+          return "new sched is before";
+        }
+        elseif ($course_time_end <= $course_data->time_start ) {
+          // return null;
+          return "new sched is after";
+        }
+        elseif (($course_time_start == $course_data->time_start) AND ($course_time_end == $course_data->time_end)) {
+          // return the conflict
+          $course_data->time_start = date("g:iA", strtotime($course_data->time_start));
+
+          $course_data->time_end = date("g:iA", strtotime($course_data->time_end));
+          return $course_data;
+        }
+        else {
+          $course_data->time_start = date("g:iA", strtotime($course_data->time_start));
+
+          $course_data->time_end = date("g:iA", strtotime($course_data->time_end));
+
+          return $course_data;
+        }
+      }
+    }
+    // END  OF COURSE CONFLICT CHECKER
+
+    // START OF ROOM CONFLICT CHECKER
+    public function roomConflictChecker($class_schedule_data, $user){
+      //convert 12 Hour format to 24 Hour format
+      $room_time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+      $room_time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
+
+      $room_schedule = ClassSchedule::select('*')
+      ->where('academic_year_id', $class_schedule_data['academic_year_id'])
+      ->where('semester_id', $class_schedule_data['semester_id'])
+      ->where('room_id', $class_schedule_data['room_id'])
+      ->where('day', $class_schedule_data['day'])
+      ->where(function ($query) use ($room_time_start,$room_time_end) {
+               $query->whereBetween('time_start', [$room_time_start, $room_time_end])
+                     ->orWhereBetween('time_end', [$room_time_start, $room_time_end]);
+           })
+      // ->take(1)
+      ->where('time_end', '!=', $room_time_start)
+      ->Where('time_start', '!=', $room_time_end)
+      ->with('room')
+      ->get();
+
+      if($room_schedule->isNotEmpty()){
+        $room_data = $room_schedule[0];
+        if ($room_time_start >= $room_data->time_end) {
+          // return null;
+          return "new sched is before";
+        }
+        elseif ($room_time_end <= $room_data->time_start ) {
+          // return null;
+          return "new sched is after";
+        }
+        // elseif($room_data->time_start == $room_time_start && $room_data->time_end == $room_time_end){
+        elseif (($room_time_start == $room_data->time_start) AND ($room_time_end == $room_data->time_end)) {
+          // return the conflict
+          $room_data->time_start = date("g:iA", strtotime($room_data->time_start));
+
+          $room_data->time_end = date("g:iA", strtotime($room_data->time_end));
+          return $room_data;
+        }
+        else {
+          $room_data->time_start = date("g:iA", strtotime($room_data->time_start));
+
+          $room_data->time_end = date("g:iA", strtotime($room_data->time_end));
+
+          return $room_data;
+        }
+      }
+    }
+    // END  OF ROOM CONFLICT CHECKER
+
+    // START OF INSTRUCTOR CONFLICT CHECKER
+    public function instructorConflictChecker($class_schedule_data, $user){
+      //convert 12 Hour format to 24 Hour format
+      $ins_time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+      $ins_time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
+
+      $ins_schedule = ClassSchedule::select('*')
+      ->where('academic_year_id', $class_schedule_data['academic_year_id'])
+      ->where('semester_id', $class_schedule_data['semester_id'])
+      ->where('instructor_id', $class_schedule_data['instructor_id'])
+      ->where('day', $class_schedule_data['day'])
+      ->where(function ($query) use ($ins_time_start,$ins_time_end) {
+               $query->whereBetween('time_start', [$ins_time_start, $ins_time_end])
+                     ->orWhereBetween('time_end', [$ins_time_start, $ins_time_end]);
+           })
+      ->where('time_end', '!=', $ins_time_start)
+      ->Where('time_start', '!=', $ins_time_end)
+      ->with('instructor')
+      ->get();
+
+      if($ins_schedule->isNotEmpty()){
+        $ins_data = $ins_schedule[0];
+        if ($ins_time_start >= $ins_data->time_end) {
+          // return null;
+          return "new sched is before";
+        }
+        elseif ($ins_time_end <= $ins_data->time_start ) {
+          // return null;
+          return "new sched is after";
+        }
+
+        elseif (($ins_time_start == $ins_data->time_start) AND ($ins_time_end == $ins_data->time_end)) {
+
+          $ins_data->time_start = date("g:iA", strtotime($ins_data->time_start));
+
+          $ins_data->time_end = date("g:iA", strtotime($ins_data->time_end));
+          return $ins_data;
+        }
+        else {
+
+          $ins_data->time_start = date("g:iA", strtotime($ins_data->time_start));
+
+          $ins_data->time_end = date("g:iA", strtotime($ins_data->time_end));
+
+          return $ins_data;
+        }
+      }
+    }
+    // END  OF INSTRUCTOR CONFLICT CHECKER
 
     public function conflictChecker($class_schedule_data, $user){
       $schedule_conflicts = array();
@@ -218,8 +384,8 @@ class ClassScheduleController extends Controller
 
       $instructor_error = [];
       // 12 hour to 24 hour
-      $time_start  = date("H:i", strtotime($class_schedule_data['time_start']));
-      $time_end  = date("H:i", strtotime($class_schedule_data['time_end']));
+      $time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+      $time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
 
       for ($j=0; $j <=3 ; $j++) {
         // check if subject is preffered by instructor
@@ -245,8 +411,8 @@ class ClassScheduleController extends Controller
         }
         // check if if schedule is inside of instructor time availability
         elseif ($j == 1) {
-          $time_start  = date("H:i", strtotime($class_schedule_data['time_start']));
-          $time_end  = date("H:i", strtotime($class_schedule_data['time_end']));
+          $time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+          $time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
 
           $instructor_availability = InstructorAvailability::select('*')
           ->where('academic_year_id', $class_schedule_data['academic_year_id'])
@@ -296,8 +462,8 @@ class ClassScheduleController extends Controller
           if($instructor_schedule->isNotEmpty()){
             // 12 hour to 24 hour
             $schedule = $instructor_schedule[0];
-            $time_start  = date("H:i", strtotime($class_schedule_data['time_start']));
-            $time_end  = date("H:i", strtotime($class_schedule_data['time_end']));
+            $time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+            $time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
 
             if (($time_start == $schedule->time_start) && ($time_end == $schedule->time_end)) {
               // return the conflict
@@ -341,45 +507,7 @@ class ClassScheduleController extends Controller
     }
     // end of function duplicateChecker
 
-    public function roomChecker($class_schedule_data){
-      //convert 12 Hour format to 24 Hour format
-      $room_time_start  = date("H:i", strtotime($class_schedule_data['time_start']));
-      $room_time_end  = date("H:i", strtotime($class_schedule_data['time_end']));
 
-      $room_schedule = ClassSchedule::select('*')
-      ->where('academic_year_id', $class_schedule_data['academic_year_id'])
-      ->where('semester_id', $class_schedule_data['semester_id'])
-      ->where('room_id', $class_schedule_data['room_id'])
-      ->where('day', $class_schedule_data['day'])
-      ->where(function ($query) use ($room_time_start,$room_time_end) {
-               $query->whereBetween('time_start', [$room_time_start, $room_time_end])
-                     ->orWhereBetween('time_end', [$room_time_start, $room_time_end]);
-           })
-      // ->take(1)
-      ->where('time_end', '!=', $room_time_start)
-      ->Where('time_start', '!=', $room_time_end)
-      ->with('room')
-      ->get();
-
-      if($room_schedule->isNotEmpty()){
-        $room_data = $room_schedule[0];
-        if ($room_time_start >= $room_data->time_end) {
-          return null;
-        }
-        elseif ($room_time_end <= $room_data->time_start ) {
-          return null;
-        }
-        // elseif($room_data->time_start == $room_time_start && $room_data->time_end == $room_time_end){
-        elseif (($room_time_start == $room_data->time_start) AND ($room_time_end == $room_data->time_end)) {
-          // return the conflict
-          return $room_data;
-        }
-        else {
-          return $room_data;
-        }
-      }
-    }
-    // end of function roomChecker
 
     public function SubjectChecker($class_schedule_data){
       return null;
@@ -684,5 +812,45 @@ class ClassScheduleController extends Controller
         ->with('instructor')
         ->get();
     }
+
+    public function roomChecker($class_schedule_data){
+      //convert 12 Hour format to 24 Hour format
+      $room_time_start  = date("H:i:s", strtotime($class_schedule_data['time_start']));
+      $room_time_end  = date("H:i:s", strtotime($class_schedule_data['time_end']));
+
+      $room_schedule = ClassSchedule::select('*')
+      ->where('academic_year_id', $class_schedule_data['academic_year_id'])
+      ->where('semester_id', $class_schedule_data['semester_id'])
+      ->where('room_id', $class_schedule_data['room_id'])
+      ->where('day', $class_schedule_data['day'])
+      ->where(function ($query) use ($room_time_start,$room_time_end) {
+               $query->whereBetween('time_start', [$room_time_start, $room_time_end])
+                     ->orWhereBetween('time_end', [$room_time_start, $room_time_end]);
+           })
+      // ->take(1)
+      ->where('time_end', '!=', $room_time_start)
+      ->Where('time_start', '!=', $room_time_end)
+      ->with('room')
+      ->get();
+
+      if($room_schedule->isNotEmpty()){
+        $room_data = $room_schedule[0];
+        if ($room_time_start >= $room_data->time_end) {
+          return null;
+        }
+        elseif ($room_time_end <= $room_data->time_start ) {
+          return null;
+        }
+        // elseif($room_data->time_start == $room_time_start && $room_data->time_end == $room_time_end){
+        elseif (($room_time_start == $room_data->time_start) AND ($room_time_end == $room_data->time_end)) {
+          // return the conflict
+          return $room_data;
+        }
+        else {
+          return $room_data;
+        }
+      }
+    }
+    // end of function roomChecker
 
 }

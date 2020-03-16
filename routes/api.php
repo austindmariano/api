@@ -78,6 +78,9 @@ Route::group(['prefix' => 'v1'], function(){
         // this route will permanently delete an instructor record
         Route::delete('instructors/{instructor}', 'InstructorController@destroy');
 
+        // this route will get schedules of specific instructor
+        Route::get('instructors/{instructor}/schedules', 'InstructorController@getInstructorSchedules');
+
         // this route will return all availabilities of all instructors
         Route::get('instructor_availabilities', 'InstructorController@availabilities');
 
@@ -131,6 +134,9 @@ Route::group(['prefix' => 'v1'], function(){
         //This GET method will display curriculums of specified course
         Route::get('/courses/{course}/curriculums', 'CourseController@showCourseCurriculum');
 
+        //This route will display schedules of specific course. you can also pass filtering here using params
+        Route::get('/courses/{course}/schedules', 'CourseController@getCourseSchedules');
+
         // This GET method will display all schedules of specified course
         Route::get('/courses/{course}/class_schedules/{academic_year}/{semester}/{year_level}/{block}/{batch?}', 'CourseController@course_schedules');
 
@@ -158,8 +164,12 @@ Route::group(['prefix' => 'v1'], function(){
 
         //This DELETE method will DELETE the specified room
         Route::delete('/rooms/{room}', 'RoomController@destroy');
+
         //This DELETE method will DELETE the specified room
-        Route::get('/rooms/{room}/class_schedules/{academic_year}/{semester}', 'RoomController@room_schedules');
+        Route::get('/rooms/{room}/schedules', 'RoomController@getRoomSchedules');
+
+        //This routing will get all schedules of specified room
+        // Route::get('/rooms/{room}/class_schedules/{academic_year}/{semester}', 'RoomController@room_schedules');
 
 
         //End of Room Routes
