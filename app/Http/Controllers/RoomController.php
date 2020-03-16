@@ -263,6 +263,20 @@ class RoomController extends Controller
 
     } // end of function destroy()
 
+    public function getRoomSchedules(Room $room, Request $request){
+      if($request->query() != null){
+
+
+        $request->merge(['time_start' => date("H:i:s", strtotime($request->query('time_start')))]);
+
+        // return specific room schedules based on the given values
+        return $room->class_schedules()->where($request->query())->get();
+      }else{
+        // return all schedules of specific room
+        return $room->class_schedules;
+      }
+    }
+
     public function room_schedules($room, $academic_year, $semester)
     {
       $user = Auth::user();
