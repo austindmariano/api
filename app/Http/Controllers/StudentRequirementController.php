@@ -86,10 +86,10 @@ class StudentRequirementController extends Controller
           $requirement_data = $request->all();
           $requirement_data['last_updated_by'] = Auth::user()->id;
 
-          // getting the latest student
-          $student = Student::orderBy('id', 'DESC')->first();
-          $requirement_data['student_number'] = $student->student_number;
-          $requirement_data['id'] = $student->id;
+          // // getting the latest student
+          // $student = Student::orderBy('id', 'DESC')->first();
+          $requirement_data['student_number'] = $request->student_number;
+          $requirement_data['id'] = $request->id;
 
           // setting url to no images temporarily
           $requirement_data['url_tor'] = 'no_image.jpg';
