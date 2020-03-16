@@ -722,6 +722,17 @@ class InstructorController extends Controller
 
     } //end of function instructorClass_Schedules()
 
+    // get specific instructor schedules w/ or w/o filters
+    public function getInstructorSchedules(Instructor $instructor, Request $request){
+      if($request->query() != null){
+        // return specific room schedules based on the given values
+        return $instructor->class_schedules()->where($request->query())->get();
+      }else{
+        // return all schedules of specific room
+        return $instructor->class_schedules;
+      }
+    }
+
     public function instructors_schedules(){
       $user = Auth::user();
       //Check if user has permission to view class schedule records.

@@ -311,6 +311,16 @@ class CourseController extends Controller
       }
     }
 
+    public function getCourseSchedules(Course $course, Request $request){
+      if($request->query() != null){
+        // return specific course schedules based on the given values
+        return $course->class_schedules()->where($request->query())->get();
+      }else{
+        // return all schedules of specific room
+        return $course->class_schedules;
+      }
+    }
+
     public function course_schedules($course, $academic_year, $semester, $year_level, $block, $batch = null){
       $user = Auth::user();
       //Check if user has permission to view course records.
