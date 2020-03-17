@@ -206,6 +206,36 @@ class UserController extends Controller
 
     }
 
+    public function updateUserPrivilege(UserPrivilege $userprivilege, Request $request){
+        //Check if user has permission to manage user accounts
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
+        if ($isAuthorized) {
+            $request['last_updated_by'] = Auth::user()->id;
+            $userprivilege->update($request->all());
+            if($userprivilege != null){
+                //record in activity log
+                $activityLog = ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Updated the privileges of user ' . $request['user_id'] . '.',
+                    'time' => Carbon::now()
+                ]);
+                return response()->json([
+                    'message' => 'Privileges successfully updated.'
+                ]);
+            }
+        }else{
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to update the privileges of user ' . $request['user_id'] . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to update privileges.'
+            ], 401);
+        }
+
+    }
+
     public function showUserPrivilege(User $user){
       //Check if user has permission to view user accounts
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'read_priv');

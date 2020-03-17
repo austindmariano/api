@@ -40,8 +40,11 @@ Route::group(['prefix' => 'v1'], function(){
         // get all privileges of specific user
         Route::get('users/{user}/privileges', 'UserController@showUserPrivilege');
 
+        // update specific privilege
+        Route::put('privileges/{userprivilege}', 'UserControllerController@updateUserPrivilege');
+
         // get specific privilege of specific user
-        Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');
+        // Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');
 
         // get user activities
         Route::get('activities', 'UserActivityController@index');
