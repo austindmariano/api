@@ -50,6 +50,7 @@ class LoginController extends Controller
     public function login(Request $request){
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
             $user = Auth::user();
+            $user['activities'] = $user->privileges;
             //record in activity log
             $activityLog = ActivityLog::create([
                 'user_id' => $user->id,
