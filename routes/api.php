@@ -390,6 +390,9 @@ Route::group(['prefix' => 'v1'], function(){
         //This GET method will show the specified student using STUDENT NUMBER.
         Route::get('/get_student/{student_number}', 'StudentController@getStudent');
 
+        // This route will create new student requirement record
+        Route::post('/student_requirements', 'StudentController@storeStudentRequirements');
+
         //End of Student Routes
         //--------------------------------------------------------------------------
 
@@ -401,7 +404,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/student_requirements', 'StudentRequirementController@index');
 
         //This POST method will create a new student requirements.
-        Route::post('/student_requirements', 'StudentRequirementController@store');
+        // Route::post('/student_requirements', 'StudentRequirementController@store');
 
         //This GET method will show the specified student requirements.
         Route::get('/student_requirements/{student_requirement}', 'StudentRequirementController@show');

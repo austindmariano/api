@@ -19,4 +19,8 @@ class Student extends Model
   public function enrollment(){
     return $this->hasMany('App\Enrollment')->select('*');
   }
+
+  public function requirements(){
+    return $this->hasMany('App\StudentRequirement')->select("*");
+  }
 }
