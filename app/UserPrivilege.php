@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserPrivilege extends Model
+class UserPrivilege extends Pivot
 {
     /**
      * The attributes that are mass assignable.
@@ -14,8 +15,5 @@ class UserPrivilege extends Model
     protected $fillable = [
         'user_id', 'activity_id', 'create_priv', 'read_priv', 'update_priv', 'delete_priv', 'last_updated_by'
     ];
-
-    public function activity(){
-        return $this->belongsTo('App\UserActivity')->select('id', 'title');
-    }
+    public $incrementing = true;
 }
