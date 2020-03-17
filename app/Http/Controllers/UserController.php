@@ -217,7 +217,7 @@ class UserController extends Controller
               'activity' => 'Viewed user account of ' . $user->username . '.',
               'time' => Carbon::now()
           ]);
-          return $user->privileges();
+          return $user->privileges;
       }
       else{
           //record in activity log
