@@ -78,9 +78,10 @@ class RegisterController extends Controller
                     'activity' => 'Created user account for ' . $user->username . '.',
                     'time' => Carbon::now()
                 ]);
-                return response()->json([
-                    'message' => 'User account successfully created.'
-                ],200);    //user created
+                return $user;
+                // return response()->json([
+                //     'message' => 'User account successfully created.'
+                // ],200);    //user created
             }
         }else{
             //record in activity log
