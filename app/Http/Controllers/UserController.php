@@ -88,7 +88,7 @@ class UserController extends Controller
               'email' => 'email',
               'password' => 'min:6|confirmed',
               'first_name' => 'string',
-              'middle_name' => 'string',
+              'middle_name' => 'nullable|string',
               'last_name' => 'string',
               'role' => 'string'
           ]);
@@ -104,7 +104,7 @@ class UserController extends Controller
             // check if username already exist
             $email = User::select('*')
               ->where('id', '!=', $user->id)
-              ->where('username', $request->email)
+              ->where('email', $request->email)
               ->get();
 
             // check if email is already used

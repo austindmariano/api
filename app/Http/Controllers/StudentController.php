@@ -35,7 +35,15 @@ class StudentController extends Controller
               'time' => Carbon::now()
           ]);
            $students = Student::orderBy('id', 'DESC')->get();
-           return $students;
+
+           $num = 1000;
+          foreach ($students as $student) {
+            $student->student_number = "1718-01-" . strval($num);
+            Student::where('id', $student->id)
+            ->update(['student_number' => $student->student_number]);
+            $num++;
+          }
+
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -169,7 +177,7 @@ class StudentController extends Controller
           // return $student_data['student_number'];
           try {
 
-            // $student = Student::create($student_data);
+            $student = Student::create($student_data);
             // check if record is successfully created.
             if ($student) {
               //record in activity log
@@ -180,7 +188,7 @@ class StudentController extends Controller
               ]);
               // return "ffff";
               $this->storeStudentRequirements($request);
-              return response()->json(['message' => 'New student record successfully created.'], 200);
+              // return response()->json(['message' => 'New student record successfully created.'], 200);
 
             }else {
               return response()->json(['message' => 'Failed to create new student record.'], 500); // server error
@@ -396,6 +404,7 @@ class StudentController extends Controller
             'url_birth_certificate' => 'image|nullable|max:1999',
             'url_photo' => 'image|nullable|max:1999',
             'url_honorable' => 'image|nullable|max:1999',
+            'active' => 'required|numeric',
         ]);
 
 
@@ -409,18 +418,20 @@ class StudentController extends Controller
         }
         else {
           $student = Student::where('active', 1)
-          ->orderBy('id', 'asc')
+          ->orderBy('id', 'desc')
           ->first();
 
           // return $student->student_number;
 
           $requirement_data = $request->all();
           $requirement_data['last_updated_by'] = Auth::user()->id;
+          $requirement_data['active'] = 1;
+
 
           // // getting the latest student
           // $student = Student::orderBy('id', 'DESC')->first();
           $requirement_data['student_number'] = $student->student_number;
-          $requirement_data['student_id'] = $student->id;
+          $requirement_data['id'] = $student->id;
 
           for ($i=0; $i <= 7; $i++) {
             if($i == 0) {
@@ -506,7 +517,8 @@ class StudentController extends Controller
                   'activity' => 'Created a new student requirement.',
                   'time' => Carbon::now()
               ]);
-              return response()->json(['message' => 'New student requirement successfully created.'], 200);
+              return response()->json(['message' => 'New student record successfully created.'], 200);
+              // return response()->json(['message' => 'New student requirement successfully created.'], 200);
             }else {
               return response()->json(['message' => 'Failed to create new student requirement record.'], 500); // server error
             }
