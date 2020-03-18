@@ -19,14 +19,20 @@ class UserPrivilegeController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'create_priv');
 
         if ($isAuthorized) {
-            $request['last_updated_by'] = Auth::user()->id;
-            $privilege = UserPrivilege::create($request->all());
+            // $request['last_updated_by'] = Auth::user()->id;
+
+            $user_privileges = $request->except('last_updated_by');
+            foreach ($user_privileges as $user_privilege) {
+              $user_privilege['last_updated_by'] = Auth::user()->id;
+              $privilege = UserPrivilege::create($user_privilege);
+            }
+            // $privilege = UserPrivilege::create($request->all());
 
             if($privilege != null){
                 //record in activity log
                 $activityLog = ActivityLog::create([
                     'user_id' => Auth::user()->id,
-                    'activity' => 'Granted some privileges to user ' . $request['user_id'] . '.',
+                    'activity' => 'Granted some privileges to user ' . $request[0]['user_id'] . '.',
                     'time' => Carbon::now()
                 ]);
                 return response()->json([
@@ -37,7 +43,7 @@ class UserPrivilegeController extends Controller
             //record in activity log
             $activityLog = ActivityLog::create([
                 'user_id' => Auth::user()->id,
-                'activity' => 'Attempted to grant some privileges to user ' . $request['user_id'] . '.',
+                'activity' => 'Attempted to grant some privileges to user ' . $request[0]['user_id'] . '.',
                 'time' => Carbon::now()
             ]);
             return response()->json([
