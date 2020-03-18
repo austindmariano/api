@@ -35,15 +35,7 @@ class StudentController extends Controller
               'time' => Carbon::now()
           ]);
            $students = Student::orderBy('id', 'DESC')->get();
-
-           $num = 1000;
-          foreach ($students as $student) {
-            $student->student_number = "1718-01-" . strval($num);
-            Student::where('id', $student->id)
-            ->update(['student_number' => $student->student_number]);
-            $num++;
-          }
-
+           return $students;
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
