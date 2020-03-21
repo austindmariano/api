@@ -470,4 +470,15 @@ Route::group(['prefix' => 'v1'], function(){
 
         Route::get('/trycourse', 'CourseController@showCourseCurriculum');
   });
+      // this route will get all reset password records
+      Route::get('/reset_passwords', 'ResetPasswordController@index');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::get('/verify_email', 'ResetPasswordController@verifyEmail');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::get('/validate_token', 'ResetPasswordController@validateToken');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::put('/change_password', 'ResetPasswordController@changePassword');
 });
