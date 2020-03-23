@@ -38,7 +38,9 @@ class SubjectController extends Controller
                 // return all subjects
                  // $subjects = Subject::all();
                  // return all subject in DESC using ID
-                 $subjects = Subject::orderBy('id', 'DESC')->get();;
+                 // $subjects = Subject::orderBy('id', 'DESC')->get();;
+                 // ascending order using subject code
+                 $subjects = Subject::orderBy('subject_code', 'asc')->get();;
 
             }
             //record in activity log
@@ -94,8 +96,36 @@ class SubjectController extends Controller
             else {
                 try {
                     $subjectData = $request->all();
+                    $subjectData['subject_code'] = strtoupper($subjectData['subject_code']);
+                    // $subjectData['subject_description'] = ucwords($subjectData['subject_description']);
                     $subjectData['last_updated_by'] = Auth::user()->id;
-                    $subject = Subject::create($subjectData);
+
+                    // check if subject has laboratory
+                    if ($subjectData['lab'] == 1){
+                      $subject_desc = $subjectData['subject_description'];
+                      for ($i=0; $i < 2; $i++) {
+                        if ($i == 0){
+                          // stores the lecture subject
+                          $subjectData['units'] = 2;
+                          $subjectData['lec'] = 2;
+                          $subjectData['lab'] = 0;
+                          $subjectData['subject_description'] = $subjectData['subject_description'] . " - LEC";
+                        }
+                        if ($i == 1){
+                          // store the laboratory subject
+                          $subjectData['units'] = 1;
+                          $subjectData['lec'] = 0;
+                          $subjectData['lab'] = 1;
+                          $subjectData['subject_code'] .= "-L";
+                          $subjectData['subject_description'] = $subject_desc . " - LAB";
+                        }
+                        $subject = Subject::create($subjectData);
+                      }
+                    }else{
+                      $subject = Subject::create($subjectData);
+                    }
+
+                    // $subject = Subject::create($subjectData);
                     if ($subject) {
                         //record in activity log
                         $activityLog = ActivityLog::create([

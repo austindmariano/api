@@ -27,35 +27,94 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('settings', function(){
           return response()->json(Config::get('settings'));
         });
+
+        //--------------------------------------------------------------------------
+        //Beginning of USER Routes
         Route::post('users', 'Auth\RegisterController@register');
         Route::post('logout', 'Auth\LoginController@logout');
         Route::get('users', 'UserController@index');
         Route::get('users/{user}', 'UserController@show');
         Route::put('users/{user}', 'UserController@update');
         Route::delete('users/{user}', 'UserController@destroy');
-        Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
+
+        // get all privileges of specific user
+        Route::get('users/{user}/privileges', 'UserController@showUserPrivilege');
+
+        // update specific privilege
+        Route::put('privileges/{userprivilege}', 'UserControllerController@updateUserPrivilege');
+
+        // get specific privilege of specific user
+        // Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');
+
+        // get user activities
+        Route::get('activities', 'UserActivityController@index');
+
+        // update specific privilege
         Route::put('privileges/{userprivilege}', 'UserPrivilegeController@updatePrivilege');
+
+        // grants user a privilege
+        Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
+
+        // update specific privilege of specified user
+        // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
+
+        //End of USER Routes
+        //--------------------------------------------------------------------------
+
+
+
+        //--------------------------------------------------------------------------
+        //Beginning of INSTRUCTOR Routes
+
+        // this route will return list of all instructors
         Route::get('instructors', 'InstructorController@index');
+
+        // this route will return records of specific instructor using id
         Route::get('instructors/{instructor}', 'InstructorController@show');
+
+        // the route will create a new instructor record
         Route::post('instructors', 'InstructorController@store');
+
+        // this route will update the record of specified instructor using id
         Route::put('instructors/{instructor}', 'InstructorController@update');
+
+        // this route will permanently delete an instructor record
         Route::delete('instructors/{instructor}', 'InstructorController@destroy');
+
+        // this route will get schedules of specific instructor
+        Route::get('instructors/{instructor}/schedules', 'InstructorController@getInstructorSchedules');
+
+        // this route will return all availabilities of all instructors
         Route::get('instructor_availabilities', 'InstructorController@availabilities');
+
+        // CHECKED
+        // this route will return availabilitites of specified instructor using id
         Route::get('instructors/{instructor}/availabilities', 'InstructorController@availabilities');
+
+        //this route add new availability of a specified instructor using id
         Route::post('instructors/{instructor}/availabilities', 'InstructorController@addAvailability');
+
+        // this route will update specific availability of an instructor using its id
         Route::put('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@updateAvailability');
+
+        // this route will
         Route::delete('instructors/{instructor}/availabilities/{instructoravailability}', 'InstructorController@deleteAvailability');
-        Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
+
+        // Route::get('instructor_preferred_subjects', 'InstructorController@preferred_subjects');
         Route::get('instructors/{instructor}/preferred_subjects', 'InstructorController@preferred_subjects');
         Route::post('instructors/{instructor}/preferred_subjects', 'InstructorController@addPreferredSubject');
         Route::put('instructors/{instructor}/preferred_subjects/{preferredsubject}', 'InstructorController@updatePreferredSubject');
         Route::delete('instructors/{instructor}/preferred_subjects/{preferredsubject}', 'InstructorController@deletePreferredSubject');
+
+
         // Gets All Class Schedule of the specified instructor
-        Route::get('instructors/{instructor}/class_schedules', 'InstructorController@instructorClass_Schedules');
+        Route::get('instructors/{instructor}/class_schedules/{academic_year}/{semester}', 'InstructorController@instructorClassSchedules');
+
         // Gets all class schedule of all instructors
         Route::get('instructors_class_schedules', 'InstructorController@instructors_schedules');
 
-
+        //End of INSTRUCTOR Routes
+        //--------------------------------------------------------------------------
 
         //--------------------------------------------------------------------------
         //Beginning of Course Routes
@@ -77,6 +136,12 @@ Route::group(['prefix' => 'v1'], function(){
 
         //This GET method will display curriculums of specified course
         Route::get('/courses/{course}/curriculums', 'CourseController@showCourseCurriculum');
+
+        //This route will display schedules of specific course. you can also pass filtering here using params
+        Route::get('/courses/{course}/schedules', 'CourseController@getCourseSchedules');
+
+        // This GET method will display all schedules of specified course
+        Route::get('/courses/{course}/class_schedules/{academic_year}/{semester}/{year_level}/{block}/{batch?}', 'CourseController@course_schedules');
 
         //This GET method will display class schedules of specified course
         // Route::get('/courses/{course}/class_schedule', 'CourseController@showCourseClassSchedule');
@@ -102,8 +167,12 @@ Route::group(['prefix' => 'v1'], function(){
 
         //This DELETE method will DELETE the specified room
         Route::delete('/rooms/{room}', 'RoomController@destroy');
+
         //This DELETE method will DELETE the specified room
-        Route::get('/rooms/{room}/schedules', 'RoomController@room_schedules');
+        Route::get('/rooms/{room}/schedules', 'RoomController@getRoomSchedules');
+
+        //This routing will get all schedules of specified room
+        // Route::get('/rooms/{room}/class_schedules/{academic_year}/{semester}', 'RoomController@room_schedules');
 
 
         //End of Room Routes
@@ -155,7 +224,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::delete('/curriculums/{curriculum}', 'CurriculumController@destroy');
 
         //This GET method will display the subjects of the specified Curriculum
-        Route::get('/curriculums/{curriculum}/subjects', 'CurriculumController@showCurriculumSubjects');
+        Route::get('/curriculums/{curriculum}/subjects', 'CurriculumController@getCurriculumSubjects');
 
         //End of Curriculum Routes
         //--------------------------------------------------------------------------
@@ -179,6 +248,10 @@ Route::group(['prefix' => 'v1'], function(){
 
         // this DELETE method will delete the specified curriculum subject
         Route::delete('/curriculum_subjects/{curriculum_subject}', 'CurriculumSubjectController@destroy');
+
+        // moodified Functions
+        Route::get('/curriculum_subjects/{curriculum_subject}/instructors', 'CurriculumSubjectController@getInstructors');
+
 
         // Route::get('/getSubject/{curriculum_subject}', 'CurriculumSubjectController@getSubject');
 
@@ -247,6 +320,11 @@ Route::group(['prefix' => 'v1'], function(){
         //This DELETE method will DELETE a specified class schedule.
         Route::delete('/class_schedules/{class_schedule}', 'ClassScheduleController@destroy');
 
+        //  Modiefied Functions
+        Route::post('/course/get_subjects', 'ClassScheduleController@getSubjects');
+
+        Route::post('/subject/instructors', 'ClassScheduleController@getInstructors');
+
         //End of Class Schedule Routes
         //--------------------------------------------------------------------------
 
@@ -312,6 +390,12 @@ Route::group(['prefix' => 'v1'], function(){
         //This DELETE method will DELETE a specified student.
         Route::delete('/students/{student}', 'StudentController@destroy');
 
+        //This GET method will show the specified student using STUDENT NUMBER.
+        Route::get('/get_student/{student_number}', 'StudentController@getStudent');
+
+        // This route will create new student requirement record
+        Route::post('/student_requirements', 'StudentController@storeStudentRequirements');
+
         //End of Student Routes
         //--------------------------------------------------------------------------
 
@@ -323,7 +407,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/student_requirements', 'StudentRequirementController@index');
 
         //This POST method will create a new student requirements.
-        Route::post('/student_requirements', 'StudentRequirementController@store');
+        // Route::post('/student_requirements', 'StudentRequirementController@store');
 
         //This GET method will show the specified student requirements.
         Route::get('/student_requirements/{student_requirement}', 'StudentRequirementController@show');
@@ -358,10 +442,43 @@ Route::group(['prefix' => 'v1'], function(){
         //End of Student Requirements Routes
         //--------------------------------------------------------------------------
 
+        //--------------------------------------------------------------------------
+        //Beginning of Student Schedule Routes
+
+        //This GET method will show all of the enrollment record
+        Route::get('/enrollments', 'EnrollmentController@index');
+
+        //This POST method will create a new enrollment record.
+        Route::post('/enrollments', 'EnrollmentController@store');
+
+        //This GET method will show the specified enrollment record.
+        Route::get('/enrollments/{enrollment}', 'EnrollmentController@show');
+
+        //This PUT method will UPDATE a specified enrollment record.
+        Route::put('/enrollments/{enrollment}', 'EnrollmentController@update');
+
+        //This DELETE method will DELETE a specified enrollment record.
+        Route::delete('/enrollments/{enrollment}', 'EnrollmentController@destroy');
+
+        //End of Student Requirements Routes
+        //--------------------------------------------------------------------------
+
+
         Route::get('/test', 'ClassScheduleController@test');
 
         // TRY Eloquent Modeling
 
         Route::get('/trycourse', 'CourseController@showCourseCurriculum');
   });
+      // this route will get all reset password records
+      Route::get('/reset_passwords', 'ResetPasswordController@index');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::get('/verify_email', 'ResetPasswordController@verifyEmail');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::get('/validate_token', 'ResetPasswordController@validateToken');
+
+      // this route will verify if email does exist and sends token to the user
+      Route::put('/change_password', 'ResetPasswordController@changePassword');
 });

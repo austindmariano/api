@@ -24,112 +24,112 @@ class Container implements ArrayAccess, ContainerContract
     /**
      * An array of the types that have been resolved.
      *
-     * @var array
+     * @var bool[]
      */
     protected $resolved = [];
 
     /**
      * The container's bindings.
      *
-     * @var array
+     * @var array[]
      */
     protected $bindings = [];
 
     /**
      * The container's method bindings.
      *
-     * @var array
+     * @var \Closure[]
      */
     protected $methodBindings = [];
 
     /**
      * The container's shared instances.
      *
-     * @var array
+     * @var object[]
      */
     protected $instances = [];
 
     /**
      * The registered type aliases.
      *
-     * @var array
+     * @var string[]
      */
     protected $aliases = [];
 
     /**
      * The registered aliases keyed by the abstract name.
      *
-     * @var array
+     * @var array[]
      */
     protected $abstractAliases = [];
 
     /**
      * The extension closures for services.
      *
-     * @var array
+     * @var array[]
      */
     protected $extenders = [];
 
     /**
      * All of the registered tags.
      *
-     * @var array
+     * @var array[]
      */
     protected $tags = [];
 
     /**
      * The stack of concretions currently being built.
      *
-     * @var array
+     * @var array[]
      */
     protected $buildStack = [];
 
     /**
      * The parameter override stack.
      *
-     * @var array
+     * @var array[]
      */
     protected $with = [];
 
     /**
      * The contextual binding map.
      *
-     * @var array
+     * @var array[]
      */
     public $contextual = [];
 
     /**
      * All of the registered rebound callbacks.
      *
-     * @var array
+     * @var array[]
      */
     protected $reboundCallbacks = [];
 
     /**
      * All of the global resolving callbacks.
      *
-     * @var array
+     * @var \Closure[]
      */
     protected $globalResolvingCallbacks = [];
 
     /**
      * All of the global after resolving callbacks.
      *
-     * @var array
+     * @var \Closure[]
      */
     protected $globalAfterResolvingCallbacks = [];
 
     /**
      * All of the resolving callbacks by class type.
      *
-     * @var array
+     * @var array[]
      */
     protected $resolvingCallbacks = [];
 
     /**
      * All of the after resolving callbacks by class type.
      *
-     * @var array
+     * @var array[]
      */
     protected $afterResolvingCallbacks = [];
 
@@ -546,11 +546,7 @@ class Container implements ArrayAccess, ContainerContract
      */
     protected function getReboundCallbacks($abstract)
     {
-        if (isset($this->reboundCallbacks[$abstract])) {
-            return $this->reboundCallbacks[$abstract];
-        }
-
-        return [];
+        return $this->reboundCallbacks[$abstract] ?? [];
     }
 
     /**
@@ -631,7 +627,7 @@ class Container implements ArrayAccess, ContainerContract
                 throw $e;
             }
 
-            throw new EntryNotFoundException;
+            throw new EntryNotFoundException($id);
         }
     }
 
@@ -757,9 +753,7 @@ class Container implements ArrayAccess, ContainerContract
      */
     protected function findInContextualBindings($abstract)
     {
-        if (isset($this->contextual[end($this->buildStack)][$abstract])) {
-            return $this->contextual[end($this->buildStack)][$abstract];
-        }
+        return $this->contextual[end($this->buildStack)][$abstract] ?? null;
     }
 
     /**
@@ -818,9 +812,13 @@ class Container implements ArrayAccess, ContainerContract
         // Once we have all the constructor's parameters we can create each of the
         // dependency instances and then use the reflection instances to make a
         // new instance of this class, injecting the created dependencies in.
-        $instances = $this->resolveDependencies(
-            $dependencies
-        );
+        try {
+            $instances = $this->resolveDependencies($dependencies);
+        } catch (BindingResolutionException $e) {
+            array_pop($this->buildStack);
+
+            throw $e;
+        }
 
         array_pop($this->buildStack);
 
@@ -1122,11 +1120,7 @@ class Container implements ArrayAccess, ContainerContract
     {
         $abstract = $this->getAlias($abstract);
 
-        if (isset($this->extenders[$abstract])) {
-            return $this->extenders[$abstract];
-        }
-
-        return [];
+        return $this->extenders[$abstract] ?? [];
     }
 
     /**
@@ -1187,7 +1181,7 @@ class Container implements ArrayAccess, ContainerContract
     }
 
     /**
-     * Set the globally available instance of the container.
+     * Get the globally available instance of the container.
      *
      * @return static
      */

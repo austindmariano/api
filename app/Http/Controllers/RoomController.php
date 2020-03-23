@@ -165,8 +165,15 @@ class RoomController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.room_management'), 'update_priv');
 
       if($isAuthorized){
+
         //data validation
-        $validator = Validator::make($request->all(),[
+        if($room->room_number == $request['room_number']) {
+          $room_data = $request->except('room_number');
+        } else {
+          $room_data = $request->all();
+        }
+
+        $validator = Validator::make($room_data,[
           'room_number' => 'unique:rooms,room_number',
           'room_name' => 'string',
           'room_type' => 'string',
@@ -256,7 +263,21 @@ class RoomController extends Controller
 
     } // end of function destroy()
 
-    public function room_schedules(Room $room)
+    public function getRoomSchedules(Room $room, Request $request){
+      if($request->query() != null){
+
+
+        $request->merge(['time_start' => date("H:i:s", strtotime($request->query('time_start')))]);
+
+        // return specific room schedules based on the given values
+        return $room->class_schedules()->where($request->query())->get();
+      }else{
+        // return all schedules of specific room
+        return $room->class_schedules;
+      }
+    }
+
+    public function room_schedules($room, $academic_year, $semester)
     {
       $user = Auth::user();
       //Check if user has permission to view room records.
@@ -269,7 +290,7 @@ class RoomController extends Controller
             'activity' => 'Viewed the class schedule of ' . $room->room_number . '.',
             'time' => Carbon::now()
         ]);
-        return $room->class_schedules;
+        return $this->getClassSchedule($room, $academic_year, $semester);
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -281,6 +302,76 @@ class RoomController extends Controller
               'message' => 'You are not authorized to view room records.'
           ],401);      //401: Unauthorized
       }
-
     } // end of function show()
+
+    public function getClassSchedule($room, $academic_year, $semester){
+      $classes = ClassSchedule::
+          where('room_id', $room)
+          ->where('academic_year_id', $academic_year)
+          ->where('semester_id', $semester)
+          ->orderBy('id', 'DESC')->get();
+      $myArr = [];
+      $i = 0;
+      foreach ($classes as $class) {
+        $sched_time_start  = date("g:iA", strtotime($class->time_start));
+        $sched_time_end  = date("g:iA", strtotime($class->time_end));
+        $myArr[$i] = array(
+          'id' => $class->id,
+          'subject' => array(
+            'curr_subject_id' => $class->subject->id,
+            'subject_id' => $class->subject->subject_id,
+            'subject_code' => $class->subject->subject->subject_code,
+            'subject_desc' => $class->subject->subject->subject_description,
+            'year_level' => $class->subject->year_level,
+            'units' => $class->subject->subject->units,
+            'lec' => $class->subject->subject->lec,
+            'lab' => $class->subject->subject->lab,
+            'active' => $class->subject->subject->active,
+          ),
+          'curriculum' => array(
+            'curriculum_id' => $class->subject->curriculum->id,
+            'curriculum_title' => $class->subject->curriculum->curriculum_title,
+            'curriculum_desc' => $class->subject->curriculum->curriculum_desc,
+          ),
+          'course' => array(
+            'id' => $class->subject->curriculum->course->id,
+            'course_code' => $class->subject->curriculum->course->course_code,
+            'course_desc' => $class->subject->curriculum->course->course_desc,
+            'course_major' => $class->subject->curriculum->course->course_major
+          ),
+         'room' => array(
+            'id' => $class->room->id,
+            'room_number' => $class->room->room_number,
+            'room_name' => $class->room->room_name,
+            'room_capacity' => $class->room->room_capacity,
+          ),
+         'instructor' => array(
+            'id' => $class->instructor->id,
+            'first_name' => $class->instructor->first_name,
+            'middle_name' => $class->instructor->middle_name,
+            'last_name' => $class->instructor->last_name,
+            'full_name' => $class->instructor->first_name . " " . $class->instructor->last_name
+          ),
+          'schedule' => array(
+            'day' => $class->day,
+            'time_start' => $sched_time_start,
+            'time_end' => $sched_time_end,
+            'time' => $sched_time_start . "-" . $sched_time_end
+          ),
+          'sem' => array(
+            'id' => $class->semester->id,
+            'semester' => $class->semester->semester,
+          ),
+          'ay' => array(
+            'id' => $class->academic_year->id,
+            'academic_year' => $class->academic_year->academic_year,
+            'formatted_ay' => "SY " . $class->academic_year->academic_year
+          ),
+          'block' => $class->block,
+          'batch' => $class->batch,
+        );
+        $i++;
+      }
+      return $myArr;
+    } // end of function getClassSchedule
 }

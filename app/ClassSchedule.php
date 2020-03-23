@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ClassSchedule extends Model
 {
     protected $table = "class_schedules";
-    protected $fillable = ['day', 'time_start', 'time_end', 'subject_id', 'room_id', 'instructor_id', 'block', 'batch', 'class_type', 'last_updated_by', 'academic_year_id', 'semester_id'];
+    protected $fillable = ['day', 'time_start', 'time_end', 'subject_id',
+    'room_id', 'instructor_id', 'block', 'batch', 'last_updated_by',
+    'academic_year_id', 'semester_id', 'year_level', 'curriculum_id', 'course_id',
+    'course_code', 'subject_code', 'year_level', 'active'];
 
     public function room(){
       return $this->belongsTo('App\Room')->select('id','room_number', 'room_name', 'room_capacity');
@@ -31,5 +34,9 @@ class ClassSchedule extends Model
 
     public function academic_year(){
         return $this->belongsTo('App\AcademicYear')->select('id', 'academic_year');
+    }
+
+    public function course(){
+      return $this->belongsTo('App\Course')->select('*');
     }
 }

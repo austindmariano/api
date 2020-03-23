@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\CurriculumSubject;
 use App\Subject;
+use App\InstructorPreferredSubject;
 use App\Curriculum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,13 +29,17 @@ class CurriculumSubjectController extends Controller
       if ($isAuthorized) {
           if($request->query() != null){
               if($request->query('sort')!=null){
-                  $curriculum_subjects = CurriculumSubject::orderBy($request->query('sort'))->with('subject', 'curriculum')->get();
+                  $curriculum_subjects = CurriculumSubject::orderBy($request->query('sort'))->with('subject')->get();
               }else{
-                  $curriculum_subjects = CurriculumSubject::where($request->query())->with('subject', 'curriculum')->get();
+                $curriculum_subjects = CurriculumSubject::where($request->query())->with('subject')->get();
               }
           }else{
             // $curriculum_subjects = CurriculumSubject::all();
-            $curriculum_subjects = CurriculumSubject::with('subject', 'curriculum', 'semester')->orderBy('id', 'DESC')->get();
+            $curriculum_subjects = CurriculumSubject::with('subject', 'semester')
+                ->orderBy('id', 'DESC')->get();
+                // foreach($curriculum_subjects as $subject){
+                //     $result[$subject->year_level][$subject->semester->semester][] = $subject;
+                // }
           }
           //record in activity log
           $activityLog = ActivityLog::create([
@@ -42,6 +47,7 @@ class CurriculumSubjectController extends Controller
               'activity' => 'Viewed the list of curriculum subjects.',
               'time' => Carbon::now()
           ]);
+          // return $curriculum_subjects;
           return $curriculum_subjects;
       }else{
           //record in activity log
@@ -73,7 +79,9 @@ class CurriculumSubjectController extends Controller
         $validator = Validator::make($request->all(),[
           'subject_id' => 'required|numeric',
           'curriculum_id' => 'required|numeric',
-          'year_level' => 'required|string'
+          'year_level' => 'required|string',
+          'semester_id' => 'required|numeric',
+          'active' => 'required|numeric'
         ]);
 
         // check fi data is validator
@@ -98,9 +106,10 @@ class CurriculumSubjectController extends Controller
             $title = $curriculum_subject[0]->curriculum->curriculum_title;
              return response()->json([
                'message' => 'Failed to create curriculum subject record.',
-               'error' => $title . " already have this subject"
+               'errors' => $title . " already have this subject"
              ], 400);
            }else{
+             // return $curriculum_subject_data
              $curriculum_subject_data['last_updated_by'] = Auth::user()->id;
              try {
                $curriculum_subject = CurriculumSubject::create($curriculum_subject_data);
@@ -331,5 +340,13 @@ class CurriculumSubjectController extends Controller
       ->select('*')
       ->where('id', $curriculum_subject->subject_id)->first();
        return $subject_code->subject_code;
+    }
+
+    public function getInstructors(CurriculumSubject $curriculum_subject){
+      // return $curriculum_subject->subject_id ;
+      $result = InstructorPreferredSubject::select('*')->where('subject_id', $curriculum_subject->subject_id)
+        ->with('instructor')
+        ->get();
+      return $result;
     }
 }

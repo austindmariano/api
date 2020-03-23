@@ -26,7 +26,7 @@ class SemesterController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.semester_management'), 'read_priv');
 
         if($isAuthorized){
-            $semesters = Semester::orderBy('id', 'DESC')->get();
+            $semesters = Semester::orderBy('id', 'ASC')->get();
             //record in activity log
             $activityLog = ActivityLog::create([
                 'user_id' => $user->id,

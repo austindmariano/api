@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
+use App\ActivityLog;
+use Illuminate\Support\Facades\Config;
+use Carbon\Carbon;
 
 class EnrollmentController extends Controller
 {
@@ -24,7 +30,9 @@ class EnrollmentController extends Controller
             'activity' => 'Viewed the list of enrollment record.',
             'time' => Carbon::now()
         ]);
-         $enrollments = Enrollment::orderBy('id', 'DESC')->get();
+         $enrollments = Enrollment::orderBy('id', 'DESC')
+           ->with('student', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
+           ->get();
          return $enrollments;
 
       }else{
@@ -139,17 +147,6 @@ class EnrollmentController extends Controller
               'message' => 'You are not authorized to view enrollment records.'
           ],401); //401: Unauthorized
       }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Enrollment  $enrollment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Enrollment $enrollment)
-    {
-        //
     }
 
     /**

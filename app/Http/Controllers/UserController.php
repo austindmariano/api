@@ -6,6 +6,7 @@ use App\User;
 use App\ActivityLog;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class UserController extends Controller
                     $users = User::where($request->query())->get();
                 }
             }else{
-                $users = User::all();
+                $users = User::orderBy('id', 'DESC')->get();
             }
 
             //record in activity log
@@ -82,37 +83,86 @@ class UserController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
 
         if($isAuthorized){
-            $validator = Validator::make($request->all(),[
-                'username' => 'string|unique:users',
-                'email' => 'email|unique:users',
-                'first_name' => 'string',
-                'middle_name' => 'string',
-                'last_name' => 'string',
-                'role' => 'string'
-            ]);
+          $validator = Validator::make($request->all(),[
+              'username' => 'string',
+              'email' => 'email',
+              'password' => 'min:6|confirmed',
+              'first_name' => 'string',
+              'middle_name' => 'nullable|string',
+              'last_name' => 'string',
+              'role' => 'string'
+          ]);
 
-            //if validation fails
-            if ($validator->fails()){
+          if ($validator->fails()){
+              return response()->json([
+                  'message' => 'Failed to update user account.',
+                  'errors' => $validator->errors()
+              ],400);    //Bad request
+          }
+          else{
+
+            // check if username already exist
+            $email = User::select('*')
+              ->where('id', '!=', $user->id)
+              ->where('email', $request->email)
+              ->get();
+
+            // check if email is already used
+            $username = User::select('*')
+              ->where('id', '!=', $user->id)
+              ->where('username', $request->username)
+              ->get();
+
+            // check if there is alredy a record
+            $error = [];
+            if (count($email) > 0 || count($username) > 0) {
+              if (count($email) > 0) {
+                $error['email'] = [];
+                array_push(  $error['email'], "This email is already used.");
+              }
+              if (count($username) > 0) {
+                $error['username'] = [];
+                array_push(  $error['username'], "This username is already used.");
+              }
                 return response()->json([
-                    'message' => 'Failed to update user account.',
-                    'errors' => $validator->errors()
+                  'message' => 'Failed to update user account.',
+                  'errors' => $error
                 ],400);    //Bad request
             }
+            else {
+              $userData = $request->all();
+              $userData['password'] = Hash::make($request->password);
+              $userData['last_updated_by'] = Auth::user()->id;
+              $user->update($userData);
 
-            $userData = $request->all();
-            $userData['last_updated_by'] = Auth::user()->id;
-            $user->update($userData);
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => Auth::user()->id,
+                  'activity' => 'Updated user account of ' . $user->username . '.',
+                  'time' => Carbon::now()
+              ]);
 
-            //record in activity log
-            $activityLog = ActivityLog::create([
-                'user_id' => Auth::user()->id,
-                'activity' => 'Updated user account of ' . $user->username . '.',
-                'time' => Carbon::now()
-            ]);
+              return response()->json([
+                  'message' => 'User account successfully updated.'
+              ], 200);
+            }
+          }
 
-            return response()->json([
-                'message' => 'User account successfully updated.'
-            ], 200);
+
+            // $validator = Validator::make($request->all(),[
+            //     'username' => 'string|unique:users',
+            //     'email' => 'email|unique:users',
+            //     'first_name' => 'string',
+            //     'middle_name' => 'string',
+            //     'last_name' => 'string',
+            //     'role' => 'string'
+            // ]);
+
+
+            //if validation fails
+
+
+
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -154,5 +204,61 @@ class UserController extends Controller
             ],401);
         }
 
+    }
+
+    public function updateUserPrivilege(UserPrivilege $userprivilege, Request $request){
+        //Check if user has permission to manage user accounts
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
+        if ($isAuthorized) {
+            $request['last_updated_by'] = Auth::user()->id;
+            $userprivilege->update($request->all());
+            if($userprivilege != null){
+                //record in activity log
+                $activityLog = ActivityLog::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Updated the privileges of user ' . $request['user_id'] . '.',
+                    'time' => Carbon::now()
+                ]);
+                return response()->json([
+                    'message' => 'Privileges successfully updated.'
+                ]);
+            }
+        }else{
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to update the privileges of user ' . $request['user_id'] . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to update privileges.'
+            ], 401);
+        }
+
+    }
+
+    public function showUserPrivilege(User $user){
+      //Check if user has permission to view user accounts
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'read_priv');
+
+      if($isAuthorized){
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Viewed user account of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+          return $user->privileges;
+      }
+      else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Attempted to View user account of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to view user accounts.'
+          ],401);
+      }
     }
 }

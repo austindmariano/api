@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'first_name', 'middle_name', 'last_name', 'role', 'last_updated_by'
+        'username', 'email', 'password', 'first_name', 'middle_name', 'last_name', 'role', 'last_updated_by', 'active'
     ];
 
     /**
@@ -37,4 +37,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function privileges(){
+      return $this->belongsToMany('App\UserActivity', 'user_privileges', 'user_id', 'activity_id')
+                  ->select(['activity_id', 'code', 'title'])
+                  ->using('App\UserPrivilege')
+                  ->as('privileges')
+                  ->withPivot([
+                    'id', 'create_priv', 'read_priv',
+                    'update_priv', 'delete_priv'
+                  ]);
+    }
 }

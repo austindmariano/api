@@ -1,4 +1,3 @@
-<?php /* C:\xampp\api\vendor\laravel\framework\src\Illuminate\Foundation\Exceptions/views/minimal.blade.php */ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +8,7 @@
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -61,3 +60,4 @@
         </div>
     </body>
 </html>
+<?php /**PATH C:\xampp\api\vendor\laravel\framework\src\Illuminate\Foundation\Exceptions/views/minimal.blade.php ENDPATH**/ ?>

@@ -79,6 +79,7 @@ class TrackController extends Controller
         }
         else {
           $track_data = $request->all();
+          $track_data['track_code'] = strtoupper($track_data['track_code']);
           $track_data['last_updated_by'] = Auth::user()->id;
           try {
             $track = Track::create($track_data);
@@ -164,8 +165,13 @@ class TrackController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.track_management'), 'update_priv');
 
       if($isAuthorized){
+        if($track->track_code == $request['track_code']){
+          $track_data = $request->except('track_code');
+        } else {
+          $track_data = $request->all();
+        }
         //data validation
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($track_data,[
           'track_code' => 'unique:tracks,track_code',
           'track_desc' => 'string',
           'active' => 'numeric',

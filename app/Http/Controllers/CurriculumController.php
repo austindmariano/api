@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Curriculum;
+use App\CurriculumSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -29,17 +30,17 @@ class CurriculumController extends Controller
         if($request->query() != null){
             if($request->query('level')=="college") {
                 // return only those curriculums for college
-                $curriculums = Curriculum::with('course', 'curriculum_subjects')->where('course_id', '!=', null)->get();
+                $curriculums = Curriculum::with('course', 'curriculum_subjects')->orderBy('id', 'DESC')->where('course_id', '!=', null)->get();
             } else if($request->query('level')=="shs") {
                 // return only those curriculums for shs
-                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->where('strand_id', '!=', null)->get();
+                $curriculums = Curriculum::with('strand', 'curriculum_subjects')->orderBy('id', 'DESC')->where('strand_id', '!=', null)->get();
             } else {
               return response()->json([
                   'message' => 'Invalid parameter or parameter value. Please refer to the API documentation.'
               ],400);     //400: Bad request
             }
         }else{
-            $curriculums = Curriculum::orderBy('id', 'DESC')->with('curriculum_subjects')->get();
+            $curriculums = Curriculum::orderBy('id', 'DESC')->with('curriculum_subjects', 'course')->get();
         }
 
         //$curriculums = Curriculum::all();
@@ -159,9 +160,9 @@ class CurriculumController extends Controller
         ]);
 
         if($curriculum->course_id != null){
-            $curriculum = Curriculum::where('id', $curriculum->id)->with('course', 'curriculum_subjects')->get();
+            $curriculum = Curriculum::where('id', $curriculum->id)->with('course')->get();
         }elseif($curriculum->strand_id != null){
-            $curriculum = Curriculum::where('id', $curriculum->id)->with('strand', 'curriculum_subjects')->get();
+            $curriculum = Curriculum::where('id', $curriculum->id)->with('strand')->get();
         }
         return $curriculum;
       }else{
@@ -288,7 +289,40 @@ class CurriculumController extends Controller
 
     } // end of function destroy()
 
-    public function showCurriculumSubjects(Curriculum $curriculum){
+    public function getCurriculumSubjects(Curriculum $curriculum, Request $request){
+      if($request->query('year_level') != null && $request->query('semester_id') == null){
+        // will return subjects of specified curriculum with filter
+          $curriculum_subjects = $curriculum->curriculum_subjects()
+          ->orderBy('id', 'DESC')
+          ->where('curriculum_id', $curriculum->id)
+          ->where('year_level', $request->query('year_level'))
+          ->get();
+
+          return $curriculum_subjects;
+
+      }elseif ($request->query('year_level') != null && $request->query('semester_id') != null) {
+        $curriculum_subjects = $curriculum->curriculum_subjects()
+        ->orderBy('id', 'DESC')
+        ->where('curriculum_id', $curriculum->id)
+        ->where('semester_id', $request->query('semester_id'))
+        ->where('year_level', $request->query('year_level'))
+        ->get();
+
+        return $curriculum_subjects;
+
+      }else{
+        $curriculum_subjects = $curriculum->curriculum_subjects()
+        ->orderBy('year_level', 'ASC')
+        ->orderBy('semester_id', 'ASC')->get();
+        $result = [];
+        foreach($curriculum_subjects as $subject){
+            $result[$subject->year_level][$subject->semester->semester][] = $subject;
+        }
+        return $result;
+      }
+  } // end of function getCurriculumSubjects
+
+    public function test(Curriculum $curriculum){
       $user = Auth::user();
       //Check if user has permission to view instructors
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.curriculum_management'), 'read_priv');
@@ -321,7 +355,7 @@ class CurriculumController extends Controller
             ),
             'semester' => array(
               'semester_id' => $curriculum_subject->id ,
-              'semester_id' => $curriculum_subject->semester 
+              'semester_id' => $curriculum_subject->semester
             ),
             'created_at' => $curriculum_subject->created_at,
             'updated_at' => $curriculum_subject->created_at,
