@@ -65,7 +65,7 @@ class EnrollmentController extends Controller
           'academic_year_id' => 'required|numeric',
           'semester_id' => 'required|numeric',
           'student_id' => 'required|numeric',
-          'year_level' => 'required|numeric',
+          'year_level' => 'required|string',
           'curriculum_id' => 'required|numeric',
           'course_id' => 'nullable|numeric',
           'strand_id' => 'nullable|numeric'
