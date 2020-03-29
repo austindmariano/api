@@ -38,9 +38,9 @@ class SubjectController extends Controller
                 // return all subjects
                  // $subjects = Subject::all();
                  // return all subject in DESC using ID
-                 // $subjects = Subject::orderBy('id', 'DESC')->get();;
+                 $subjects = Subject::orderBy('id', 'DESC')->get();;
                  // ascending order using subject code
-                 $subjects = Subject::orderBy('subject_code', 'asc')->get();;
+                 // $subjects = Subject::orderBy('subject_code', 'asc')->get();;
 
             }
             //record in activity log
@@ -78,7 +78,8 @@ class SubjectController extends Controller
         if ($isAuthorized) {
             $validator = Validator::make($request->all(),[
                 'subject_code' => 'required|unique:subjects,subject_code',
-                'subject_description' => 'required|string',
+                'subject_title' => 'required|string',
+                'subject_description' => 'nullable|string',
                 'units' => 'required|numeric',
                 'lec' => 'required|numeric',
                 'lab' => 'required|numeric',
@@ -102,14 +103,14 @@ class SubjectController extends Controller
 
                     // check if subject has laboratory
                     if ($subjectData['lab'] == 1){
-                      $subject_desc = $subjectData['subject_description'];
+                      $subject_title = $subjectData['subject_title'];
                       for ($i=0; $i < 2; $i++) {
                         if ($i == 0){
                           // stores the lecture subject
                           $subjectData['units'] = 2;
                           $subjectData['lec'] = 2;
                           $subjectData['lab'] = 0;
-                          $subjectData['subject_description'] = $subjectData['subject_description'] . " - LEC";
+                          $subjectData['subject_title'] = $subjectData['subject_title'] . " - LEC";
                         }
                         if ($i == 1){
                           // store the laboratory subject
@@ -117,7 +118,7 @@ class SubjectController extends Controller
                           $subjectData['lec'] = 0;
                           $subjectData['lab'] = 1;
                           $subjectData['subject_code'] .= "-L";
-                          $subjectData['subject_description'] = $subject_desc . " - LAB";
+                          $subjectData['subject_title'] = $subject_title . " - LAB";
                         }
                         $subject = Subject::create($subjectData);
                       }
@@ -208,6 +209,7 @@ class SubjectController extends Controller
             }
             $validator = Validator::make($newData,[
                 'subject_code' => 'nullable|unique:subjects,subject_code',
+                'subject_title' => 'string',
                 'subject_description' => 'nullable|string',
                 'units' => 'nullable|numeric',
                 'lec' => 'nullable|numeric',

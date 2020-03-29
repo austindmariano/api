@@ -195,7 +195,7 @@ class CourseController extends Controller
           'course_code' => 'unique:courses,course_code',
           'course_desc' => 'string',
           'course_major' => 'nullable|string',
-          'year_duration' => 'string',
+          'year_duration' => 'numeric',
           'active' => 'numeric',
         ]);
 
