@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StudentSchedule;
 use App\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -83,7 +84,9 @@ class EnrollmentController extends Controller
           $enrollment_data = $request->all();
           $enrollment_data['last_updated_by'] = Auth::user()->id;
           try {
+            // create new enrollment record
             $enrollment = Enrollment::create($enrollment_data);
+
             // check if record is successfully created.
             if ($enrollment) {
               //record in activity log
@@ -92,6 +95,26 @@ class EnrollmentController extends Controller
                   'activity' => 'Created a new enrollment record.',
                   'time' => Carbon::now()
               ]);
+
+              // add subjects to be enrolled using loop
+              $subject_data = [];
+
+              foreach ($enrollment_data['subjects'] as $subject) {
+                // passing id of enrolled student
+                $subject_data['enrollment_id'] = $enrollment->id;
+                // passing id of curriculum subject
+                $subject_data['subject_id'] = $subject['id'];
+                // setting subject status to Enrolled
+                $subject_data['status'] = $enrollment_data['status'];
+                // setting active status to 1
+                $subject_data['active'] = 1;
+                // setting the last_updated_by
+                $subject_data['last_updated_by'] = Auth::user()->id;
+                
+                // creating enrolled subjects
+                StudentSchedule::create($subject_data);
+              }
+
               return response()->json(['message' => 'New enrollment record successfully created.'], 200);
             }else {
               return response()->json(['message' => 'Failed to create new enrollment record.'], 500); // server error

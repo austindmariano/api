@@ -62,7 +62,8 @@ class StudentScheduleController extends Controller
       if ($isAuthorized) {
         //data validation
         $validator = Validator::make($request->all(),[
-          'schedule_id' => 'required|numeric',
+          'enrollment_id' => 'required|numeric',
+          'subject_id' => 'required|numeric',
           'prelim_grade' => 'nullable|numeric',
           'midterm_grade' => 'nullable|numeric',
           'prefinal_grade' => 'nullable|numeric',
@@ -70,6 +71,8 @@ class StudentScheduleController extends Controller
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
           'figure' => 'nullable|numeric'
+          'status' => 'required|string',
+          'active' => 'required|numeric'
         ]);
 
         // check if data if validator fails
@@ -164,7 +167,17 @@ class StudentScheduleController extends Controller
       if($isAuthorized){
         //data validation
         $validator = Validator::make($request->all(),[
-
+          'enrollment_id' => 'required|numeric',
+          'subject_id' => 'required|numeric',
+          'prelim_grade' => 'nullable|numeric',
+          'midterm_grade' => 'nullable|numeric',
+          'prefinal_grade' => 'nullable|numeric',
+          'final_grade' => 'nullable|numeric',
+          'semestral' => 'nullable|numeric',
+          'remarks' => 'nullable|numeric',
+          'figure' => 'nullable|numeric'
+          'status' => 'required|string',
+          'active' => 'required|numeric'
         ]);
 
         // check if data if validator fails
