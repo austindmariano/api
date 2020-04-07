@@ -12,4 +12,8 @@ class StudentSchedule extends Model
   public function enrollment(){
     return $this->belongsTo('App\Enrollment')->select('*')->with('student');
   }
+
+  public function curriculum_subject(){
+    return $this->belongsTo('App\CurriculumSubject', 'subject_id')->select('*')->with('subject');
+  }
 }
