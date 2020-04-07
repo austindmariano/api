@@ -32,7 +32,7 @@ class EnrollmentController extends Controller
             'time' => Carbon::now()
         ]);
          $enrollments = Enrollment::orderBy('id', 'DESC')
-           ->with('student', 'student_schedule', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
+           ->with('student', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
            ->get();
          return $enrollments;
 
@@ -110,7 +110,7 @@ class EnrollmentController extends Controller
                 $subject_data['active'] = 1;
                 // setting the last_updated_by
                 $subject_data['last_updated_by'] = Auth::user()->id;
-
+                
                 // creating enrolled subjects
                 StudentSchedule::create($subject_data);
               }

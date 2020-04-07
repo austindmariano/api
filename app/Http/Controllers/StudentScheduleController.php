@@ -32,7 +32,7 @@ class StudentScheduleController extends Controller
             'activity' => 'Viewed the list of student schedule.',
             'time' => Carbon::now()
         ]);
-         $student_schedules = StudentSchedule::orderBy('id', 'DESC')->with('enrollment')->get();
+         $student_schedules = StudentSchedule::orderBy('id', 'DESC')->get();
          return $student_schedules;
 
       }else{
