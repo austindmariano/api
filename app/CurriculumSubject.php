@@ -19,6 +19,10 @@ class CurriculumSubject extends Pivot
          'subject_title', 'subject_description', 'units', 'lec', 'lab', 'active')->orderBy('subject_code', 'ASC')->with('instructors');
     }
 
+    public function student_schedule(){
+      return $this->hasMany('App\StudentSchedule');
+    }
+
     public function prerequisites(){
       return $this->hasMany('App\Prerequisite');
     }
