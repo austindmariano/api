@@ -32,7 +32,7 @@ class StudentScheduleController extends Controller
             'activity' => 'Viewed the list of student schedule.',
             'time' => Carbon::now()
         ]);
-         $student_schedules = StudentSchedule::orderBy('id', 'DESC')->get();
+         $student_schedules = StudentSchedule::orderBy('id', 'DESC')->with('enrollment')->get();
          return $student_schedules;
 
       }else{
@@ -70,7 +70,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
@@ -175,7 +175,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
