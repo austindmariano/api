@@ -33,11 +33,4 @@ class Enrollment extends Model
       return $this->belongsTo('App\Curriculum')->select('*');
     }
 
-<<<<<<< HEAD
-    public function student_schedule(){
-      return $this->hasMany('App\StudentSchedule')->select('*')->with('curriculum_subject');
-    }
-
-=======
->>>>>>> bfaf392654eaf8afe5235f92a21026207c815220
 }
