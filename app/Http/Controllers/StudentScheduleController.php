@@ -70,7 +70,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
@@ -175,7 +175,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
