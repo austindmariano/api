@@ -19,7 +19,7 @@ class EnrollmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
       $user = Auth::user();
       //Check if user has permission to view enrollment records.
@@ -31,10 +31,27 @@ class EnrollmentController extends Controller
             'activity' => 'Viewed the list of enrollment record.',
             'time' => Carbon::now()
         ]);
-         $enrollments = Enrollment::orderBy('id', 'DESC')
-           ->with('student', 'student_schedule', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
-           ->get();
-         return $enrollments;
+
+        if($request->query() != null){
+            $enrollments = Enrollment::orderBy('id', 'DESC')
+              ->with('student', 'student_schedule', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
+              ->where($request->query())
+              ->orderBy('id', 'DESC')
+              ->get();
+        }
+        else{
+            $enrollments = Enrollment::orderBy('id', 'DESC')
+              ->with('student', 'student_schedule', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
+              ->orderBy('id', 'DESC')
+              ->get();
+        }
+
+        return $enrollments;
+
+         // $enrollments = Enrollment::orderBy('id', 'DESC')
+         //   ->with('student', 'student_schedule', 'course', 'strand', 'curriculum', 'academic_year', 'semester')
+         //   ->get();
+         // return $enrollments;
 
       }else{
           //record in activity log
