@@ -51,7 +51,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:33] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -105,7 +105,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:34] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -159,7 +159,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:35] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -213,7 +213,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:35] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -267,7 +267,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:36] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -321,7 +321,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:36] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -375,7 +375,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:38] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -429,7 +429,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:39] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -483,7 +483,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:41] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -537,7 +537,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:43] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -591,7 +591,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:44] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -645,7 +645,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:45] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -699,7 +699,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:46] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -753,7 +753,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:47] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -807,7 +807,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:49] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -861,7 +861,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:51] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -915,7 +915,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
-"} 
+"}
 [2020-04-08 01:02:53] local.ERROR: Call to undefined relationship [student_schedule] on model [App\Enrollment]. {"userId":1,"exception":"[object] (Illuminate\\Database\\Eloquent\\RelationNotFoundException(code: 0): Call to undefined relationship [student_schedule] on model [App\\Enrollment]. at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\RelationNotFoundException.php:34)
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(588): Illuminate\\Database\\Eloquent\\RelationNotFoundException::make(Object(App\\Enrollment), 'student_schedul...')
@@ -969,6 +969,7 @@
 #48 C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
 #49 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #50 {main}
+<<<<<<< HEAD
 "} 
 [2020-04-08 01:04:55] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
@@ -4231,3 +4232,6 @@
 #22 C:\\xampp\\htdocs\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #23 {main}
 "} 
+=======
+"}
+>>>>>>> db8ade728f09da05a9a4aa5df37866b6f5411532
