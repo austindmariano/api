@@ -20,7 +20,7 @@ class StudentScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
       $user = Auth::user();
       //Check if user has permission to view student schedule records.
@@ -32,8 +32,20 @@ class StudentScheduleController extends Controller
             'activity' => 'Viewed the list of student schedule.',
             'time' => Carbon::now()
         ]);
-         $student_schedules = StudentSchedule::orderBy('id', 'DESC')->get();
-         return $student_schedules;
+
+        if($request->query() != null){
+          $student_schedules = StudentSchedule::with('enrollment')
+            ->where($request->query())
+            ->orderBy('id', 'DESC')->get();
+        }
+        else{
+          $student_schedules = StudentSchedule::with('enrollment')->orderBy('id', 'DESC')->get();
+        }
+
+        return $student_schedules;
+
+         // $student_schedules = StudentSchedule::orderBy('id', 'DESC')->with('enrollment')->get();
+         // return $student_schedules;
 
       }else{
           //record in activity log
@@ -70,7 +82,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
@@ -85,7 +97,7 @@ class StudentScheduleController extends Controller
         }
         else {
           $student_data = $request->all();
-          $student_data['enrollment_id'] = $this->getEnrollement()[0]->id;
+          $student_data['enrollment_id'] = $this->getEnrollment()[0]->id;
           $student_data['last_updated_by'] = Auth::user()->id;
           try {
               $schedule = StudentSchedule::create($student_data);
@@ -175,7 +187,7 @@ class StudentScheduleController extends Controller
           'final_grade' => 'nullable|numeric',
           'semestral' => 'nullable|numeric',
           'remarks' => 'nullable|numeric',
-          'figure' => 'nullable|numeric'
+          'figure' => 'nullable|numeric',
           'status' => 'required|string',
           'active' => 'required|numeric'
         ]);
@@ -262,7 +274,7 @@ class StudentScheduleController extends Controller
       }
     } // end of function destroy()
 
-    public function getEnrollement(){
+    public function getEnrollment(){
       return Enrollment::orderBy('id', 'DESC')->take(1)->get();
     }
 }
