@@ -198,7 +198,63 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, Enrollment $enrollment)
     {
-        //
+      $user = Auth::user();
+      // check if user have the priviledge to update  record.
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.enrollment_management'), 'update_priv');
+
+      if($isAuthorized){
+
+        $validator = Validator::make($request->all(),[
+          'academic_year_id' => 'required|numeric',
+          'semester_id' => 'required|numeric',
+          'student_id' => 'required|numeric',
+          'year_level' => 'required|string',
+          'curriculum_id' => 'required|numeric',
+          'course_id' => 'nullable|numeric',
+          'strand_id' => 'nullable|numeric'
+        ]);
+
+        // check if data if validator fails
+        if ($validator->fails()) {
+          return response()
+          ->json([
+            'message' => 'Failed to update enrollment record.',
+            'errors' => $validator->errors()
+          ], 400); // 400: Bad request
+        }
+        else {
+          $enrollment_data = $request->all();
+          $enrollment_data['last_updated_by'] = Auth::user()->id;
+          try {
+             $check = $enrollment->update($enrollment_data);
+            // check if record is successfully updated.
+            if ($check) {
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => $user->id,
+                  'activity' => 'Updated the enrollment ' . $enrollment->id . '.',
+                  'time' => Carbon::now()
+              ]);
+              return response()->json(['message' => 'Enrollment record successfully updated.'], 200);
+            }else {
+              return response()->json(['message' => 'Failed to update enrollment record.'], 500); // server error
+            }
+          } catch (Exception $e) {
+            report($e);
+            return false;
+          }
+        }
+      }else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Attempted to update the details of enrollment_id ' . $enrollment->id . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to update enrollment records.'
+          ],401);      //401: Unauthorized
+      }
     }
 
     /**

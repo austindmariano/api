@@ -34,12 +34,12 @@ class StudentScheduleController extends Controller
         ]);
 
         if($request->query() != null){
-          $student_schedules = StudentSchedule::with('enrollment')
+          $student_schedules = StudentSchedule::with('enrollment', 'curriculum_subject')
             ->where($request->query())
             ->orderBy('id', 'DESC')->get();
         }
         else{
-          $student_schedules = StudentSchedule::with('enrollment')->orderBy('id', 'DESC')->get();
+          $student_schedules = StudentSchedule::with('enrollment', 'curriculum_subject')->orderBy('id', 'DESC')->get();
         }
 
         return $student_schedules;
@@ -97,7 +97,7 @@ class StudentScheduleController extends Controller
         }
         else {
           $student_data = $request->all();
-          $student_data['enrollment_id'] = $this->getEnrollment()[0]->id;
+          // $student_data['enrollment_id'] = $this->getEnrollment()[0]->id;
           $student_data['last_updated_by'] = Auth::user()->id;
           try {
               $schedule = StudentSchedule::create($student_data);
