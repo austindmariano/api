@@ -150,9 +150,9 @@ class StudentController extends Controller
           	$sem_number = "-03-";
           }
           // getting the lastest entered student number
-          $student = Student::select('student_number')
+          $student = Student::select('*')
               ->orderBy('id', 'DESC')
-              ->limit(1)
+              ->take(1)
               ->get();
 
             //spliting student number and pass it in an array varaiable
@@ -162,9 +162,13 @@ class StudentController extends Controller
             $num = $last_num[2] + 1;
 
             // student number increment ****-**-0000++
-            $latest_num = substr("0000{$num}", -4);
+            // $latest_num = substr("0000{$num}", -4);
+            $latest_num = sprintf("%04d", $num);
 
             $student_data['student_number'] = $ay_number.$sem_number.$latest_num;
+            // return $ay_number.$sem_number.$latest_num;
+            // return $student;
+
 
           // return $student_data['student_number'];
           try {
