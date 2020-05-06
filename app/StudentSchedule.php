@@ -10,7 +10,7 @@ class StudentSchedule extends Model
   'prefinal_grade', 'final_grade', 'semestral', 'remarks', 'figure', 'status', 'active', 'last_updated_by'];
 
   public function enrollment(){
-    return $this->belongsTo('App\Enrollment')->select('*')->with('student');
+    return $this->belongsTo('App\Enrollment')->select('*')->with('student', 'course', 'academic_year', 'semester', 'curriculum');
   }
 
   public function curriculum_subject(){

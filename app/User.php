@@ -48,4 +48,8 @@ class User extends Authenticatable
                     'update_priv', 'delete_priv'
                   ]);
     }
+
+    public function logs(){
+      return $this->hasMany('App\ActivityLog')->orderBy('id', 'DESC');
+    }
 }

@@ -58,6 +58,10 @@ Route::group(['prefix' => 'v1'], function(){
         // update specific privilege of specified user
         // Route::put('users/{user}/privileges/{privilege}', 'UserPrivilegeController@updateUserPrivilege');
 
+        // This route will get all activity logs
+        Route::get('activity_logs', 'ActivityLogController@index');
+
+
         //End of USER Routes
         //--------------------------------------------------------------------------
 
