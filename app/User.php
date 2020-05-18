@@ -24,8 +24,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+     // remove password from protected $hidden for testing purposes
     protected $hidden = [
-        'password', 'remember_token',
+       'password',
     ];
 
     /**
@@ -46,5 +47,9 @@ class User extends Authenticatable
                     'id', 'create_priv', 'read_priv',
                     'update_priv', 'delete_priv'
                   ]);
+    }
+
+    public function logs(){
+      return $this->hasMany('App\ActivityLog')->orderBy('id', 'DESC');
     }
 }
