@@ -1,11 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 18:35:23] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteDependencyResolverTrait.php:44)
 [stacktrace]
 #0 {main}
 "} 
 [2020-05-17 18:35:27] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
+=======
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD
@@ -60,6 +66,10 @@
 #40 C:\\xampp\\api\\vendor\\laravel\\framework\\[2020-03-24 08:04:12] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 >>>>>>> b723d6290f888719c20e9a4119f34b8d145c0156
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
 >>>>>>> parent of 3c409e39... Added blocking of user account
@@ -109,7 +119,10 @@
 #42 {main}
 "} 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 18:40:39] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
@@ -152,6 +165,9 @@
 "} 
 [2020-05-17 18:40:42] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
+=======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD
 src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
@@ -164,6 +180,10 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 "} 
 [2020-03-24 18:32:47] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
 >>>>>>> parent of 3c409e39... Added blocking of user account
@@ -213,6 +233,12 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 #42 {main}
 "} 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
+[2020-05-17 18:47:46] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 18:47:46] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
@@ -223,6 +249,10 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 [2020-03-24 08:04:12] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 >>>>>>> b723d6290f888719c20e9a4119f34b8d145c0156
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
 >>>>>>> parent of 3c409e39... Added blocking of user account
@@ -272,7 +302,10 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 #42 {main}
 "} 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 18:52:53] local.ERROR: file_put_contents(C:\xampp\api\storage\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied {"exception":"[object] (ErrorException(code: 0): file_put_contents(C:\\xampp\\api\\storage\\framework/cache/data/7d/36/7d36ab8afcb59632bc9f122f17e545d682de6b25): failed to open stream: Permission denied at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php:122)
 [stacktrace]
@@ -315,6 +348,9 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 "} 
 [2020-05-17 18:52:56] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
+=======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD
 [2020-03-24 18:32:48] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
@@ -322,6 +358,10 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 [2020-03-24 08:04:12] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 >>>>>>> b723d6290f888719c20e9a4119f34b8d145c0156
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+>>>>>>> parent of 3c409e39... Added blocking of user account
 =======
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
 >>>>>>> parent of 3c409e39... Added blocking of user account
@@ -372,14 +412,20 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 "} 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2020-03-24 18:32:48] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 18:56:39] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
 <<<<<<< HEAD
 [2020-03-24 18:32:48] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
+=======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\AuthorizationValidators\\BearerTokenValidator.php(100): League\\OAuth2\\Server\\Exception\\OAuthServerException::accessDenied('The JWT string ...', NULL, Object(InvalidArgumentException))
@@ -427,13 +473,19 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 #42 {main}
 "} 
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2020-03-24 23:01:33] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 19:06:39] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 =======
 [2020-03-24 23:01:33] local.ERROR: The resource owner or authorization server denied the request. {"exception":"[object] (League\\OAuth2\\Server\\Exception\\OAuthServerException(code: 9): The resource owner or authorization server denied the request. at C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\Exception\\OAuthServerException.php:223, InvalidArgumentException(code: 0): The JWT string must have two dots at C:\\xampp\\api\\vendor\\lcobucci\\jwt\\src\\Parser.php:95)
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
+=======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 [stacktrace]
 #0 C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\AuthorizationValidators\\BearerTokenValidator.php(100): League\\OAuth2\\Server\\Exception\\OAuthServerException::accessDenied('The JWT string ...', NULL, Object(InvalidArgumentException))
@@ -481,8 +533,11 @@ src\\Illuminate\\Foundation\\Http\\Kernel.php(116): Illuminate\\Foundation\\Http
 #42 {main}
 "} 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ors\\BearerTokenValidator.php(100): League\\OAuth2\\Server\\Exception\\OAuthServerException::accessDenied('The JWT string ...', NULL, Object(InvalidArgumentException))
 =======
+=======
+>>>>>>> parent of 3c409e39... Added blocking of user account
 <<<<<<< HEAD:storage/logs/laravel-2020-05-17.log
 [2020-05-17 20:57:33] local.ERROR: Maximum execution time of 30 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at C:\\xampp\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php:20)
 [stacktrace]
@@ -502,6 +557,9 @@ ors\\BearerTokenValidator.php(100): League\\OAuth2\\Server\\Exception\\OAuthServ
 =======
 ors\\BearerTokenValidator.php(100): League\\OAuth2\\Server\\Exception\\OAuthServerException::accessDenied('The JWT string ...', NULL, Object(InvalidArgumentException))
 >>>>>>> 11abe9866e2b80c263fe27704097bd7cd8abb6b1:storage/logs/laravel-2020-03-24.log
+<<<<<<< HEAD
+>>>>>>> parent of 3c409e39... Added blocking of user account
+=======
 >>>>>>> parent of 3c409e39... Added blocking of user account
 #1 C:\\xampp\\api\\vendor\\league\\oauth2-server\\src\\ResourceServer.php(84): League\\OAuth2\\Server\\AuthorizationValidators\\BearerTokenValidator->validateAuthorization(Object(Zend\\Diactoros\\ServerRequest))
 #2 C:\\xampp\\api\\vendor\\laravel\\passport\\src\\Guards\\TokenGuard.php(175): League\\OAuth2\\Server\\ResourceServer->validateAuthenticatedRequest(Object(Zend\\Diactoros\\ServerRequest))
