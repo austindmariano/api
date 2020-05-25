@@ -34,7 +34,7 @@ class StudentController extends Controller
               'activity' => 'Viewed the list of students.',
               'time' => Carbon::now()
           ]);
-           $students = Student::orderBy('id', 'DESC')->get();
+           $students = Student::orderBy('id', 'DESC')->with('enrollment')->get();
            return $students;
         }else{
             //record in activity log
