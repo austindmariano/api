@@ -403,6 +403,27 @@ Route::group(['prefix' => 'v1'], function(){
         //End of Student Routes
         //--------------------------------------------------------------------------
 
+        //--------------------------------------------------------------------------
+        //Beginning of Pre Registered Student Routes
+
+        //This GET method will show all of the Pre Registered Students
+        Route::get('/pre_registers', 'PreRegistrationController@index');
+
+        //This POST method will create a new Pre Registered student.
+        Route::post('/pre_registers', 'PreRegistrationController@store');
+
+        //This GET method will show the specified Pre Registered student.
+        Route::get('/pre_registers/{pre_register}', 'PreRegistrationController@show');
+
+        //This PUT method will UPDATE a specified Pre Registered student.
+        Route::put('/pre_registers/{pre_register}', 'PreRegistrationController@update');
+
+        //This DELETE method will DELETE a specified Pre Registered student.
+        Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
+
+        //End of Pre Registered Student Routes
+        //--------------------------------------------------------------------------
+
 
         //--------------------------------------------------------------------------
         //Beginning of Student Requirements Routes

@@ -155,19 +155,51 @@ class StudentController extends Controller
               ->take(1)
               ->get();
 
+          if(count($student) > 0){
+
+            $students = Student::select('*')->get();
+
+            function get_max_student_number($students, $value='student_number'){
+                $max=0;
+                foreach($students as $point){
+
+                  $last_num = explode("-", $point->student_number);
+                  $point->student_number = $last_num[2];
+
+                    if($max < (float)$point->{$value}){
+                        $max = $point->{$value};
+                    }
+                }
+                return $max;
+            }
+            $max = get_max_student_number($students);
+
+
+            $num = $max + 1;
+
+            $latest_num = sprintf("%04d", $num);
+
+
+
             //spliting student number and pass it in an array varaiable
-            $last_num = explode("-", $student[0]->student_number);
+            // $last_num = explode("-", $student[0]->student_number);
 
             //increment the last digit from the student number
-            $num = $last_num[2] + 1;
+            // $num = $last_num[2] + 1;
 
             // student number increment ****-**-0000++
             // $latest_num = substr("0000{$num}", -4);
-            $latest_num = sprintf("%04d", $num);
+            // $latest_num = sprintf("%04d", $num);
 
             $student_data['student_number'] = $ay_number.$sem_number.$latest_num;
+
+            // return $student_data['student_number'];
+
             // return $ay_number.$sem_number.$latest_num;
             // return $student;
+          }else{
+              $student_data['student_number'] = $ay_number.$sem_number. "0000";
+          }
 
 
           // return $student_data['student_number'];
@@ -183,7 +215,7 @@ class StudentController extends Controller
                   'time' => Carbon::now()
               ]);
               // return "ffff";
-              $this->storeStudentRequirements($request);
+              // $this->storeStudentRequirements($request);
               // return response()->json(['message' => 'New student record successfully created.'], 200);
 
             }else {
