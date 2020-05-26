@@ -21,6 +21,10 @@ header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Autho
 Route::group(['prefix' => 'v1'], function(){
     Route::post('login', 'Auth\LoginController@login');
 
+    //This POST method will create a new Pre Registered student.
+    //  this post method is for students who wants to register online
+    Route::post('/pre_registers', 'PreRegistrationController@store');
+
     //these next routes are inside the auth:api middleware
     //these means that user must be authenticated to be able to access these routes
     Route::group(['middleware' => ['auth:api']], function () {
@@ -234,6 +238,18 @@ Route::group(['prefix' => 'v1'], function(){
         //--------------------------------------------------------------------------
 
 
+        // try {
+        //     // Your query here
+        // } catch (\Illuminate\Database\QueryException $e) {
+        //     // You need to handle the error here.
+        //     // Either send the user back to the screen or redirect them somewhere else
+        //
+        //     // Just some example
+        //     dd($e->getMessage(), $e->errorInfo);
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage(), $e->errorInfo);
+        // }
+
         //--------------------------------------------------------------------------
         //Beginning of Curriculum Subject Routes
 
@@ -409,8 +425,7 @@ Route::group(['prefix' => 'v1'], function(){
         //This GET method will show all of the Pre Registered Students
         Route::get('/pre_registers', 'PreRegistrationController@index');
 
-        //This POST method will create a new Pre Registered student.
-        Route::post('/pre_registers', 'PreRegistrationController@store');
+
 
         //This GET method will show the specified Pre Registered student.
         Route::get('/pre_registers/{pre_register}', 'PreRegistrationController@show');

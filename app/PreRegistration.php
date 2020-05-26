@@ -16,7 +16,6 @@ class PreRegistration extends Model
       'photo_url', 'user_id', 'active', 'student_status',
       'school_last_attended', 'school_address',
       'college_last_attended', 'college_address',
-      'last_track', 'last_strand', 'last_course',
-      'last_updated_by', 'registration_code'
-    ];																													
+      'last_track', 'last_strand', 'last_course', 'registration_code'
+    ];
 }
