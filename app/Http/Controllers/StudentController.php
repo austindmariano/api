@@ -216,7 +216,7 @@ class StudentController extends Controller
               ]);
               // return "ffff";
               // $this->storeStudentRequirements($request);
-              // return response()->json(['message' => 'New student record successfully created.'], 200);
+              return response()->json(['message' => 'New student record successfully created.'], 200);
 
             }else {
               return response()->json(['message' => 'Failed to create new student record.'], 500); // server error

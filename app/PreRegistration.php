@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PreRegistration extends Model
 {
-    protected  $fillable = {
+    protected  $fillable = [
       'first_name', 'middle_name', 'last_name', 'suffix_name',
       'gender', 'civil_status', 'citizenship',
       'address', 'barangay', 'city', 'province', 'postal',
@@ -18,5 +18,5 @@ class PreRegistration extends Model
       'college_last_attended', 'college_address',
       'last_track', 'last_strand', 'last_course',
       'last_updated_by', 'registration_code'
-    };																													
+    ];																													
 }

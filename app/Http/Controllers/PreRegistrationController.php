@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\PreRegistration;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\ActivityLog;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 
 class PreRegistrationController extends Controller
 {
@@ -55,6 +61,8 @@ class PreRegistrationController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'create_priv');
       if ($isAuthorized) {
         //data validation
+        $request['registration_code'] = str_random(10);
+
         $validator = Validator::make($request->all(),[
           'first_name' => 'required|string',
           'middle_name' => 'nullable|string',
@@ -90,6 +98,7 @@ class PreRegistrationController extends Controller
           'last_track' => 'nullable|numeric',
           'last_strand' => 'nullable|numeric',
           'last_course' => 'nullable|numeric',
+          'registration_code' => 'required'
         ]);
         // check if validator fails
         if ($validator->fails()) {
@@ -102,6 +111,10 @@ class PreRegistrationController extends Controller
         else {
           $preRegistration_data = $request->all();
           $preRegistration_data['last_updated_by'] = Auth::user()->id;
+
+          // converting of date into MySQL Date format
+          $date = strtotime($request->birth_date);
+          $preRegistration_data['birth_date'] = date('Y-m-d',$date);
           try {
             $preRegistration = PreRegistration::create($preRegistration_data);
             // check if record is successfully created.
