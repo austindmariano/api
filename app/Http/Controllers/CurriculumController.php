@@ -316,8 +316,18 @@ class CurriculumController extends Controller
         ->orderBy('semester_id', 'ASC')->get();
         $result = [];
         foreach($curriculum_subjects as $subject){
+
+
             $result[$subject->year_level][$subject->semester->semester][] = $subject;
+            // [] = $subject
+
+            // $result[$subject->year_level][$subject->semester->semester][] = $subject;
+
+
+            // $result[$subject->year_level]
         }
+        // $container = [];
+        // array_push($container, $result);
         return $result;
       }
   } // end of function getCurriculumSubjects

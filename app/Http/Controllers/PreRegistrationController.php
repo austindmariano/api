@@ -56,9 +56,10 @@ class PreRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-      $user = Auth::user();
+      // $user = Auth::user();
       // check if user have the priviledge to create pre registration record.
-      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'create_priv');
+      // $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'create_priv');
+      $isAuthorized = true;
       if ($isAuthorized) {
         //data validation
         $request['registration_code'] = str_random(10);
@@ -110,7 +111,7 @@ class PreRegistrationController extends Controller
         }
         else {
           $preRegistration_data = $request->all();
-          $preRegistration_data['last_updated_by'] = Auth::user()->id;
+          // $preRegistration_data['last_updated_by'] = Auth::user()->id;
 
           // converting of date into MySQL Date format
           $date = strtotime($request->birth_date);
@@ -120,11 +121,11 @@ class PreRegistrationController extends Controller
             // check if record is successfully created.
             if ($preRegistration) {
               //record in activity log
-              $activityLog = ActivityLog::create([
-                  'user_id' => $user->id,
-                  'activity' => 'Created a new pre registration record.',
-                  'time' => Carbon::now()
-              ]);
+              // $activityLog = ActivityLog::create([
+              //     'user_id' => $user->id,
+              //     'activity' => 'Created a new pre registration record.',
+              //     'time' => Carbon::now()
+              // ]);
               return response()->json(['message' => 'New pre registration successfully created.'], 200);
             }else {
               return response()->json(['message' => 'Failed to create new pre registration record.'], 500); // server error
@@ -136,11 +137,11 @@ class PreRegistrationController extends Controller
         }
       }else{
           //record in activity log
-          $activityLog = ActivityLog::create([
-              'user_id' => $user->id,
-              'activity' => 'Attempted to create a pre registration.',
-              'time' => Carbon::now()
-          ]);
+          // $activityLog = ActivityLog::create([
+          //     'user_id' => $user->id,
+          //     'activity' => 'Attempted to create a pre registration.',
+          //     'time' => Carbon::now()
+          // ]);
           return response()->json([
               'message' => 'You are not authorized to create pre registration records.'
           ],401);     //401: Unauthorized
