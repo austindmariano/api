@@ -504,6 +504,22 @@ Route::group(['prefix' => 'v1'], function(){
         //--------------------------------------------------------------------------
 
 
+
+        //--------------------------------------------------------------------------
+        //Beginning of Setting Routes
+
+        //This GET method will show system current settngs
+        Route::get('/settings', 'SettingController@index');
+
+        //This PUT method will update system current settings
+        Route::put('/settings', 'SettingController@update');
+
+        //End of Setting Routes
+        //--------------------------------------------------------------------------
+
+
+
+
         Route::get('/test', 'ClassScheduleController@test');
 
         // TRY Eloquent Modeling

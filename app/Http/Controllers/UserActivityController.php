@@ -91,6 +91,30 @@ class UserActivityController extends Controller
      */
     public function destroy(UserActivity $userActivity)
     {
-        //
+      //Check if user has permission to delete user accounts
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'delete_priv');
+
+      if($isAuthorized){
+          $userActivity->delete();
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Deleted user activity of',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'User activity successfully deleted.'
+          ], 200);
+      }else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Attempted to delete user activity of',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to delete user activity.'
+          ],401);
+      }
     }
 }
