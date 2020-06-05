@@ -9,6 +9,7 @@ use App\Curriculum;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 use App\ActivityLog;
 use Illuminate\Support\Facades\Config;
@@ -315,7 +316,20 @@ class CurriculumSubjectController extends Controller
               'time' => Carbon::now()
           ]);
           return response()->json(['message' => 'Curriculum subject record successfully deleted.'], 200);
-        } catch (Exception $e) {
+        }
+        // Delete exception
+        catch (QueryException $a) {
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Attempted to delete the curriculum subject named ' . $subject_code->subject_code . ' of  ' . $curriculum_title->curriculum_title.  '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+          ],400); //401: Unauthorized
+        }
+        catch (Exception $e) {
           report($e);
           return false;
         }

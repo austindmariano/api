@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use App\ActivityLog;
 use Illuminate\Support\Facades\Config;
@@ -190,6 +191,7 @@ class SemesterController extends Controller
         //check first if user has permission to update semester records before proceeding
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.semester_management'), 'delete_priv');
         if($isAuthorized){
+          try{
             $semester->delete();
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -198,6 +200,24 @@ class SemesterController extends Controller
                 'time' => Carbon::now()
             ]);
             return response()->json(['message' => 'Semester record successfully deleted.'], 200);
+          }
+          // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to delete ' . $semester->semester . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          //
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([

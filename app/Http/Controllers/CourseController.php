@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use App\ActivityLog;
 use Illuminate\Support\Facades\Config;
@@ -193,9 +194,9 @@ class CourseController extends Controller
         //data validation
         $validator = Validator::make($course_data,[
           'course_code' => 'unique:courses,course_code',
-          'course_desc' => 'string',
+          'course_desc' => 'required|string',
           'course_major' => 'nullable|string',
-          'year_duration' => 'numeric',
+          'year_duration' => 'required|numeric',
           'active' => 'numeric',
         ]);
 
@@ -243,6 +244,18 @@ class CourseController extends Controller
       }
     } // end of function update()
 
+    // try {
+    //     // Your query here
+    // } catch (\Illuminate\Database\QueryException $e) {
+    //     // You need to handle the error here.
+    //     // Either send the user back to the screen or redirect them somewhere else
+    //
+    //     // Just some example
+    //     dd($e->getMessage(), $e->errorInfo);
+    // } catch (\Exception $e) {
+    //     dd($e->getMessage(), $e->errorInfo);
+    // }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -264,7 +277,21 @@ class CourseController extends Controller
               'time' => Carbon::now()
           ]);
           return response()->json(['message' => 'Course record successfully deleted.'], 200);
-        } catch (Exception $e) {
+        }
+          // Delete exception
+        catch (QueryException $a) {
+          //record in activity log
+          $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to delete the course ' . $course->course_desc . '.',
+            'time' => Carbon::now()
+          ]);
+          return response()->json([
+            'message' => 'This record is cannot be deleted because, it is already used by the system.'
+          ],400); //401: Unauthorized
+        }
+        //
+        catch (Exception $e) {
           report($e);
           return false;
         }

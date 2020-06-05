@@ -237,19 +237,6 @@ Route::group(['prefix' => 'v1'], function(){
         //End of Curriculum Routes
         //--------------------------------------------------------------------------
 
-
-        // try {
-        //     // Your query here
-        // } catch (\Illuminate\Database\QueryException $e) {
-        //     // You need to handle the error here.
-        //     // Either send the user back to the screen or redirect them somewhere else
-        //
-        //     // Just some example
-        //     dd($e->getMessage(), $e->errorInfo);
-        // } catch (\Exception $e) {
-        //     dd($e->getMessage(), $e->errorInfo);
-        // }
-
         //--------------------------------------------------------------------------
         //Beginning of Curriculum Subject Routes
 

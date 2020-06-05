@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -182,6 +183,7 @@ class UserController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'delete_priv');
 
         if($isAuthorized){
+          try{
             $user->delete();
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -192,6 +194,23 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'User account successfully deleted.'
             ], 200);
+          }
+          // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to delete user account of ' . $user->username . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([

@@ -6,6 +6,7 @@ use App\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 use App\ActivityLog;
 use Illuminate\Support\Facades\Config;
@@ -266,6 +267,7 @@ class SubjectController extends Controller
         //Check if user has a privilege to delete records
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.subject_management'), 'delete_priv');
         if($isAuthorized){
+          try{
             $subject->delete();
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -274,6 +276,24 @@ class SubjectController extends Controller
                 'time' => Carbon::now()
             ]);
             return response()->json(["message" => "Subject record successfully deleted."], 200);
+          }
+          // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to delete the subject ' . $subject->subject_description . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          //
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([

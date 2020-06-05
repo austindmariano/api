@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
 class InstructorController extends Controller
@@ -268,6 +269,7 @@ class InstructorController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'delete_priv');
 
         if($isAuthorized){
+          try{
             $instructor->delete();
 
             //record in activity log
@@ -276,10 +278,29 @@ class InstructorController extends Controller
                 'activity' => 'Deleted instructor record of ' . $instructor->last_name . ', ' . $instructor->first_name . '.',
                 'time' => Carbon::now()
             ]);
-
             return response()->json([
                 'message' => 'Instructor record successfully deleted.'
             ], 200);
+          }
+
+            // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to delete instructor record of ' . $instructor->last_name . ', ' . $instructor->first_name . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          //
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
+          //
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -468,6 +489,7 @@ class InstructorController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'delete_priv');
 
         if($isAuthorized){
+          try{
             $instructoravailability->delete();
 
             //record in activity log
@@ -480,6 +502,24 @@ class InstructorController extends Controller
             return response()->json([
                 'message' => 'Instructor time availability successfully deleted.'
             ], 200);
+          }
+          // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to update time availability of ' . $instructor->last_name . ', ' . $instructor->first_name . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          //
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([
@@ -668,6 +708,7 @@ class InstructorController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.instructor_management'), 'delete_priv');
 
         if($isAuthorized){
+          try{
             $preferredsubject->delete();
 
             //record in activity log
@@ -680,6 +721,24 @@ class InstructorController extends Controller
             return response()->json([
                 'message' => 'Instructor preferred subject successfully deleted.'
             ], 200);
+          }
+          // Delete exception
+          catch (QueryException $a) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Attempted to delete preferred subject of ' . $instructor->last_name . ', ' . $instructor->first_name . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+            ],400); //401: Unauthorized
+          }
+          //
+          catch (Exception $e) {
+            report($e);
+            return false;
+          }
         }else{
             //record in activity log
             $activityLog = ActivityLog::create([

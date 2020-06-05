@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use App\ActivityLog;
 use Illuminate\Support\Facades\Config;
@@ -246,14 +247,32 @@ class AcademicYearController extends Controller
       // check if user has the priviledge to delete course record.
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.academic_year_management'), 'delete_priv');
       if($isAuthorized){
+        try {
           $academic_year->delete();
-        //record in activity log
-        $activityLog = ActivityLog::create([
-            'user_id' => $user->id,
-            'activity' => 'Deleted the academic year ' . $academic_year->academic_year . '.',
-            'time' => Carbon::now()
-        ]);
-        return response()->json(['message' => 'Academic year record successfully deleted.'], 200);
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Deleted the academic year ' . $academic_year->academic_year . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json(['message' => 'Academic year record successfully deleted.'], 200);
+        }
+        // Delete exception
+        catch (QueryException $a) {
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Attempted to delete the academic year ' . $academic_year->academic_year . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'This record is cannot be deleted because, it is already used by the system.'
+          ],400); //401: Unauthorized
+        }
+        catch (Exception $e) {
+          report($e);
+          return false;
+        }
       }else {
         //record in activity log
         $activityLog = ActivityLog::create([

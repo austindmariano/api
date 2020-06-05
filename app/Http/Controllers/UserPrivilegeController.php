@@ -147,4 +147,51 @@ class UserPrivilegeController extends Controller
             ->where($privilege, 1)
             ->exists();
     }
+
+    public function destroy(User $user, UserPrivilege $userprivilege)
+    {
+      $user = Auth::user();
+      //check if user has the priviledge to delete $userprivilege record.
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.user_management'), 'delete_priv');
+      if($isAuthorized){
+        try {
+          $userprivilege->delete();
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Deleted the privilege of user ' . $user->id . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json(['message' => 'Privilege record successfully deleted.'], 200);
+        }
+          // Delete exception
+        catch (QueryException $a) {
+          //record in activity log
+          $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to delete the privilege of user ' . $user->id . '.',
+            'time' => Carbon::now()
+          ]);
+          return response()->json([
+            'message' => 'This record is cannot be deleted because, it is already used by the system.'
+          ],400); //401: Unauthorized
+        }
+        //
+        catch (Exception $e) {
+          report($e);
+          return false;
+        }
+      }else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to delete the privilege of user ' . $user->id . '.',
+            'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to delete privilege records.'
+          ],401); //401: Unauthorized
+      }
+
+    } // end of function destroy()
 }
