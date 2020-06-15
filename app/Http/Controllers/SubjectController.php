@@ -211,7 +211,7 @@ class SubjectController extends Controller
               $newData = $request->all();
             }
             $validator = Validator::make($newData,[
-                'subject_code' => 'unique:subjects,subject_code',
+                'subject_code' => 'unique:subjects,subject_code|max:10',
                 'subject_title' => 'required|string',
                 'subject_description' => 'nullable|string',
                 'units' => 'nullable|numeric',
@@ -236,7 +236,8 @@ class SubjectController extends Controller
                     if($subject->subject_code == $request['subject_code']){
 
                       // find the lecture of the lab subject
-                      $search = trim($subject->subject_code, "-L");
+                      // $search = trim($subject->subject_code, "-L");
+                      $search = str_replace("-L","", $subject->subject_code);
                       // Query for search
                       $result = Subject::where('subject_code', $search)
                       ->update([
@@ -252,9 +253,11 @@ class SubjectController extends Controller
 
                     }else{
                       // find the lecture of the lab subject
-                      $search = trim($subject->subject_code, "-L");
+                      // $search = trim($subject->subject_code, "-L");
+                      $search = str_replace("-L","", $subject->subject_code);
                       // trim new subject code for lecture
-                      $newLecture = trim($newData['subject_code'], '-L');
+                      // $newLecture = trim($newData['subject_code'], '-L');
+                      $newLecture = str_replace("-L","", $request['subject_code']);
                       // Query for search
                       $result = Subject::where('subject_code', $search)
                       ->update([
@@ -263,9 +266,10 @@ class SubjectController extends Controller
                         'subject_description' => $newData['subject_description'],
                       ]);
 
-                      $newLecture = trim($newData['subject_code'], '-L');
+                      // $newLecture = trim($newData['subject_code'], '-L');
+                      $newLab = str_replace("-L","", $newData['subject_code']);
 
-                      $newData['subject_code'] = $newLecture . "-L";
+                      $newData['subject_code'] = $newLab . "-L";
                       // update the current lab
                       $subject->update($newData);
 
@@ -306,7 +310,8 @@ class SubjectController extends Controller
                         'subject_description' => $newData['subject_description'],
                       ]);
 
-                      $newLecture = trim($newData['subject_code'], '-L');
+                      // $newLecture = trim($newData['subject_code'], '-L');
+                      $newLecture = str_replace("-L","", $newData['subject_code']);
 
                       $newData['subject_code'] = $newLecture;
                       // update the current lab
