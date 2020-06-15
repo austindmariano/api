@@ -87,7 +87,7 @@ class UserController extends Controller
           $validator = Validator::make($request->all(),[
               'username' => 'string',
               'email' => 'email',
-              'password' => 'min:6|confirmed',
+              // 'password' => 'min:6|confirmed',
               'first_name' => 'string',
               'middle_name' => 'nullable|string',
               'last_name' => 'string',
@@ -132,7 +132,7 @@ class UserController extends Controller
             }
             else {
               $userData = $request->all();
-              $userData['password'] = Hash::make($request->password);
+              // $userData['password'] = Hash::make($request->password);
               $userData['last_updated_by'] = Auth::user()->id;
               $user->update($userData);
 

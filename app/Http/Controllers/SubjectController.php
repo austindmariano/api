@@ -203,14 +203,16 @@ class SubjectController extends Controller
         $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.subject_management'), 'update_priv');
 
         if($isAuthorized){
+          $withLab = $request['subject_code'] . "-L";
             if($subject->subject_code == $request['subject_code']){
               $newData = $request->except('subject_code');
-            } else {
+            }
+            else {
               $newData = $request->all();
             }
             $validator = Validator::make($newData,[
-                'subject_code' => 'nullable|unique:subjects,subject_code',
-                'subject_title' => 'string',
+                'subject_code' => 'unique:subjects,subject_code',
+                'subject_title' => 'required|string',
                 'subject_description' => 'nullable|string',
                 'units' => 'nullable|numeric',
                 'lec' => 'nullable|numeric',
@@ -229,15 +231,111 @@ class SubjectController extends Controller
             else {
                 $newData['last_updated_by'] = Auth::user()->id;
                 try {
-                    $subject->update($newData);
-                    //record in activity log
-                    $activityLog = ActivityLog::create([
-                        'user_id' => $user->id,
-                        'activity' => 'Updated the subject ' . $subject->subject_description . '.',
-                        'time' => Carbon::now()
-                    ]);
-                    return response()->json(["message" => "Subject record succesfully updated."], 200);
-                } catch (Exception $e) {
+                  // check if subject is lab or lec
+                  if ($subject->lab > 0) {
+                    if($subject->subject_code == $request['subject_code']){
+
+                      // find the lecture of the lab subject
+                      $search = trim($subject->subject_code, "-L");
+                      // Query for search
+                      $result = Subject::where('subject_code', $search)
+                      ->update([
+                        'subject_title' => $newData['subject_title'],
+                        'subject_description' => $newData['subject_description'],
+                      ]);
+
+                      // update the current lab
+                      $subject->update($newData);
+
+                      return response()->json(["message" => "Subject record successfully updated."], 200);
+
+
+                    }else{
+                      // find the lecture of the lab subject
+                      $search = trim($subject->subject_code, "-L");
+                      // trim new subject code for lecture
+                      $newLecture = trim($newData['subject_code'], '-L');
+                      // Query for search
+                      $result = Subject::where('subject_code', $search)
+                      ->update([
+                        'subject_code' => $newLecture,
+                        'subject_title' => $newData['subject_title'],
+                        'subject_description' => $newData['subject_description'],
+                      ]);
+
+                      $newLecture = trim($newData['subject_code'], '-L');
+
+                      $newData['subject_code'] = $newLecture . "-L";
+                      // update the current lab
+                      $subject->update($newData);
+
+                      return response()->json(["message" => "Subject record successfully updated."], 200);
+
+                    }
+                  }else{
+                    if($subject->subject_code == $request['subject_code']){
+
+                      // find the lecture of the lab subject
+                      // $search = trim($subject->subject_code, "-L");
+                      $search = $subject->subject_code . "-L";
+                      // Query for search
+                      $result = Subject::where('subject_code', $search)
+                      ->update([
+                        'subject_title' => $newData['subject_title'],
+                        'subject_description' => $newData['subject_description'],
+                      ]);
+
+                      // update the current lab
+                      $subject->update($newData);
+
+                      return response()->json(["message" => "Subject record successfully updated."], 200);
+
+
+                    }else{
+                      // find the lecture of the lab subject
+                      // $search = trim($subject->subject_code, "-L");
+                      $search = $subject->subject_code . "-L";
+                      // trim new subject code for lecture
+                      // $newLab = trim($newData['subject_code'], '-L');
+                      $newLab = $newData['subject_code'] . "-L";
+                      // Query for search
+                      $result = Subject::where('subject_code', $search)
+                      ->update([
+                        'subject_code' => $newLab,
+                        'subject_title' => $newData['subject_title'],
+                        'subject_description' => $newData['subject_description'],
+                      ]);
+
+                      $newLecture = trim($newData['subject_code'], '-L');
+
+                      $newData['subject_code'] = $newLecture;
+                      // update the current lab
+                      $subject->update($newData);
+
+                      return response()->json(["message" => "Subject record successfully updated."], 200);
+
+                    }
+                  }
+                  //record in activity log
+                  $activityLog = ActivityLog::create([
+                      'user_id' => $user->id,
+                      'activity' => 'Update the details of ' . $subject->subject_description . '.',
+                      'time' => Carbon::now()
+                  ]);
+                }
+                catch (QueryException $a) {
+                  //record in activity log
+                  $activityLog = ActivityLog::create([
+                      'user_id' => $user->id,
+                      'activity' => 'Attempted to delete the subject ' . $subject->subject_description . '.',
+                      'time' => Carbon::now()
+                  ]);
+                  return response()->json([
+                    'message' => 'Duplicate Entry. Please add -L on the end of subject code if subject has a laboratory units.'
+                  ],400); //401: Unauthorized
+                }
+
+                catch (Exception $e) {
                     report($e);
                     return false;
                 }
