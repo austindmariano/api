@@ -41,6 +41,15 @@ Route::group(['prefix' => 'v1'], function(){
         Route::put('users/{user}', 'UserController@update');
         Route::delete('users/{user}', 'UserController@destroy');
 
+
+        // THIS PUT method will update the profile of a user
+        Route::put('update_profile/{user}', 'UserController@updateProfile');
+
+        // THIS PUT method will change the password of specified user account
+        Route::put('update_password/{user}', 'UserController@changePassword');
+
+
+
         // get all privileges of specific user
         Route::get('users/{user}/privileges', 'UserController@showUserPrivilege');
 

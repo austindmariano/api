@@ -280,4 +280,86 @@ class UserController extends Controller
           ],401);
       }
     }
+
+    // change password function
+    public function changePassword(Request $request, User $user){
+      $validator = Validator::make($request->all(),[
+          'password' => 'required|min:6',
+      ]);
+
+      if ($validator->fails()){
+          return response()->json([
+              'message' => 'Failed to change password.',
+              'errors' => $validator->errors()
+          ],400);    //Bad request
+      }
+      else{
+        $userData = $request->all();
+        // $userData['password'] = Hash::make($request->password);
+        $userData['last_updated_by'] = Auth::user()->id;
+        $userData['password'] = Hash::make($userData['password']);
+
+        $user->update($userData);
+
+        //record in activity log
+        $activityLog = ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Updated password of ' . $user->username . '.',
+            'time' => Carbon::now()
+        ]);
+
+        return response()->json([
+            'message' => 'Password successfully updated.'
+        ], 200);
+      }
+    } // end of change password function
+
+    public function updateProfile(Request $request, User $user){
+
+      if($user->username == $request['username']) {
+        $userData = $request->except('username');
+      } else {
+        $userData = $request->all();
+      }
+
+      if($user->username == $request['username']) {
+        $userData = $request->except('username');
+      } else {
+        $userData = $request->all();
+      }
+
+      $validator = Validator::make($request->all(),[
+        'username' => 'string|unique:users',
+        'email' => 'email|unique:users',
+        'first_name' => 'required|string',
+        'middle_name' => 'nullable|string',
+        'last_name' => 'required|string',
+      ]);
+
+      if ($validator->fails()){
+          return response()->json([
+              'message' => 'Failed to update user profile.',
+              'errors' => $validator->errors()
+          ],400);    //Bad request
+      }
+      else{
+        $userData = $request->all();
+        // $userData['password'] = Hash::make($request->password);
+        $userData['last_updated_by'] = Auth::user()->id;
+        $user->update($userData);
+
+        //record in activity log
+        $activityLog = ActivityLog::create([
+            'user_id' => Auth::user()->id,
+            'activity' => 'Updated user profile of ' . $user->username . '.',
+            'time' => Carbon::now()
+        ]);
+
+        return response()->json([
+            'message' => 'User profile successfully updated.'
+        ], 200);
+      }
+    } // end of change password function
+
+
 }
