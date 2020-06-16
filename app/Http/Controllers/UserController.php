@@ -316,20 +316,27 @@ class UserController extends Controller
 
     public function updateProfile(Request $request, User $user){
 
-      if($user->username == $request['username']) {
+      if($user->username == $request['username'] && $user->email == $request['email']) {
+        $userData = $request->except(['username', 'email']);
+
+      } elseif ($user->username == $request['username']) {
         $userData = $request->except('username');
+
+      } elseif ($user->email == $request['email']) {
+        $userData = $request->except('email');
+
       } else {
         $userData = $request->all();
       }
 
-      if($user->username == $request['username']) {
-        $userData = $request->except('username');
-      } else {
-        $userData = $request->all();
-      }
+      // if($user->email == $request['email']) {
+      //   $userData = $request->except('email');
+      // } else {
+      //   $userData = $request->all();
+      // }
 
-      $validator = Validator::make($request->all(),[
-        'username' => 'string|unique:users',
+      $validator = Validator::make($userData,[
+        'username' => 'unique:users',
         'email' => 'email|unique:users',
         'first_name' => 'required|string',
         'middle_name' => 'nullable|string',
