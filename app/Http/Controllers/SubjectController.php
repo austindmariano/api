@@ -241,7 +241,7 @@ class SubjectController extends Controller
                       // Query for search
                       $result = Subject::where('subject_code', $search)
                       ->update([
-                        'subject_title' => $newData['subject_title'],
+                        // 'subject_title' => $newData['subject_title'],
                         'subject_description' => $newData['subject_description'],
                       ]);
 
@@ -262,7 +262,7 @@ class SubjectController extends Controller
                       $result = Subject::where('subject_code', $search)
                       ->update([
                         'subject_code' => $newLecture,
-                        'subject_title' => $newData['subject_title'],
+                        // 'subject_title' => $newData['subject_title'],
                         'subject_description' => $newData['subject_description'],
                       ]);
 
@@ -285,7 +285,7 @@ class SubjectController extends Controller
                       // Query for search
                       $result = Subject::where('subject_code', $search)
                       ->update([
-                        'subject_title' => $newData['subject_title'],
+                        // 'subject_title' => $newData['subject_title'],
                         'subject_description' => $newData['subject_description'],
                       ]);
 
@@ -306,7 +306,7 @@ class SubjectController extends Controller
                       $result = Subject::where('subject_code', $search)
                       ->update([
                         'subject_code' => $newLab,
-                        'subject_title' => $newData['subject_title'],
+                        // 'subject_title' => $newData['subject_title'],
                         'subject_description' => $newData['subject_description'],
                       ]);
 
