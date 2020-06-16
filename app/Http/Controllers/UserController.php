@@ -283,34 +283,43 @@ class UserController extends Controller
 
     // change password function
     public function changePassword(Request $request, User $user){
-      $validator = Validator::make($request->all(),[
-          'password' => 'required|min:6',
-      ]);
+      // $check_pass = Hash::make($request->old_password);
 
-      if ($validator->fails()){
-          return response()->json([
-              'message' => 'Failed to change password.',
-              'errors' => $validator->errors()
-          ],400);    //Bad request
-      }
-      else{
-        $userData = $request->all();
-        // $userData['password'] = Hash::make($request->password);
-        $userData['last_updated_by'] = Auth::user()->id;
-        $userData['password'] = Hash::make($userData['password']);
+      if(!Hash::check($request->old_password, $user->password)){
+        return response()->json([
+            'message' => "Old password doesn't match.",
+        ], 400);
 
-        $user->update($userData);
-
-        //record in activity log
-        $activityLog = ActivityLog::create([
-            'user_id' => Auth::user()->id,
-            'activity' => 'Updated password of ' . $user->username . '.',
-            'time' => Carbon::now()
+      } else {
+        $validator = Validator::make($request->all(),[
+            'password' => 'required|min:6',
         ]);
 
-        return response()->json([
-            'message' => 'Password successfully updated.'
-        ], 200);
+        if ($validator->fails()){
+            return response()->json([
+                'message' => 'Failed to change password.',
+                'errors' => $validator->errors()
+            ],400);    //Bad request
+        }
+        else{
+          $userData = $request->all();
+          // $userData['password'] = Hash::make($request->password);
+          $userData['last_updated_by'] = Auth::user()->id;
+          $userData['password'] = Hash::make($userData['password']);
+
+          $user->update($userData);
+
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Updated password of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+
+          return response()->json([
+              'message' => 'Password successfully updated.'
+          ], 200);
+        }
       }
     } // end of change password function
 
