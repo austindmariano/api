@@ -362,8 +362,11 @@ class UserController extends Controller
             'time' => Carbon::now()
         ]);
 
+        $user['activities'] = $user->privileges;
+
         return response()->json([
-            'message' => 'User profile successfully updated.'
+            'message' => 'User profile successfully updated.',
+            'user' => $user
         ], 200);
       }
     } // end of change password function
