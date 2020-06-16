@@ -62,6 +62,7 @@ class LoginController extends Controller
                   "user_info" => $user
                 ], 403);    //invalid credentials: unauthorized
               }else{
+                User::where('username', $request->username)->update(['attempts' => 0]);
                 $user['activities'] = $user->privileges;
                 //record in activity log
                 $activityLog = ActivityLog::create([
@@ -91,7 +92,7 @@ class LoginController extends Controller
               // check if user is blocked
               if ($acc->blocked == 1){
                 return response()->json([
-                  "message" => "Your account is currently blocked",
+                  "message" => "Your account is currently blocked. Please contact your System Administrator.",
                   "user_info" => $acc
                 ], 403);    //invalid credentials: unauthorized
               }
@@ -109,7 +110,7 @@ class LoginController extends Controller
                 elseif($acc->attempts == 3){
                   User::where('username', $request->username)->increment('blocked', 1);
                   return response()->json([
-                    "message" => "Maximum attempts reached, your account will be blocked",
+                    "message" => "Maximum attempts reached, your account has been blocked. Please contact your System Administrator.",
                     "user_info" => $acc
                   ], 403);    //invalid credentials: unauthorized
                 }

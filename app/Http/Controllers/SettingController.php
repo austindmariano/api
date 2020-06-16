@@ -47,20 +47,49 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-      // $check = DB::table('settings')->get();
-      // $check[0]->current_academic_year = 4;
-      // $check[0]->current_semester = 2;
+      $isAuthorized = Auth::user()->role;
 
-      $affected = DB::table('settings')
-              ->update(['current_academic_year' => 4 , 'current_semester' => 2]);
+      if($isAuthorized == "System Administrator"){
+        try {
+          $result = DB::table('settings')
+                  ->update([
+                    'current_academic_year' => $request->current_academic_year ,
+                    'current_semester' => $request->current_semester]);
 
-      // $check->save();
-      return $affected;
-      // DB:table('setting')->update()
-      // $check = $setting->update();
-      // $check = $setting->update($request->all());
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Updated database settings.',
+              'time' => Carbon::now()
+          ]);
+          // return success message
 
-      return $check;
+
+          // return Config::get('settings');
+
+          $current = $this->index();
+          // Config::set('settings')['current_ay'] = 2;
+          // Config::set('settings')['current_sem'] = 1;
+
+          $settings = Config::get('settings');
+          $settings['current_ay'] = $current->current_academic_year;
+          $settings['current_sem'] = $current->current_semester;
+
+          return response()->json([
+            "message" => "Settings successfully updated.",
+            "settings" => $settings
+          ], 200);
+
+        } catch (Exception $e) {
+          report($e);
+          return false;
+        }
+
+      } else {
+        return response()->json([
+          "message" => "You are not authorized to update settings."
+        ], 401);
+      }
     }
 
     /**

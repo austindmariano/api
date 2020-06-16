@@ -505,10 +505,10 @@ Route::group(['prefix' => 'v1'], function(){
         //Beginning of Setting Routes
 
         //This GET method will show system current settngs
-        // Route::get('/system_settings', 'SettingController@index');
+        Route::get('/system_settings', 'SettingController@index');
 
         //This PUT method will update system current settings
-        // Route::put('/system_settings', 'SettingController@update');
+        Route::put('/system_settings', 'SettingController@update');
 
         //End of Setting Routes
         //--------------------------------------------------------------------------
