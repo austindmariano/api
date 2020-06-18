@@ -171,21 +171,73 @@ class ClassScheduleController extends Controller
     public function createSchedule($class_schedule_data, $user){
       try {
         //convert 12 hour to 24 hour
-        $class_schedule_data['time_start']  = date("H:i:s", strtotime($class_schedule_data['time_start']));
-        $class_schedule_data['time_end']  = date("H:i:s", strtotime($class_schedule_data['time_end']));
+        $container_start = $class_schedule_data['time_start'] != null || "" ? date("H:i:s", strtotime($class_schedule_data['time_start'])) : null;
+        $container_end = $class_schedule_data['time_end'] != null || "" ? date("H:i:s", strtotime($class_schedule_data['time_end'])) : null;
+        $class_schedule_data['time_start']  = $container_start;
+        $class_schedule_data['time_end']  = $container_end;
 
-        $class_schedule = ClassSchedule::create($class_schedule_data);
-        // check if record is successfully created.
-        if ($class_schedule) {
-          //record in activity log
-          $activityLog = ActivityLog::create([
-              'user_id' => $user->id,
-              'activity' => 'Created a new class schedule.',
-              'time' => Carbon::now()
-          ]);
-          return response()->json(['message' => 'New class schedule record successfully created.'], 200);
-        }else {
-          return response()->json(['message' => 'Failed to create new class schedule record.'], 500); // server error
+        $current_sched = ClassSchedule::where('academic_year_id', $class_schedule_data['academic_year_id'])
+              ->where('semester_id', $class_schedule_data['semester_id'])
+              ->where('course_id', $class_schedule_data['course_id'])
+              ->where('year_level', $class_schedule_data['year_level'])
+              ->where('block', $class_schedule_data['block'])
+              ->where('batch', $class_schedule_data['batch'])
+              ->where('room_id', $class_schedule_data['room_id'])
+              ->where('subject_id', $class_schedule_data['subject_id'])
+              ->where('time_start', $class_schedule_data['time_start'])
+              ->where('time_end', $class_schedule_data['time_end'])
+              ->where('instructor_id', $class_schedule_data['instructor_id'])->first();
+          // check if there is a schedule that is similar to the given inputs.
+          if($current_sched != null || ""){
+            $days = explode("/", $current_sched->day);
+
+
+            // $day_check = strrpos($days, $class_schedule_data['day']);
+            $day_check = in_array($class_schedule_data['day'], $days);
+
+            if ($day_check) {
+              return response()->json(['message' => "This subject is already scheduled on days of " . $current_sched->day], 400);
+            }else {
+              $checker = ClassSchedule::where('academic_year_id', $class_schedule_data['academic_year_id'])
+                    ->where('semester_id', $class_schedule_data['semester_id'])
+                    ->where('course_id', $class_schedule_data['course_id'])
+                    ->where('year_level', $class_schedule_data['year_level'])
+                    ->where('block', $class_schedule_data['block'])
+                    ->where('batch', $class_schedule_data['batch'])
+                    ->where('room_id', $class_schedule_data['room_id'])
+                    ->where('subject_id', $class_schedule_data['subject_id'])
+                    ->where('instructor_id', $class_schedule_data['instructor_id'])
+                    ->where('time_start', $class_schedule_data['time_start'])
+                    ->where('time_end', $class_schedule_data['time_end'])
+                      ->update([
+                        'day' => $current_sched->day . "/" . $class_schedule_data['day']]);
+                if ($checker) {
+                  //record in activity log
+                  $activityLog = ActivityLog::create([
+                    'user_id' => $user->id,
+                    'activity' => 'Update class schedule.',
+                    'time' => Carbon::now()
+                  ]);
+                  return response()->json(['message' => 'Class schedule record successfully updated.'], 200);
+                }else {
+                  return response()->json(['message' => 'Failed to create new class schedule record.'], 500); // server error
+                }
+            }
+        }
+        else {
+          $class_schedule = ClassSchedule::create($class_schedule_data);
+          // check if record is successfully created.
+          if ($class_schedule) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Created a new class schedule.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json(['message' => 'New class schedule record successfully created.'], 200);
+          }else {
+            return response()->json(['message' => 'Failed to create new class schedule record.'], 500); // server error
+          }
         }
       } catch (Exception $e) {
         report($e);
@@ -303,7 +355,7 @@ class ClassScheduleController extends Controller
       ->where('academic_year_id', $class_schedule_data['academic_year_id'])
       ->where('semester_id', $class_schedule_data['semester_id'])
       ->where('instructor_id', $class_schedule_data['instructor_id'])
-      ->where('day', $class_schedule_data['day'])
+      ->where('day', 'like' ,"%" .$class_schedule_data['day']. "%")
       ->where(function ($query) use ($ins_time_start,$ins_time_end) {
                $query->whereBetween('time_start', [$ins_time_start, $ins_time_end])
                      ->orWhereBetween('time_end', [$ins_time_start, $ins_time_end]);
