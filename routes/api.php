@@ -412,7 +412,7 @@ Route::group(['prefix' => 'v1'], function(){
         // This route will create new student requirement record
         Route::post('/student_requirements', 'StudentController@storeStudentRequirements');
 
-        Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
+        // Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
 
         //End of Student Routes
         //--------------------------------------------------------------------------
@@ -432,7 +432,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::put('/pre_registers/{pre_register}', 'PreRegistrationController@update');
 
         //This DELETE method will DELETE a specified Pre Registered student.
-        Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
+        Route::delete('delete/pre_registers', 'PreRegistrationController@destroy');
 
         //End of Pre Registered Student Routes
         //--------------------------------------------------------------------------

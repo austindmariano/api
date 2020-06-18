@@ -156,7 +156,7 @@ class PreRegistrationController extends Controller
      */
     public function show(PreRegistration $preRegistration)
     {
-        //
+      return "asdfas";
     }
 
     /**
@@ -177,21 +177,26 @@ class PreRegistrationController extends Controller
      * @param  \App\PreRegistration  $preRegistration
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PreRegistration $preRegistration)
+    public function destroy(Request $request, PreRegistration $preRegistration)
     {
       $user = Auth::user();
       //check if user has the priviledge to delete student record.
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'delete_priv');
       if($isAuthorized){
         try {
-          $preRegistration->delete();
-          //record in activity log
-          $activityLog = ActivityLog::create([
-              'user_id' => $user->id,
-              'activity' => 'Deleted the pre-regitration record of student.',
-              'time' => Carbon::now()
-          ]);
-          return response()->json(['message' => 'PreRegistration record successfully deleted.'], 200);
+          $check = PreRegistration::where('id', $request->query('id'))->delete();
+
+          if ($check) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+                'user_id' => $user->id,
+                'activity' => 'Deleted the pre-registration record of student.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json(['message' => 'PreRegistration record successfully deleted.'], 200);
+          }else {
+            return response()->json(['message' => 'Failed to delete pre-registration record.'], 500);
+          }
         }catch (Exception $e) {
           report($e);
           return false;

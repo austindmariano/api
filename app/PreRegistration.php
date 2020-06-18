@@ -18,4 +18,6 @@ class PreRegistration extends Model
       'college_last_attended', 'college_address',
       'last_track', 'last_strand', 'last_course', 'registration_code'
     ];
+
+    // protected $table = "pre_registration";
 }
