@@ -184,11 +184,11 @@ class PreRegistrationController extends Controller
       $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'delete_priv');
       if($isAuthorized){
         try {
-          $student->delete();
+          $preRegistration->delete();
           //record in activity log
           $activityLog = ActivityLog::create([
               'user_id' => $user->id,
-              'activity' => 'Deleted the pre-regitration record of student ' . $student->id . '.',
+              'activity' => 'Deleted the pre-regitration record of student.',
               'time' => Carbon::now()
           ]);
           return response()->json(['message' => 'PreRegistration record successfully deleted.'], 200);
@@ -200,7 +200,7 @@ class PreRegistrationController extends Controller
           //record in activity log
           $activityLog = ActivityLog::create([
               'user_id' => $user->id,
-              'activity' => 'Attempted to delete the pre-registration record of student ' . $student->id . '.',
+              'activity' => 'Attempted to delete the pre-registration record of student.',
               'time' => Carbon::now()
           ]);
           return response()->json([
