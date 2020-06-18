@@ -412,6 +412,8 @@ Route::group(['prefix' => 'v1'], function(){
         // This route will create new student requirement record
         Route::post('/student_requirements', 'StudentController@storeStudentRequirements');
 
+        Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
+
         //End of Student Routes
         //--------------------------------------------------------------------------
 

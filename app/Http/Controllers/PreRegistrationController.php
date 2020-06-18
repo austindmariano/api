@@ -179,6 +179,33 @@ class PreRegistrationController extends Controller
      */
     public function destroy(PreRegistration $preRegistration)
     {
-        //
+      $user = Auth::user();
+      //check if user has the priviledge to delete student record.
+      $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges($user->id, Config::get('settings.student_management'), 'delete_priv');
+      if($isAuthorized){
+        try {
+          $student->delete();
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Deleted the pre-regitration record of student ' . $student->id . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json(['message' => 'PreRegistration record successfully deleted.'], 200);
+        }catch (Exception $e) {
+          report($e);
+          return false;
+        }
+      }else{
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => $user->id,
+              'activity' => 'Attempted to delete the pre-registration record of student ' . $student->id . '.',
+              'time' => Carbon::now()
+          ]);
+          return response()->json([
+              'message' => 'You are not authorized to delete pre registered student records.'
+          ],401); //401: Unauthorized
+      }
     }
 }
