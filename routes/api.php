@@ -67,6 +67,11 @@ Route::group(['prefix' => 'v1'], function(){
         // update specific privilege
         Route::put('privileges/{userprivilege}', 'UserPrivilegeController@updatePrivilege');
 
+        // bulk update of user priviledge
+        Route::put('bulk_update/privileges', 'UserPrivilegeController@bulkUpdatePrivilege');
+
+
+
         // grants user a privilege
         Route::post('privileges', 'UserPrivilegeController@grantPrivilege');
 

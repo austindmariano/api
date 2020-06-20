@@ -137,7 +137,6 @@ class UserPrivilegeController extends Controller
                 'message' => 'You are not authorized to update privileges.'
             ], 401);
         }
-
     }
 
     public function checkPrivileges($user, $activity, $privilege){
@@ -194,4 +193,48 @@ class UserPrivilegeController extends Controller
       }
 
     } // end of function destroy()
+
+    public function bulkUpdatePrivilege(Request $request){
+        //Check if user has permission to manage user accounts
+        $isAuthorized = app('App\Http\Controllers\UserPrivilegeController')->checkPrivileges(Auth::user()->id, Config::get('settings.user_management'), 'update_priv');
+        if ($isAuthorized) {
+
+          // $request['last_updated_by'] = Auth::user()->id;
+          $privileges = $request->all();
+          foreach ($privileges as $v) {
+            $result = UserPrivilege::where('id', $v['id'])
+            ->update([
+              'create_priv' => $v['create_priv'],
+              'read_priv' => $v['read_priv'],
+              'update_priv' => $v['update_priv'],
+              'delete_priv' => $v['delete_priv'],
+            ]);
+          }
+
+          // return $request[1]['id'];
+
+          if ($result) {
+            //record in activity log
+            $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Updated the privileges of user ' . $request['user_id'] . '.',
+              'time' => Carbon::now()
+            ]);
+            return response()->json([
+              'message' => 'Privileges successfully updated.'
+            ]);
+
+          }
+
+        }else{
+            $activityLog = ActivityLog::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Attempted to update the privileges of user ' . $request['user_id'] . '.',
+                'time' => Carbon::now()
+            ]);
+            return response()->json([
+                'message' => 'You are not authorized to update privileges.'
+            ], 401);
+        }
+    }
 }
