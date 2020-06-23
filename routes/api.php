@@ -56,7 +56,7 @@ Route::group(['prefix' => 'v1'], function(){
         // update specific privilege
         Route::put('privileges/{userprivilege}', 'UserControllerController@updateUserPrivilege');
 
-        Route::delete('privileges/{privilege}', 'UserPrivilegeController@destroy');
+        Route::delete('privileges/{userprivilege}', 'UserPrivilegeController@destroy');
 
         // get specific privilege of specific user
         // Route::get('users/{user}/privileges/{userprivilege}', 'UserPrivilegeController@showUserPrivilege');

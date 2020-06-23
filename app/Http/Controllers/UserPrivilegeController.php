@@ -155,6 +155,7 @@ class UserPrivilegeController extends Controller
       if($isAuthorized){
         try {
           $userprivilege->delete();
+          // return $userprivilege;
           //record in activity log
           $activityLog = ActivityLog::create([
               'user_id' => Auth::user()->id,
