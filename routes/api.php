@@ -421,8 +421,35 @@ Route::group(['prefix' => 'v1'], function(){
 
         // Route::delete('/pre_registers/{pre_register}', 'PreRegistrationController@destroy');
 
+
         //End of Student Routes
         //--------------------------------------------------------------------------
+
+
+        //--------------------------------------------------------------------------
+        //Beginning of Online Student Routes
+
+        //This GET method will get specific student
+        Route::get('/online/students/{student}', 'StudentController@getOnlineStudent');
+
+        //This GET method will get specific student
+        Route::get('/online/students/{student}/enrollments', 'StudentController@getOnlineStudentEnrollment');
+
+        //This PUT method will update user account of specific student
+        Route::put('/online/students/{student}/account', 'StudentController@updateOnlineStudentAccount');
+
+        // This PUT methos will update specific student information
+        Route::put('/online/students/{student}', 'StudentController@updateOnlineStudent');
+
+        //This GET method will get active courses that students can enroll
+        Route::get('/online/courses', 'StudentController@getCourses');
+
+
+
+
+        //End of Online Student Routes
+        //--------------------------------------------------------------------------
+
 
         //--------------------------------------------------------------------------
         //Beginning of Pre Registered Student Routes

@@ -17,7 +17,11 @@ class Student extends Model
   ];
 
   public function enrollment(){
-    return $this->hasMany('App\Enrollment')->select('*');
+    return $this->hasMany('App\Enrollment')->select('*')->with('student_schedule');
+  }
+
+  public function user(){
+    return $this->belongsTo('App\User');
   }
 
   public function requirements(){

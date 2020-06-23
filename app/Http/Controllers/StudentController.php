@@ -6,6 +6,7 @@ use App\Student;
 use App\StudentRequirement;
 use App\AcademicYear;
 use App\Semester;
+use App\Course;
 use Carbon\Carbon;
 use App\ActivityLog;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -612,4 +614,239 @@ class StudentController extends Controller
       }
 
     } // end of function getStudent()
+
+
+// START of ONLINE STUDENT Functions ============================================
+    public function getOnlineStudent(Student $student){
+
+      $user = Auth::user();
+      if ($user->role == "Student") {
+        // record in activity log
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Student ' . $student->student_number . ' viewed own student information.',
+            'time' => Carbon::now()
+        ]);
+        $student->enrollments = $student->enrollment;
+        $student->account = $student->user;
+
+
+        return $student;
+
+      }else{
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to view information of student ' . $student->student_number . '.',
+            'time' => Carbon::now()
+        ]);
+        return response()->json([
+            'message' => 'You are not authorized to view student records.'
+        ],401); //401: Unauthorized
+      }
+    } // end of function
+
+    public function updateOnlineStudent(Request $request, Student $student){
+      $user = Auth::user();
+
+      if ($user->role == "Student") {
+        $validator = Validator::make($request->all(),[
+          'first_name' => 'required|string',
+          'middle_name' => 'nullable|string',
+          'last_name' => 'required|string',
+          'suffix_name' => 'nullable|string',
+          'gender' => 'required|string',
+          'civil_status' => 'required|string',
+          'citizenship' => 'required|string',
+          'address' => 'required|string',
+          'barangay' => 'required|string',
+          'city' => 'required|string',
+          'province' => 'required|string',
+          'postal' => 'required|numeric',
+          'telephone' => 'nullable|string',
+          'cellphone' => 'nullable|numeric',
+          'email' => 'nullable|string',
+          'birth_date' => 'required',
+          'birth_place' => 'required|string',
+          'father_name' => 'nullable|string',
+          'mother_name' => 'nullable|string',
+          'contact_person' => 'required|string',
+          'contact_address' => 'required|string',
+          'contact_number' => 'required|numeric',
+          'blood_type' => 'nullable|string',
+          'photo_url' => 'required|string',
+          // nullable muna ... baguhin nalang next time
+          'user_id' => 'nullable|string',
+          'active' => 'required|numeric',
+          'student_status' => 'nullable|string',
+          'school_last_attended' => 'required|string',
+          'school_address' => 'required|string',
+          'college_last_attended' => 'nullable|string',
+          'college_address' => 'nullable|string',
+          'last_track' => 'nullable|numeric',
+          'last_strand' => 'nullable|numeric',
+          'last_course' => 'nullable|numeric',
+        ]);
+
+        // check if data if validator fails
+        if ($validator->fails()) {
+          return response()
+          ->json([
+            'message' => 'Failed to update student record.',
+            'errors' => $validator->errors()
+          ], 400); // 400: Bad request
+        }
+        else {
+          $student_data = $request->all();
+          $student_data['last_updated_by'] = Auth::user()->id;
+          try {
+             $check = $student->update($student_data);
+
+            // check if record is successfully updated.
+            if ($check) {
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => $user->id,
+                  'activity' => 'Updated student record of ' . $student->student_number . '.',
+                  'time' => Carbon::now()
+              ]);
+              return response()->json(['message' => 'Student record successfully updated.'], 200);
+            }else {
+              return response()->json(['message' => 'Failed to update student record.'], 500); // server error
+            }
+          } catch (Exception $e) {
+            report($e);
+            return false;
+          }
+        }
+      }else{
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to update records of student ' . $student->student_number . '.',
+            'time' => Carbon::now()
+        ]);
+        return response()->json([
+            'message' => 'You are not authorized to update student accounts.'
+        ],401); //401: Unauthorized
+      }
+    }// end of function updateOnlineStudent
+
+    // this function will return enrollment records of specific student
+    public function getOnlineStudentEnrollment(Request $request, Student $student){
+
+      $user = Auth::user();
+
+      if ($user->role == "Student") {
+        // record in activity log
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Student ' . $student->student_number . ' viewed own enrollment records.',
+            'time' => Carbon::now()
+        ]);
+        if ($request->query() != null) {
+          return $student->enrollment()->where($request->query())->orderBy('id', 'DESC')->get();
+        }else{
+          return $student->enrollment()->orderBy('id', 'DESC')->get();
+        }
+      }else {
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to view enrollment records of student ' . $student->student_number . '.',
+            'time' => Carbon::now()
+        ]);
+        return response()->json([
+            'message' => 'You are not authorized to view student enrollment records.'
+        ],401); //401: Unauthorized
+      }
+    } // end of function getOnlineStudentEnrollment
+
+
+    // this function will update user account of specific student
+    public function updateOnlineStudentAccount(Request $request, Student $student){
+      $user = Auth::user();
+
+      if ($user->role == "Student") {
+        if($request->username == $student->user->username){
+          $user_data = $request->except('username');
+        }else{
+          $user_data = $request->all();
+        }
+
+
+        $validator = Validator::make($user_data,[
+          'username' => 'string',
+          'password' => 'required|string',
+          'first_name' => 'required|string',
+          'last_name' => 'required|string'
+        ]);
+
+        // check if data if validator fails
+        if ($validator->fails()) {
+          return response()
+          ->json([
+            'message' => 'Failed to update student account record.',
+            'errors' => $validator->errors()
+          ], 400); // 400: Bad request
+        }
+        else {
+          $student_data = $request->all();
+          $student_data['password'] = Hash::make($request->password);;
+          $student_data['last_updated_by'] = Auth::user()->id;
+          try {
+             $check = $student->user->update($student_data);
+
+            // check if record is successfully updated.
+            if ($check) {
+              //record in activity log
+              $activityLog = ActivityLog::create([
+                  'user_id' => $user->id,
+                  'activity' => 'Updated student account record of ' . $student->student_number . '.',
+                  'time' => Carbon::now()
+              ]);
+              return response()->json(['message' => 'Student account record successfully updated.'], 200);
+            }else {
+              return response()->json(['message' => 'Failed to update student account record.'], 500); // server error
+            }
+          } catch (Exception $e) {
+            report($e);
+            return false;
+          }
+        }
+      } else{
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to update account of student ' . $student->student_number . '.',
+            'time' => Carbon::now()
+        ]);
+        return response()->json([
+            'message' => 'You are not authorized to update student accounts.'
+        ],401); //401: Unauthorized
+      }
+    } // end function updateOnlineStudentAccount
+
+    public function getCourses(){
+      $user = Auth::user();
+      if ($user->role == "Student") {
+        $courses = Course::where('active', 0)->orderBy('id', 'DESC')->with('curriculum')->get();
+
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Viewed list of course records.',
+            'time' => Carbon::now()
+        ]);
+
+        return $courses;
+      }else{
+        $activityLog = ActivityLog::create([
+            'user_id' => $user->id,
+            'activity' => 'Attempted to view list of courses.',
+            'time' => Carbon::now()
+        ]);
+        return response()->json([
+            'message' => 'You are not authorized to view list of courses.'
+        ],401); //401: Unauthorized
+      }
+
+    }
+
+
 }
