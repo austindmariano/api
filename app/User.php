@@ -50,9 +50,9 @@ class User extends Authenticatable
                   ]);
     }
 
-    // public function student(){
-    //   return $this->hasOne('App\Student');
-    // }
+    public function student(){
+      return $this->hasOne('App\Student')->with('enrollment');
+    }
 
     public function logs(){
       return $this->hasMany('App\ActivityLog')->orderBy('id', 'DESC');

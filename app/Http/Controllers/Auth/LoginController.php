@@ -64,6 +64,7 @@ class LoginController extends Controller
               }else{
                 User::where('username', $request->username)->update(['attempts' => 0]);
                 $user['activities'] = $user->privileges;
+                $user['student'] = $user->student;
                 //record in activity log
                 $activityLog = ActivityLog::create([
                     'user_id' => $user->id,

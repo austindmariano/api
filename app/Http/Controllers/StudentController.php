@@ -317,7 +317,7 @@ class StudentController extends Controller
           'blood_type' => 'nullable|string',
           'photo_url' => 'required|string',
           // nullable muna ... baguhin nalang next time
-          'user_id' => 'nullable|string',
+          'user_id' => 'nullable',
           'active' => 'required|numeric',
           'student_status' => 'nullable|string',
           'school_last_attended' => 'required|string',
@@ -673,9 +673,9 @@ class StudentController extends Controller
           'contact_address' => 'required|string',
           'contact_number' => 'required|numeric',
           'blood_type' => 'nullable|string',
-          'photo_url' => 'required|string',
+          'photo_url' => 'nullable|string',
           // nullable muna ... baguhin nalang next time
-          'user_id' => 'nullable|string',
+          'user_id' => 'integer',
           'active' => 'required|numeric',
           'student_status' => 'nullable|string',
           'school_last_attended' => 'required|string',
@@ -698,6 +698,10 @@ class StudentController extends Controller
         else {
           $student_data = $request->all();
           $student_data['last_updated_by'] = Auth::user()->id;
+
+          $date = strtotime($request->birth_date);
+          $student_data['birth_date'] = date('Y-m-d',$date);
+
           try {
              $check = $student->update($student_data);
 
@@ -765,19 +769,33 @@ class StudentController extends Controller
       $user = Auth::user();
 
       if ($user->role == "Student") {
-        if($request->username == $student->user->username){
-          $user_data = $request->except('username');
-        }else{
-          $user_data = $request->all();
+        if($user->username == $request['username'] && $user->email == $request['email']) {
+          $userData = $request->except(['username', 'email']);
+
+        } elseif ($user->username == $request['username']) {
+          $userData = $request->except('username');
+
+        } elseif ($user->email == $request['email']) {
+          $userData = $request->except('email');
+
+        } else {
+          $userData = $request->all();
         }
 
+        // if($user->email == $request['email']) {
+        //   $userData = $request->except('email');
+        // } else {
+        //   $userData = $request->all();
+        // }
 
-        $validator = Validator::make($user_data,[
-          'username' => 'string',
-          'password' => 'required|string',
+        $validator = Validator::make($userData,[
+          'username' => 'unique:users',
+          'email' => 'email|unique:users',
           'first_name' => 'required|string',
-          'last_name' => 'required|string'
+          'middle_name' => 'nullable|string',
+          'last_name' => 'required|string',
         ]);
+
 
         // check if data if validator fails
         if ($validator->fails()) {
@@ -789,7 +807,6 @@ class StudentController extends Controller
         }
         else {
           $student_data = $request->all();
-          $student_data['password'] = Hash::make($request->password);;
           $student_data['last_updated_by'] = Auth::user()->id;
           try {
              $check = $student->user->update($student_data);
@@ -826,7 +843,7 @@ class StudentController extends Controller
     public function getCourses(){
       $user = Auth::user();
       if ($user->role == "Student") {
-        $courses = Course::where('active', 0)->orderBy('id', 'DESC')->with('curriculum')->get();
+        $courses = Course::where('active', 1)->orderBy('id', 'DESC')->with('curriculum')->get();
 
         $activityLog = ActivityLog::create([
             'user_id' => $user->id,
@@ -846,7 +863,49 @@ class StudentController extends Controller
         ],401); //401: Unauthorized
       }
 
-    }
+    } // end of function getCourses
+
+    // change password function
+    public function changePassword(Request $request, User $user){
+      // $check_pass = Hash::make($request->old_password);
+
+      if(!Hash::check($request->old_password, $user->password)){
+        return response()->json([
+            'message' => "Old password doesn't match.",
+        ], 400);
+
+      } else {
+        $validator = Validator::make($request->all(),[
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json([
+                'message' => 'Failed to change password.',
+                'errors' => $validator->errors()
+            ],400);    //Bad request
+        }
+        else{
+          $userData = $request->all();
+          // $userData['password'] = Hash::make($request->password);
+          $userData['last_updated_by'] = Auth::user()->id;
+          $userData['password'] = Hash::make($userData['password']);
+
+          $user->update($userData);
+
+          //record in activity log
+          $activityLog = ActivityLog::create([
+              'user_id' => Auth::user()->id,
+              'activity' => 'Updated password of ' . $user->username . '.',
+              'time' => Carbon::now()
+          ]);
+
+          return response()->json([
+              'message' => 'Password successfully updated.'
+          ], 200);
+        }
+      }
+    } // end of change password function
 
 
 }

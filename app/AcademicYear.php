@@ -12,4 +12,8 @@ class AcademicYear extends Model
   public function class_schedules(){
     return $this->hasMany('App\ClassSchedule');
   }
+
+  public function enrollment(){
+    return $this->hasMany('App\Enrollment');
+  }
 }

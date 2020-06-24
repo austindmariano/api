@@ -17,7 +17,7 @@ class Student extends Model
   ];
 
   public function enrollment(){
-    return $this->hasMany('App\Enrollment')->select('*')->with('student_schedule');
+    return $this->hasMany('App\Enrollment')->select('*')->with('student_schedule', 'semester', 'academic_year', 'course' );
   }
 
   public function user(){
