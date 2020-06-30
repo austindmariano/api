@@ -136,7 +136,7 @@ class StudentController extends Controller
           // splitting current acad year.
           $split_ay = str_split($acad_year->academic_year);
 
-          // getting only the **00 and **00
+          // getting only the last 2 digits of each year
           $ay_number = $split_ay[2].$split_ay[3].$split_ay[7].$split_ay[8];
 
           //passing of current semester
@@ -151,19 +151,15 @@ class StudentController extends Controller
           elseif($sem->semester == "Summer"){
           	$sem_number = "-03-";
           }
-          // getting the lastest entered student number
-          $student = Student::select('*')
-              ->orderBy('id', 'DESC')
-              ->take(1)
-              ->get();
 
-          if(count($student) > 0){
+          $result = Student::where('student_number', 'like', '%'.$ay_number.$sem_number.'%')->orderBy('id', 'DESC')->get();
 
-            $students = Student::select('*')->get();
+          if(count($result) > 0){
 
-            function get_max_student_number($students, $value='student_number'){
+            // get the the student number and add 1
+            function get_max_student_number($data, $value='student_number'){
                 $max=0;
-                foreach($students as $point){
+                foreach($data as $point){
 
                   $last_num = explode("-", $point->student_number);
                   $point->student_number = $last_num[2];
@@ -174,37 +170,25 @@ class StudentController extends Controller
                 }
                 return $max;
             }
-            $max = get_max_student_number($students);
 
+            $max = get_max_student_number($result);
 
             $num = $max + 1;
 
             $latest_num = sprintf("%04d", $num);
 
-
-
-            //spliting student number and pass it in an array varaiable
-            // $last_num = explode("-", $student[0]->student_number);
-
-            //increment the last digit from the student number
-            // $num = $last_num[2] + 1;
-
-            // student number increment ****-**-0000++
-            // $latest_num = substr("0000{$num}", -4);
-            // $latest_num = sprintf("%04d", $num);
-
+            // concat current ay and sem to student number
             $student_data['student_number'] = $ay_number.$sem_number.$latest_num;
 
-            // return $student_data['student_number'];
-
-            // return $ay_number.$sem_number.$latest_num;
-            // return $student;
           }else{
-              $student_data['student_number'] = $ay_number.$sem_number. "0000";
+            $latest_num = sprintf("%04d", 1);
+
+            // concat current ay and sem to student number
+            $student_data['student_number'] = $ay_number.$sem_number.$latest_num;
           }
 
-
           // return $student_data['student_number'];
+
           try {
 
             $student = Student::create($student_data);
