@@ -46,7 +46,7 @@ class User extends Authenticatable
                   ->as('privileges')
                   ->withPivot([
                     'id', 'create_priv', 'read_priv',
-                    'update_priv', 'delete_priv'
+                    'update_priv', 'delete_priv', 'lock'
                   ]);
     }
 

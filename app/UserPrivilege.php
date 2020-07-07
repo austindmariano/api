@@ -12,12 +12,12 @@ class UserPrivilege extends Pivot
      *
      * @var array
      */
-     // added this because the server cannot find "user_privilege" table 
+     // added this because the server cannot find "user_privilege" table
     protected $table = "user_privileges";
 
 
     protected $fillable = [
-        'user_id', 'activity_id', 'create_priv', 'read_priv', 'update_priv', 'delete_priv', 'last_updated_by'
+        'user_id', 'activity_id', 'create_priv', 'read_priv', 'update_priv', 'delete_priv', 'lock', 'last_updated_by'
     ];
     public $incrementing = true;
 }
