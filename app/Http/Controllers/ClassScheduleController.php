@@ -45,16 +45,15 @@ class ClassScheduleController extends Controller
         else{
           $class_schedules = ClassSchedule::with('room','subject', 'instructor', 'semester', 'academic_year')->orderBy('id', 'DESC')->get();
         }
-
         return $class_schedules;
-
-        // returns all class schedule records
-        // return $this->getClassSchedule();
-
-        // $obj =  new Schedules();
-        // return $obj->getClassSchedule();
-
-      }else{
+      }
+      else if (strtoupper($user->role) == "STUDENT") {
+        $class_schedules = ClassSchedule::with('room','subject', 'instructor', 'semester', 'academic_year')
+          ->where($request->query())
+          ->orderBy('id', 'DESC')->get();
+        return $class_schedules;
+      }
+      else{
           //record in activity log
           $activityLog = ActivityLog::create([
               'user_id' => $user->id,

@@ -55,6 +55,9 @@ class CourseController extends Controller
           		  );
             }
          return $foo;
+      }elseif ($user->role == "Student") {
+        $courses = Course::orderBy('id', 'DESC')->with('curriculum')->get();
+        return $courses;
       }else{
           //record in activity log
           $activityLog = ActivityLog::create([
